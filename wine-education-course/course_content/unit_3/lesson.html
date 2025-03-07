@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="unit3" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3 - Winemaking & Wine Styles</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<main>
+
+    <div class="container">
+        <div class="headernav">
+            <a href="/index.html"><img src="/assests/images/thepourchoicebannersmall.png"></a>
+        </div>
+        <div>
+            <img id="slideImage" src="/wine-education-course/course_content//unit_3/slides/Cover.jpg" alt="Slide 1">
+        </div>
+        <div>
+            <button class="btn" onclick="prevSlide()">Previous</button>
+            <button class="btn" onclick="nextSlide()">Next</button>
+        </div>
+        
+        <div class="notes-container">
+            <h2>Take Notes</h2>
+            <textarea id="noteInput" placeholder="Write your notes here..."></textarea>
+            <button class="btn" onclick="saveNote()">Save Note</button>
+        </div>
+        
+        <div id="notesSection">
+            <h2>Review Your Notes</h2>
+            <div id="savedNotes"></div>
+            <button class="btn" onclick="clearNotes()">Clear All Notes</button>
+        </div>
+
+        <!-- Hidden "Take Quiz" button, only appears on the last slide -->
+        <a id="takeQuizBtn" href="/wine-education-course/course_content//unit_3/quiz.html" class="btn" style="display: none;">Take Quiz</a>
+    </div>
+</main>
+    
+    <script>
+        let slides = [
+ "/wine-education-course/course_content//unit_3/slides/Cover.jpg", 
+ "/wine-education-course/course_content//unit_3/slides/Cover.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.1.jpg", 
+ "/wine-education-course/course_content//unit_3/slides/3.1.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.1.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.2.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.2.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.2.3.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.3.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.3.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.3.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.3.3.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.4.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.4.1.jpg", 
+ "/wine-education-course/course_content//unit_3/slides/3.4.2.jpg", 
+ "/wine-education-course/course_content//unit_3/slides/3.5.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.5.1.jpg", 
+ "/wine-education-course/course_content//unit_3/slides/3.5.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.5.3.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.6.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.6.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.6.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.7.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.7.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.7.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.8.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.8.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.8.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.9.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.9.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.9.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.10.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.10.1.jpg",
+ "/wine-education-course/course_content//unit_3/slides/3.10.2.jpg",
+ "/wine-education-course/course_content//unit_3/slides/Review.jpg", 
+ "/wine-education-course/course_content//unit_3/slides/Whats_Next.jpg"
+];
+
+let currentSlide = 0;
+
+function updateSlide() {
+ document.getElementById("slideImage").src = slides[currentSlide];
+
+ // Show "Take Quiz" button only on last slide
+ if (currentSlide === slides.length - 1) {
+     document.getElementById("takeQuizBtn").style.display = "block";
+ } else {
+     document.getElementById("takeQuizBtn").style.display = "none";
+ }
+}
+
+function nextSlide() {
+ if (currentSlide < slides.length - 1) {
+     currentSlide++;
+     updateSlide();
+ }
+}
+
+function prevSlide() {
+ if (currentSlide > 0) {
+     currentSlide--;
+     updateSlide();
+ }
+}
+
+function saveNote() {
+ let note = document.getElementById("noteInput").value.trim();
+ if (note === "") return;
+
+ let savedNotes = JSON.parse(localStorage.getItem("unit_3_notes")) || [];
+ savedNotes.push({ slide: currentSlide + 1, text: note });
+
+ localStorage.setItem("unit_3_notes", JSON.stringify(savedNotes));
+ document.getElementById("noteInput").value = "";
+
+ displayNotes();
+}
+
+function displayNotes() {
+ let savedNotes = JSON.parse(localStorage.getItem("unit_3_notes")) || [];
+ let notesContainer = document.getElementById("savedNotes");
+ notesContainer.innerHTML = "";
+
+ savedNotes.forEach((note, index) => {
+     let noteDiv = document.createElement("div");
+     noteDiv.innerHTML = `<strong>Slide ${note.slide}:</strong> ${note.text}`;
+     notesContainer.appendChild(noteDiv);
+ });
+}
+
+function clearNotes() {
+ localStorage.removeItem("unit_3_notes");
+ displayNotes();
+}
+
+// Initialize notes and update slide on page load
+document.addEventListener("DOMContentLoaded", () => {
+ displayNotes();
+ updateSlide();
+});
+    </script>
+</body>
+</html>
