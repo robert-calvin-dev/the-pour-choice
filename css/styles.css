@@ -112,23 +112,60 @@ html {
      min-height: 500px;
      background-color: rgba(34, 39, 43, 0);
     }
+
+    .blogpost, .blogpost2 {
+      width: 80%;
+      min-height: fit-content;
+      background-color: rgb(97, 0, 0);
+      border: 2px, solid, #a76c6c;
+      padding: 40px;
+      margin: 5px;
+    }
+    .blogpost img, .blogpost2 img {
+      height: 300px;
+      width: auto;
+      border: 2px, solid, rgb(0, 0, 0);
+    }
   
-       .blogpost {
-        min-height: 1000px;
+       .blogpostmini {
+         width: 30%;
+         min-height: fit-content;
         background-color: rgb(97, 0, 0);
         border: 2px, solid, #a76c6c;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         padding: 40px;
         margin: 5px;
        }
-       .blogpost img {
-        height: 350px;
+       .blogpostmini img {
+        height: 150px;
         width: auto;
         border: 2px, solid, rgb(0, 0, 0);
         
        }
+
+
+       .blogpost2mini {
+         width: 30%;
+         height: fit-content;
+         background-color: rgb(86, 0, 97);
+         border: 2px, solid, #a76c6c;
+        
+         padding: 40px;
+         margin: 5px;
+        }
+        .blogpost2mini img {
+         height: 150px;
+         width: auto;
+         border: 2px, solid, rgb(0, 0, 0);
+         
+        }
+
+        main .blogs {
+         width: 70%;
+         display: grid;
+         grid-template-columns: 1fr 1fr 1fr;
+         grid-template-rows: 1fr 1fr 1fr;
+        }
+   
   
        .recommendations {
         min-width: 60%;
