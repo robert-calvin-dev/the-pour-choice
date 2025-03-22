@@ -1,293 +1,2594 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>The Pour Choice</title>
- <link href="/css/styles.css" rel="stylesheet">
+
+ <style>
+  html {
+   background: rgba(0, 0, 0, 0.6) url(/assets/images/winetile.jpg) repeat;
+   background-blend-mode: overlay;
+   font-size: 16px;
+   box-sizing: border-box;
+   color: #e1dac7;
+  }
+
+  a {
+   color: rgb(255, 249, 212);
+  }
+
+  a:hover {
+   color: #a76c6c;
+  }
+
+  h1 {
+   font-size: 3rem;
+  }
+
+  h2 {
+   font-size: 2.5rem;
+  }
+
+  h3 {
+   font-size: 2rem;
+  }
+
+  h4 {
+   font-size: 1.5rem;
+  }
+
+  h5 {
+   font-size: 1.25rem;
+  }
+
+  h3 a {
+   text-align: left;
+   padding: 20px;
+  }
+
+  .main-content-wrapper {
+   display: block;
+   max-width: 800px;
+   margin: 0 auto;
+   padding: 20px;
+  }
+
+  .left-column,
+  .right-column {
+   width: 100%;
+   margin-bottom: 60px;
+  }
+
+  /* Recommendations section */
+  .recommendations {
+   margin-bottom: 40px;
+  }
+
+  .recommendations video {
+   width: 100%;
+   border-radius: 12px;
+   margin-bottom: 15px;
+  }
+
+  .recimages {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+   gap: 12px;
+   width: 100%;
+  }
+
+  .recimages img {
+   width: 100%;
+   border-radius: 8px;
+   object-fit: cover;
+  }
+
+  /* Education Section Styling */
+  .education {
+   background: rgba(68, 15, 114, 0.551);
+   padding: 20px;
+   border-radius: 12px;
+   border: 2px solid #a76c6c;
+   margin-bottom: 40px;
+  }
+
+  .education video {
+   width: 100%;
+   border-radius: 12px;
+   margin-bottom: 15px;
+  }
+
+  .education h2,
+  .education h3,
+  .education h4,
+  .education h5 {
+   text-align: center;
+   margin-bottom: 15px;
+  }
+
+  .education p,
+  .coursesidebar p {
+   text-align: left;
+   margin-bottom: 15px;
+  }
+
+  .course,
+  .coursesidebar {
+   margin-bottom: 30px;
+  }
+
+  .drynesscharts h4 a {
+   display: block;
+   margin-bottom: 10px;
+   color: #fff;
+   background-color: #a76c6c;
+   padding: 10px;
+   border-radius: 8px;
+   text-decoration: none;
+   font-weight: bold;
+   transition: background-color 0.3s ease;
+   text-align: center;
+  }
+
+  .drynesscharts h4 a:hover {
+   background-color: #63097e;
+  }
+
+  #interactiveredwine,
+  #interactivewhitewine {
+   margin-top: 20px;
+  }
+
+  select {
+   width: 100%;
+   padding: 8px;
+   border-radius: 6px;
+   border: 1px solid #ccc;
+   margin-bottom: 15px;
+  }
+
+  /* Blog Cards / Archive Styling */
+  .archiveblogs {
+   display: flex;
+   flex-direction: column;
+   gap: 40px;
+   /* This adds margin between blog posts */
+   margin: 40px auto;
+   max-width: 100%;
+   padding: 0 20px;
+  }
+
+  .card-container {
+   width: 100%;
+   box-sizing: border-box;
+  }
+
+  .blogcard {
+   border: 2px solid #a76c6c;
+   padding: 20px;
+   border-radius: 12px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+   background-color: rgba(139, 0, 0, 0.389);
+   transition: box-shadow 0.3s ease;
+   margin-top: 10px;
+  }
+
+  .blogcard:hover {
+   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  .blogcard img {
+   width: 100%;
+   height: auto;
+   border-radius: 8px;
+   margin-bottom: 15px;
+   border: 2px solid #a76c6c;
+  }
+
+  .blogpost h2,
+  .blogcard h4 {
+   font-size: 1.6rem;
+   margin-bottom: 10px;
+   text-align: center;
+  }
+
+  .expand-btn {
+   background-color: #a76c6c;
+   color: #fff;
+   border: none;
+   padding: 10px 16px;
+   cursor: pointer;
+   border-radius: 8px;
+   margin: 15px auto;
+   font-weight: bold;
+   display: block;
+   transition: background-color 0.2s ease;
+   text-align: center;
+  }
+
+  .expand-btn:hover {
+   background-color: #63097e;
+  }
+
+  .content {
+   display: none;
+   margin-top: 15px;
+  }
+
+  .content.always-expanded {
+   display: block !important;
+  }
+
+  .recipecards {
+   display: flex;
+   flex-direction: column;
+   gap: 40px;
+   margin: 40px auto;
+   max-width: 100%;
+   padding: 0 20px;
+  }
+
+  .recipecard {
+   border: 2px solid #a76c6c;
+   padding: 20px;
+   border-radius: 12px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+   background-color: transparent;
+   transition: box-shadow 0.3s ease;
+   margin-top: 10px;
+   background-color: rgba(139, 0, 0, 0.389);
+  }
+
+  .recipecard:hover {
+   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  .recipecard h2 {
+   font-size: 1.6rem;
+   margin-bottom: 10px;
+   text-align: center;
+  }
+
+  .expand-btn {
+   background-color: #a76c6c;
+   color: #fff;
+   border: none;
+   padding: 10px 16px;
+   cursor: pointer;
+   border-radius: 8px;
+   margin: 15px auto;
+   font-weight: bold;
+   display: block;
+   transition: background-color 0.2s ease;
+   text-align: center;
+  }
+
+  .expand-btn:hover {
+   background-color: #63097e;
+  }
+
+  .recipe-content {
+   display: none;
+   margin-top: 15px;
+  }
+
+  .recipe-content img {
+   width: 100%;
+   height: auto;
+   border-radius: 8px;
+   margin-bottom: 15px;
+  }
+
+  .recipe-content p,
+  .recipe-content ul,
+  .recipe-content li,
+  .recipe-content ol {
+   text-align: left;
+   margin-bottom: 10px;
+  }
+
+  .recipe-content ul,
+  .recipe-content ol {
+   padding-left: 20px;
+  }
+
+  .cta {
+   display: block;
+   margin: 20px auto 0;
+   padding: 10px 16px;
+   background-color: #a76c6c;
+   color: #fff;
+   text-decoration: none;
+   border-radius: 8px;
+   font-weight: bold;
+   text-align: center;
+   transition: background-color 0.2s ease;
+  }
+
+  .cta:hover {
+   background-color: #63097e;
+  }
+
+  .blogcard p,
+  .blogcard ul,
+  .blogcard li,
+  .blogcard a:not(.cta),
+  .content {
+   text-align: left;
+  }
+
+  .bottlecard {
+   border: 2px solid #a76c6c;
+   border-radius: 12px;
+   padding: 20px;
+   margin-bottom: 40px;
+   background: rgba(68, 15, 114, 0.551);
+  }
+
+  .bottlecard img {
+   width: 100%;
+   border-radius: 12px;
+   margin-bottom: 15px;
+  }
+
+  .toggle-header {
+   font-size: 1.8rem;
+   text-align: center;
+   cursor: pointer;
+   margin-bottom: 15px;
+   color: rgb(255, 249, 212);
+   ;
+   transition: color 0.3s ease;
+  }
+
+  .toggle-header:hover {
+   color: #a76c6c;
+  }
+
+  .bottle-content {
+   display: none;
+   margin-top: 20px;
+   text-align: left;
+  }
+
+  .bottlecard img.wine-image {
+   width: 180px;
+   /* adjust smaller or larger if needed */
+   height: auto;
+   display: block;
+   margin: 0 auto 20px auto;
+   border-radius: 8px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  video {
+   border: 2px solid #a76c6c;
+  }
+  .header-container {
+    width: 100%;
+    border: 2px solid #a76c6c;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.header-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.footer-container {
+    border-top: 2px solid #a76c6c;
+    margin-top: 60px;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    background-color: rgba(167, 108, 108, 0.1);
+    border-radius: 12px;
+}
+
+.footer-container p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+ </style>
+
 </head>
+
 <body>
- <div id="header-container"></div>
- <div id="nav-container"></div>
- <main>
-  <div class="rightcolumn">
-    <div class="blogpost">
-    
-        <h2>Auteur Wines Opens New Tasting Room in Russian River Valley</h2>
-        <img  src="/assests/images/winery.jpg">
-        <p><span class="highlight">Auteur Wines</span>, known for its handcrafted Pinot Noir and Chardonnay, has officially opened its **new estate tasting room** in the heart of **Russian River Valley**, offering an unparalleled wine-tasting experience.</p>
-        <p>Spectacular Setting</p>
-        <p>The new winery sits on an **8.2-acre estate**, featuring a stunning **50-foot glass wall** that showcases breathtaking vineyard views. Located near the historic Raford Inn, the tasting room is designed to blend modern elegance with the rustic beauty of Sonoma’s landscape.</p>
-    
-        <p>Unique Wine Tasting Experiences</p>
-        <p>At this new location, visitors can enjoy **curated, immersive wine tastings** that go beyond traditional flights:</p>
-        <ul>
-            <li><strong>Appellation Series:</strong> A guided tasting exploring blends from different coastal regions.</li>
-            <li><strong>Single-Vineyard Series:</strong> Experience the unique character of each vineyard.</li>
-            <li><strong>“Be Here Now” Blind Tasting:</strong> A sensory adventure where wines are served without labels, encouraging guests to rely on taste alone.</li>
-            <li><strong>“Musings of the Clones”:</strong> A deep dive into Pinot Noir and Chardonnay clones.</li>
-            <li><strong>Library Tasting:</strong> A rare opportunity to taste aged Auteur vintages.</li>
-        </ul>
-        
-        <p>Small-Lot Production, Exceptional Quality</p>
-        <p>Auteur Wines remains committed to **small-batch, high-quality winemaking**, currently producing just **5,000 cases per year**. However, the new estate winery allows for an expansion of up to **8,500 cases annually**, ensuring continued excellence while meeting demand.</p>
-        
-        <p>Financing & Investment</p>
-        <p>The expansion was made possible through a **$7.15 million construction loan**, allowing Auteur to develop a **state-of-the-art gravity-fed winery** while preserving the natural beauty of the estate.</p>
-        
-        <p>Luxury Meets Sustainability</p>
-        <p>The new estate embraces **sustainable practices**, using a gravity-flow design that minimizes energy consumption while enhancing the winemaking process. The repurposed **former hops ranch** also reflects a commitment to preserving local agricultural heritage.</p>
-        
-        <p>Why This Matters</p>
-        <p>This move positions Auteur Wines as a **destination winery** while maintaining its **boutique exclusivity**. The focus on **experience-driven tastings**, **sustainable winemaking**, and **intimate hospitality** aligns with modern wine industry trends.</p>
-        
-        <p>Plan Your Visit</p>
-        <p>Tastings are **by appointment only**, ensuring a personalized and relaxed experience. Don't miss the chance to explore **one of the most exciting new tasting rooms in Sonoma County**.</p>
-        
-        <a href="#" class="cta">Book Your Tasting Experience</a>
  
 
-   </div>
-  
-   <h1 style="text-align: center;">Our March Top Pour Choices</h1>
-   <div class="recommendations">
-    
-    <img id="bottleshot" src="/assests/images/Marchbottles.png">
-    <div id="redcard" class="bottlecards">
-     <h5><a href="/wines/FatBastardSyrah.html">Fat Bastard Syrah</a></h5>
-    </div>
-    <div id="whitecard" class="bottlecards">
-     <h5><a href="/wines/CloudyBaySauvignonBlanc.html">Cloudy Bay Sauvignon Blanc</a></h5>
-    </div>
-    <div id="rosecard" class="bottlecards">
-     <h5><a href="/wines/MissionHillRose.html">Mission Hill Rose</a></h5>
-    </div>
-    <div id="sparklingcard" class="bottlecards">
-     <h5><a href="/wines/LaMarcaProsecco.html">La Marca Prosecco</a></h5>
-    </div>
-   </div>
-   
+ <div class="main-content-wrapper">
+  <div class="header-container">
+   <img src="/assets/images/header_banner.jpg" alt="Header Banner">
+ </div>
+ <h2 style="text-align: center;">Recommendations</h2>
+  <div class="bottlecard">
+   <img src="/assets/images/FatBastardSyrah.png" alt="Fat Bastard Syrah" class="wine-image">
+   <h2 class="toggle-header">Fat Bastard Syrah</h2>
+   <div class="bottle-content">
+    <h3>Overview</h3>
+    <p>Fat Bastard Syrah, produced in the Pays d'Oc region of France, is a testament to the collaboration between
+     Thierry and Guy. This wine showcases the rich terroir of the Languedoc-Roussillon area, offering a robust and
+     flavorful experience for wine enthusiasts.</p>
 
-  </div>
-  <div class="leftcolumn">
-    <video autoplay muted loop>
-        <source src="/assests/images/winevideo.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div id="interactiveredwine">
-        <select id="redgrape">
-            <option value="">-- Choose --</option>
-            <option value="Tannat">Tannat</option>
-            <option value="Nebbiolo">Nebbiolo</option>
-            <option value="Sagrantino">Sagrantino</option>
-            <option value="French Malbec">French Malbec</option>
-            <option value="Chianti">Chianti</option>
-            <option value="Bordeaux">Bordeaux</option>
-            <option value="Tempranillo">Tempranillo</option>
-            <option value="French Mourvèdre">French Mourvèdre</option>
-            <option value="Aglianico">Aglianico</option>
-            <option value="Italian Barbera">Italian Barbera</option>
-            <option value="Montepulciano">Montepulciano</option>
-            <option value="Sangiovese">Sangiovese</option>
-            <option value="Carmenere">Carmenere</option>
-            <option value="Cabernet Franc">Cabernet Franc</option>
-            <option value="Lagrein">Lagrein</option>
-            <option value="Cool Climate Cabernet Sauvignon">Cool Climate Cabernet Sauvignon</option>
-            <option value="Mencia">Mencia</option>
-            <option value="Valpolicella">Valpolicella</option>
-            <option value="Côtes du Rhône">Côtes du Rhône</option>
-            <option value="Beaujolais">Beaujolais</option>
-            <option value="French Syrah">French Syrah</option>
-            <option value="Trincadeira">Trincadeira</option>
-            <option value="Cool Climate Cabernet Franc">Cool Climate Cabernet Franc</option>
-            <option value="Garnacha">Garnacha</option>
-            <option value="Amarone Della Valpolicella">Amarone Della Valpolicella</option>
-            <option value="Negroamaro">Negroamaro</option>
-            <option value="Pinotage">Pinotage</option>
-            <option value="Warm Climate Cabernet Sauvignon">Warm Climate Cabernet Sauvignon</option>
-            <option value="Super Tuscans">Super Tuscans</option>
-            <option value="American Merlot">American Merlot</option>
-            <option value="Alfrocheiro">Alfrocheiro</option>
-            <option value="Alicante Bouschet">Alicante Bouschet</option>
-            <option value="Shiraz">Shiraz</option>
-            <option value="Monastrell">Monastrell</option>
-            <option value="Malbec">Malbec</option>
-            <option value="Nero D'Avola">Nero D'Avola</option>
-            <option value="American Petite Sirah">American Petite Sirah</option>
-            <option value="Primitivo">Primitivo</option>
-            <option value="Zinfandel">Zinfandel</option>
-            <option value="American Grenache">American Grenache</option>
-            <option value="GSM Blend">GSM Blend</option>
-            <option value="Touriga Nacional">Touriga Nacional</option>
-            <option value="Lambrusco">Lambrusco</option>
-            <option value="Brachetto D'Acqui">Brachetto D'Acqui</option>
-            <option value="Recioto Della Valpolicella">Recioto Della Valpolicella</option>
-            <option value="Port">Port</option>
-            <option value="Banyuls">Banyuls</option>
-            <option value="Maury">Maury</option>
-            <option value="Tawny Port">Tawny Port</option>
-            <option value="Vin Santo Rosso">Vin Santo Rosso</option>
-        </select>
-        <p><strong>Region:</strong> <span id="redregion">Select a red grape to see details.</span></p>
-        <p><strong>Flavor Profile:</strong> <span id="redflavor">Select a red grape to see details.</span></p>
-        <p><strong>Body:</strong> <span id="redbody">Select a red grape to see details.</span></p>
-        <p><strong>Tannins:</strong> <span id="redtannins">Select a red grape to see details.</span></p>
-        <p><strong>Acidity:</strong> <span id="redacidity">Select a red grape to see details.</span></p>
-        <p><strong>Colour:</strong> <span id="redcolour">Select a red grape to see details.</span></p>
-        <p><strong>Aroma:</strong> <span id="redaroma">Select a red grape to see details.</span></p>
-        <p><strong>Food Pairing:</strong> <span id="redfoodPairing">Select a red grape to see details.</span></p>
-        <p><strong>High-End Recommendation:</strong> <span id="redhighEnd">Select a red grape to see details.</span></p>
-        <p><strong>Simple Recommendation:</strong> <span id="redsimple">Select a red grape to see details.</span></p>
-    </div>
-    <div id="interactivewhitewine">
-        <select id="whitegrape">
-            <option value="">-- Choose --</option>
-            <option value="Italian Pinot Grigio">Italian Pinot Grigio</option>
-            <option value="Albariño">Albariño</option>
-            <option value="Soave">Soave</option>
-            <option value="Dry Furmint">Dry Furmint</option>
-            <option value="Gavi">Gavi</option>
-            <option value="Muscadet">Muscadet</option>
-            <option value="Chablis">Chablis</option>
-            <option value="Grenache Blanc">Grenache Blanc</option>
-            <option value="Macabeo">Macabeo</option>
-            <option value="Grillo">Grillo</option>
-            <option value="Arinto">Arinto</option>
-            <option value="French Sauvignon Blanc">French Sauvignon Blanc</option>
-            <option value="Verdejo">Verdejo</option>
-            <option value="Grüner Veltliner">Grüner Veltliner</option>
-            <option value="Verdicchio">Verdicchio</option>
-            <option value="Colombard">Colombard</option>
-            <option value="Vermentino">Vermentino</option>
-            <option value="New Zealand Sauvignon Blanc">New Zealand Sauvignon Blanc</option>
-            <option value="Dry Chenin Blanc">Dry Chenin Blanc</option>
-            <option value="Chardonnay">Chardonnay</option>
-            <option value="Marsanne">Marsanne</option>
-            <option value="Roussanne">Roussanne</option>
-            <option value="Semillon">Semillon</option>
-            <option value="Trebbiano">Trebbiano</option>
-            <option value="American Pinot Gris">American Pinot Gris</option>
-            <option value="Viognier">Viognier</option>
-            <option value="Dry Riesling">Dry Riesling</option>
-            <option value="Torrontés">Torrontés</option>
-            <option value="Kabinett Riesling">Kabinett Riesling</option>
-            <option value="Chenin Blanc">Chenin Blanc</option>
-            <option value="Müller-Thurgau">Müller-Thurgau</option>
-            <option value="Moscato">Moscato</option>
-            <option value="Gewürztraminer">Gewürztraminer</option>
-        </select>
-        
-        <p><strong>Region:</strong> <span id="whiteregion">Select a  red red  redgrape to see details.</span></p>
-        <p><strong>Flavor Profile:</strong> <span id="whiteflavor">Select a  red red  redgrape to see details.</span></p>
-        <p><strong>Body:</strong> <span id="whitebody">Select a  red red  redgrape to see details.</span></p>
-        <p><strong>Acidity:</strong> <span id="whiteacidity">Select a  red red  redgrape to see details.</span></p>
-        <p><strong>Colour:</strong> <span id="whitecolour">Select a  red red  redgrape to see details.</span></p>
-        <p><strong>Aroma:</strong> <span id="whitearoma">Select a  red  redgrape to see details.</span></p>
-        <p><strong>Food Pairing:</strong> <span id="whitefoodPairing">Select a  red  redgrape to see details.</span></p>
-        <p><strong>High-End Recommendation:</strong> <span id="whitehighEnd">Select a  red  redgrape to see details.</span></p>
-        <p><strong>Simple Recommendation:</strong> <span id="whitesimple">Select a  red  redgrape to see details.</span></p>
-    </div>
-    
-   <h2><a href="/wine-education-course/course.html">Wine Education Course</a></h2>
-   <img src="/assests/images/emblems.png">
-   <h3><a href="/wine-education-course/course_content/unit_1/lesson.html">Foundations of Wine & Wine Tasting</a></h3>
-   <h3><a href="/wine-education-course/course_content/unit_2/lesson.html">The Vine &  redgrape Growing (Viticulture)</a></h3>
-   <h3><a href="/wine-education-course/course_content/unit_3/lesson.html">Winemaking & Wine Styles</a></h3>
-   <!-- Add more units here -->
-
-    
- 
-   
-   <div class="grapespotlight">
-    <h2>Grape Spotlight</h2>
-    <img src="/assests/images/Cabernet Spotlight.gif">
-   </div>
-
-   <div class="drynesscharts">
-    <h4><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTPpogJxplX0gW8SVJrUE2xBn2Fpwnp6k3IeTIbCzzt3xIIBxE0_hU8i_cI_tVbcwSzb2nKt7L-5ncl/pub?gid=0&single=true&output=pdf">Red Dryness Chart PDF</a></h4>
-    <h4><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTPpogJxplX0gW8SVJrUE2xBn2Fpwnp6k3IeTIbCzzt3xIIBxE0_hU8i_cI_tVbcwSzb2nKt7L-5ncl/pub?gid=514487001&single=true&output=pdf">White Dryness Chart  PDF</a></h4>
-</div>
-   
-  </div>
- </main>
- <main class="recipepages">
-    <div id="recipeone">
-    <img src="/assests/images/sangria recipe.png">
-    <h1>Berry Citrus Sangria</h1>
-    <p>A vibrant and refreshing sangria with mixed berries and citrus.</p>
-
-    <h2>Ingredients:</h2>
+    <h3>Tasting Notes</h3>
     <ul>
-        <li>1 bottle red wine (such as Tempranillo, Rioja, or Merlot)</li>
-        <li>1/4 cup brandy or orange liqueur (Cointreau/Triple Sec)</li>
-        <li>1/2 cup orange juice</li>
-        <li>2 tablespoons honey or sugar (optional, for sweetness)</li>
-        <li>1 orange, sliced into rounds</li>
-        <li>1 apple, chopped</li>
-        <li>1/2 cup pineapple chunks</li>
-        <li>1/2 cup blackberries</li>
-        <li>1/2 cup raspberries</li>
-        <li>1/2 cup blueberries</li>
-        <li>A few fresh mint leaves (for garnish)</li>
-        <li>Ice cubes</li>
-        <li>1–2 cups club soda or sparkling water (for a lighter, fizzy touch)</li>
+     <li><strong>Aroma:</strong> The nose displays a spicy, yet fresh profile containing tinges of olive, clove, and
+      sweet blueberry.</li>
+     <li><strong>Palate:</strong> On the palate, it exhibits a robust body with invigorating flavors of paprika,
+      tobacco, and peony.</li>
     </ul>
 
-    <h2>Instructions:</h2>
-    <ol>
-        <li>In a large pitcher, combine red wine, brandy, orange juice, <br>and honey/sugar. Stir until fully dissolved.</li>
-        <li>Add the sliced oranges, chopped apples, pineapple chunks, blackberries, <br>raspberries, and blueberries. Stir gently.</li>
-        <li>Let it sit in the fridge for at least 2 hours (overnight is best for deeper flavors).</li>
-        <li>Before serving, add ice cubes and club soda for fizz.</li>
-        <li>Pour into glasses, garnish with mint leaves, and enjoy!</li>
-    </ol>
+    <h3>Accolades</h3>
+    <p>The 2021 vintage received an 89-point rating from Wine Enthusiast, highlighting its juicy plum and oregano
+     aromas, light palate with ample acidity, and hints of boysenberry, plum, bell pepper, and round tannins.</p>
 
-    <p class="note">This berry-citrus sangria is perfect for summer gatherings or a cozy evening!</p>
-    </div>
-    <div id="recipeone">
-     <img src="/assests/images/whitesangria.png">
-     <h1>White Wine Sangria</h1>
-    <p>A light and refreshing white wine sangria infused with tropical and citrus flavors.</p>
-
-   
-
-    <h2>Ingredients:</h2>
+    <h3>Food Pairing</h3>
     <ul>
-        <li>1 bottle white wine (such as Sauvignon Blanc, Pinot Grigio, or Riesling)</li>
-        <li>1/4 cup peach schnapps or orange liqueur (Cointreau/Triple Sec)</li>
-        <li>1/2 cup pineapple juice</li>
-        <li>2 tablespoons honey or sugar (optional, for sweetness)</li>
-        <li>1 orange, sliced into rounds</li>
-        <li>1 lemon, sliced into rounds</li>
-        <li>1 lime, sliced into rounds</li>
-        <li>1/2 cup mango chunks</li>
-        <li>1/2 cup pineapple chunks</li>
-        <li>1/2 cup green grapes, halved</li>
-        <li>A few fresh mint leaves (for garnish)</li>
-        <li>Ice cubes</li>
-        <li>1–2 cups club soda or sparkling water (for a lighter, fizzy touch)</li>
+     <li>Pairs excellently with <strong>red meats</strong>, especially grilled or roasted dishes.</li>
+     <li>Complements <strong>lamb</strong> and <strong>spicy foods</strong>.</li>
+     <li>Enjoy with <strong>full-bodied cheeses</strong> for a harmonious pairing.</li>
     </ul>
 
-    <h2>Instructions:</h2>
-    <ol>
-        <li>In a large pitcher, combine white wine, peach schnapps/orange liqueur, pineapple juice, and honey/sugar. Stir until fully dissolved.</li>
-        <li>Add the sliced oranges, lemons, limes, mango chunks, pineapple chunks, and grapes. Stir gently.</li>
-        <li>Let it sit in the fridge for at least 2 hours (overnight is best for deeper flavors).</li>
-        <li>Before serving, add ice cubes and club soda for fizz.</li>
-        <li>Pour into glasses, garnish with mint leaves, and enjoy!</li>
-    </ol>
+    <h3>Serving Suggestions</h3>
+    <p>For optimal enjoyment, serve at room temperature. While delightful when young, this wine can also develop
+     additional complexity with short-term aging.</p>
 
-    <p class="note">This tropical white sangria is perfect for beach days, brunches, or any sunny occasion! 🍍🥭🍊</p>
+    <h3>Conclusion</h3>
+    <p>Fat Bastard Syrah exemplifies the quality and distinctiveness of French wines from the Pays d'Oc region, offering
+     a perfect balance of spicy aromas, robust flavors, and a lingering finish that has captivated wine lovers
+     worldwide.</p>
 
+    <div class="footer">
+     <p>For more details, visit the <a href="https://www.winebow.com/our-brands/fat-bastard" target="_blank">Fat Bastard
+       Official Website</a></p>
     </div>
- </main>
- <footer>
+   </div>
+  </div>
+  <div class="bottlecard">
+   <img src="/assets/images/CloudyBaySB.png" alt="Cloudy Bay Sauvignon Blanc" class="wine-image">
+   <h2 class="toggle-header">Cloudy Bay Sauvignon Blanc</h2>
+   <div class="bottle-content">
+    <h3>Overview</h3>
+    <p>Cloudy Bay Sauvignon Blanc is an iconic wine from New Zealand's Marlborough region, renowned for its vibrant and
+     expressive character. Established in 1985, Cloudy Bay played a pivotal role in bringing New Zealand Sauvignon Blanc
+     to international acclaim.</p>
 
- </footer>
- 
- <script src="/js/templates.js"></script>
- <script src="/js/red.js"></script>
- <script src="/js/white.js"></script>
+    <h3>Tasting Notes</h3>
+    <ul>
+     <li><strong>Aroma:</strong> Enticing aromas of ripe passionfruit, white peach, and a hint of lime.</li>
+     <li><strong>Palate:</strong> Concentrated tropical flavors with nectarine and floral notes. A crisp acidity
+      balances the wine, leading to a long, refreshing finish.</li>
+    </ul>
 
+    <h3>Accolades</h3>
+    <p>The 2024 vintage received a 93-point rating from Wine Review Online, highlighting its complexity, depth of
+     flavors, and subtle chalky finish.</p>
+
+    <h3>Food Pairing</h3>
+    <ul>
+     <li>Pairs excellently with <strong>seafood dishes</strong>, particularly smoked salmon.</li>
+     <li>Goes well with <strong>grilled chicken, calamari</strong>, and mildly spiced vegetarian dishes.</li>
+    </ul>
+
+    <h3>Serving Suggestions</h3>
+    <p>For the best experience, serve chilled between <strong>8-10°C (46-50°F)</strong>. While delightful when young,
+     this wine can also age gracefully for up to 10 years, developing additional complexity over time.</p>
+
+    <h3>Conclusion</h3>
+    <p>Cloudy Bay Sauvignon Blanc exemplifies the quality and distinctiveness of New Zealand wines, offering a perfect
+     balance of tropical fruit flavors, refreshing acidity, and a lingering finish that has captivated wine lovers
+     worldwide.</p>
+
+    <div class="footer">
+     <p>For more details, visit <a href="https://www.cloudybay.com" target="_blank">Cloudy Bay Official Website</a></p>
+    </div>
+   </div>
+  </div>
+  <div class="bottlecard">
+   <img src="/assets/images/MissionHillRose.png" alt="Mission Hill Reserve Rosé" class="wine-image">
+   <h2 class="toggle-header">Mission Hill Reserve Rosé</h2>
+   <div class="bottle-content">
+    <h3>Overview</h3>
+    <p>Mission Hill Reserve Rosé is a distinguished wine from the Okanagan Valley in British Columbia, Canada. Crafted
+     by Mission Hill Family Estate, this rosé is known for its vibrant and refreshing character, embodying the essence
+     of the region's terroir.</p>
+
+    <h3>Tasting Notes</h3>
+    <ul>
+     <li><strong>Aroma:</strong> Delicate scents of fresh raspberry, red berries, melon, soft citrus zest, and mineral
+      notes.</li>
+     <li><strong>Palate:</strong> Crisp and fresh with flavors of watermelon, strawberries, and rhubarb, leading to a
+      dry, medium-bodied finish with medium-plus acidity.</li>
+    </ul>
+
+    <h3>Accolades</h3>
+    <p>The 2022 vintage received a 90-point rating from Gismondi on Wine, highlighting its clean, crisp, and bright
+     profile with vibrant red fruit flavors.</p>
+
+    <h3>Food Pairing</h3>
+    <ul>
+     <li>Pairs excellently with summer salads and seafood Alfredo dishes.</li>
+     <li>Complements light pasta dishes, grilled chicken, and soft cheeses.</li>
+     <li>Enjoy with fresh fruits and mildly spiced dishes.</li>
+    </ul>
+
+    <h3>Serving Suggestions</h3>
+    <p>For optimal enjoyment, serve chilled between 8-10°C (46-50°F). This wine is best enjoyed young to appreciate its
+     fresh and vibrant character.</p>
+
+    <h3>Conclusion</h3>
+    <p>Mission Hill Reserve Rosé exemplifies the quality and distinctiveness of Okanagan Valley wines, offering a
+     harmonious balance of delicate aromas, crisp acidity, and a refreshing finish that appeals to wine enthusiasts
+     worldwide.</p>
+
+    <div class="footer">
+     <p>For more details, visit the <a href="https://www.missionhillwinery.com/" target="_blank">Mission Hill Family
+       Estate Official Website</a></p>
+    </div>
+   </div>
+  </div>
+  <div class="bottlecard">
+   <img src="/assets/images/LaMarcaProsecco.png" alt="La Marca Prosecco" class="wine-image">
+   <h2 class="toggle-header">La Marca Prosecco</h2>
+   <div class="bottle-content">
+    <h3>Overview</h3>
+    <p>La Marca Prosecco is a sparkling wine from Italy's Veneto region, crafted from the Glera grape. Known for its
+     crisp and refreshing style, it has become America's #1 Italian Prosecco, celebrated for its delicate, floral
+     palate.</p>
+
+    <h3>Tasting Notes</h3>
+    <ul>
+     <li><strong>Aroma:</strong> Fruity aromas of green apple, juicy peach, and ripe lemon, with hints of minerality.
+     </li>
+     <li><strong>Palate:</strong> Crisp acidity with subtle hints of green apple and ripe lemon, leading to a light and
+      refreshing finish.</li>
+    </ul>
+
+    <h3>Accolades</h3>
+    <p>La Marca Prosecco has been recognized for its quality and value, often highlighted as a top choice in the
+     Prosecco category.</p>
+
+    <h3>Food Pairing</h3>
+    <ul>
+     <li>Pairs well with <strong>seafood</strong>, mild cheeses, rich pasta dishes, and decadent desserts.</li>
+     <li>Excellent with fatty and salty cured meats such as prosciutto, salami, pancetta, saucisson, and Parma ham.</li>
+     <li>Complements fresh fruits, light salads, and spicy dishes.</li>
+    </ul>
+
+    <h3>Serving Suggestions</h3>
+    <p>For optimal enjoyment, serve chilled between 6-10°C (43-50°F) in a flute glass.</p>
+
+    <h3>Conclusion</h3>
+    <p>La Marca Prosecco exemplifies the quality and distinctiveness of Italian sparkling wines, offering a perfect
+     balance of fruity aromas, crisp acidity, and a refreshing finish that has captivated wine lovers worldwide.</p>
+
+    <div class="footer">
+     <p>For more details, visit the <a href="https://www.lamarcaprosecco.com/" target="_blank">La Marca Official
+       Website</a></p>
+    </div>
+   </div>
+  </div>
+
+  <h2 style="text-align: center;">Blog</h2>
+
+  <div class="left-column">
+
+   <div class="blogrow">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>Jackson Family Wines' Sustainability Initiatives</h2>
+      <div class="content always-expanded">
+       <img src="/assets/images/jfw_sustainability.jpg">
+       <p><span class="highlight">Jackson Family Wines</span>, led by Katie Jackson, is spearheading ambitious
+        sustainability initiatives to make the company <strong>climate positive by 2050</strong>.</p>
+       <p>Their goals include reducing carbon emissions, water conservation, and maintaining biodiversity. Their roadmap
+        involves regenerative farming techniques, solar energy usage, and advanced water reuse systems.</p>
+       <p>Notable Highlights:</p>
+       <ul>
+        <li><strong>Solar Panel Installations</strong> on all estate wineries.</li>
+        <li><strong>Water-saving programs</strong> cutting consumption by 40% since 2008.</li>
+        <li><strong>Certified sustainable vineyards</strong> under rigorous standards.</li>
+       </ul>
+       <p>Why It Matters:</p>
+       <p>In a climate-challenged world, wineries adopting sustainability not only future-proof their business but also
+        protect agricultural resources for generations to come. Jackson Family Wines stands out as a leader in this
+        initiative.</p>
+       <a href="#" class="cta">Learn More About Their Efforts</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="card-container">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>Grape Spotlight: Cabernet Sauvignon</h2>
+      <button class="expand-btn">Expand</button>
+      <div class="content">
+       <img src="/assets/images/cabernet.jpg" alt="Cabernet Sauvignon Grapes">
+       <p>Few grape varieties command as much respect as <strong>Cabernet Sauvignon</strong>. Revered for its bold
+        structure, deep flavors, and remarkable aging potential, this grape has become the cornerstone of many of the
+        world’s finest wines.</p>
+       <h3>Origin & History</h3>
+       <p>Cabernet Sauvignon emerged in <strong>17th-century France</strong> as a natural cross between <strong>Cabernet
+         Franc</strong> and <strong>Sauvignon Blanc</strong>. It quickly gained recognition in the famed
+        <strong>Bordeaux region</strong>.</p>
+       <h3>Key Characteristics</h3>
+       <ul>
+        <li><strong>Blackcurrant, blackberry, and plum flavors.</strong></li>
+        <li><strong>Earthy notes of tobacco, leather, and graphite.</strong></li>
+        <li><strong>Vanilla and cedar hints from oak aging.</strong></li>
+        <li><strong>Firm tannins and long finishes.</strong></li>
+       </ul>
+       <h3>Perfect Pairings</h3>
+       <ul>
+        <li><strong>Steak & Grilled Meats</strong></li>
+        <li><strong>Aged Cheeses</strong></li>
+        <li><strong>Hearty Stews</strong></li>
+        <li><strong>Dark Chocolate</strong></li>
+       </ul>
+       <h3>Regions to Explore</h3>
+       <ul>
+        <li><strong>Bordeaux, France</strong></li>
+        <li><strong>Napa Valley, USA</strong></li>
+        <li><strong>Chile & Australia</strong></li>
+       </ul>
+       <a href="#" class="cta">Discover More About Cabernet Sauvignon</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="card-container">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>The Evolution of Chilean Sauvignon Blanc</h2>
+      <button class="expand-btn">Expand</button>
+      <div class="content">
+       <img src="/assets/images/chilean_sauv_blanc.jpg">
+       <p><strong>Chilean Sauvignon Blanc</strong> is evolving into a more complex and vibrant wine category.</p>
+       <h3>Innovation in Winemaking</h3>
+       <p>Young winemakers are embracing <strong>organic, low-intervention methods</strong> and diverse terroirs,
+        resulting in wines with distinct minerality and texture.</p>
+       <h3>Notable Wines</h3>
+       <ul>
+        <li><strong>Veramonte Organic Sauvignon Blanc</strong></li>
+        <li><strong>Ritual Sauvignon Blanc</strong></li>
+       </ul>
+       <h3>What Makes It Unique?</h3>
+       <ul>
+        <li>Bright citrus and tropical flavors.</li>
+        <li>Saline minerality from coastal vineyards.</li>
+        <li>Complex textures from lees aging.</li>
+       </ul>
+       <h3>Pairing Recommendations</h3>
+       <ul>
+        <li><strong>Seafood like ceviche and grilled shrimp</strong></li>
+        <li><strong>Goat cheese salads and risotto</strong></li>
+        <li><strong>Thai and Mexican cuisine</strong></li>
+       </ul>
+       <p>With innovation at its core, Chilean Sauvignon Blanc is rapidly gaining international recognition.</p>
+       <a href="#" class="cta">Explore Chilean Sauvignon Blanc</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="card-container">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>Easter Dinner Wine Pairings</h2>
+      <button class="expand-btn">Expand</button>
+      <div class="content">
+       <img src="/assets/images/easter_dinner.jpg" alt="Easter Dinner Table with Wine">
+       <p>Whether you're serving a <strong>classic Easter feast</strong> or trying something new, the right wine can
+        elevate your meal and bring out the best in every dish. From <strong>juicy roasts to fresh spring
+         vegetables</strong>, here’s how to perfectly pair wine with your Easter dinner menu.</p>
+
+       <h3>Classic Easter Dishes & Their Best Wine Pairings</h3>
+
+       <h4>Roast Lamb – <em>Bold Reds</em></h4>
+       <p>Rich and savory, lamb is a centerpiece dish that calls for <strong>structured, full-bodied red wines</strong>
+        with good tannins to balance its flavors.</p>
+       <ul>
+        <li><strong>Cabernet Sauvignon</strong> – Deep, bold, and full of dark fruit flavors.</li>
+        <li><strong>Syrah/Shiraz</strong> – Peppery and intense, a great match for rosemary-seasoned lamb.</li>
+        <li><strong>Malbec</strong> – Smooth, fruit-forward, and easy-drinking.</li>
+       </ul>
+
+       <h4>Glazed Ham – <em>Fruit-Forward & Light Reds</em></h4>
+       <p>The <strong>sweet and salty</strong> combination of glazed ham pairs beautifully with <strong>medium-bodied
+         reds and aromatic whites</strong>.</p>
+       <ul>
+        <li><strong>Pinot Noir</strong> – Light, smooth, and bright, complementing the sweetness of the glaze.</li>
+        <li><strong>Zinfandel</strong> – Jammy fruit flavors and a hint of spice make it a great match.</li>
+        <li><strong>Riesling</strong> – A touch of sweetness balances the saltiness of the ham.</li>
+       </ul>
+
+       <h4>Roast Chicken – <em>Versatile Whites & Elegant Reds</em></h4>
+       <p>Roast chicken is a <strong>versatile dish</strong> that pairs well with both <strong>red and white
+         wines</strong> depending on the seasoning.</p>
+       <ul>
+        <li><strong>Chardonnay</strong> – A classic choice, whether <strong>oaked (rich and buttery)</strong> or
+         <strong>unoaked (crisp and fresh)</strong>.</li>
+        <li><strong>Sauvignon Blanc</strong> – Zesty and refreshing, great with herb-roasted chicken.</li>
+        <li><strong>Gamay (Beaujolais)</strong> – A light-bodied red with juicy berry flavors.</li>
+       </ul>
+
+       <h4>Spring Vegetables & Salads – <em>Crisp, Refreshing Whites</em></h4>
+       <p>Fresh, vibrant dishes featuring <strong>asparagus, peas, and leafy greens</strong> call for <strong>light,
+         citrusy wines</strong>.</p>
+       <ul>
+        <li><strong>Pinot Grigio</strong> – Crisp and clean, enhancing the freshness of greens.</li>
+        <li><strong>Grüner Veltliner</strong> – Herbaceous and bright, excellent with spring veggies.</li>
+        <li><strong>Rosé</strong> – A dry, fruit-forward rosé adds a delicate touch.</li>
+       </ul>
+
+       <h4>Cheesy Potatoes & Rich Sides – <em>Rich Whites & Balanced Reds</em></h4>
+       <p>Hearty, creamy sides need a <strong>wine with good acidity to cut through the richness</strong>.</p>
+       <ul>
+        <li><strong>Chardonnay</strong> – A rich, buttery Chardonnay complements cheesy dishes.</li>
+        <li><strong>Grenache</strong> – A medium-bodied red with soft tannins that pairs well with creamy textures.</li>
+        <li><strong>Viognier</strong> – Floral and luscious, adding a touch of elegance.</li>
+       </ul>
+
+       <h4>Carrot Cake & Easter Desserts – <em>Sweet, Dessert-Friendly Wines</em></h4>
+       <p>No Easter meal is complete without <strong>dessert</strong>! The right wine enhances the sweetness without
+        overwhelming the flavors.</p>
+       <ul>
+        <li><strong>Moscato d’Asti</strong> – Lightly sparkling, sweet, and refreshing.</li>
+        <li><strong>Late Harvest Riesling</strong> – Honeyed and rich, perfect for carrot cake.</li>
+        <li><strong>Port</strong> – A classic choice for chocolate-based desserts.</li>
+       </ul>
+
+       <h3>Final Tips for Easter Wine Pairing</h3>
+       <ul>
+        <li><strong>Consider your guests’ preferences:</strong> Have a mix of <strong>whites, reds, and a sparkling
+          option</strong> to please everyone.</li>
+        <li><strong>Balance sweetness and acidity:</strong> If a dish is sweet, opt for a <strong>slightly sweeter
+          wine</strong> to avoid clashing flavors.</li>
+        <li><strong>Don’t forget sparkling wine:</strong> <strong>Prosecco or Champagne</strong> makes a festive start
+         to the meal and pairs well with appetizers.</li>
+       </ul>
+
+       <p>With the right pairings, your <strong>Easter dinner can be a celebration of flavors</strong>. Whether you
+        prefer a rich red, a crisp white, or a delicate rosé, there’s a wine to complement every dish on your table.</p>
+
+       <a href="#" class="cta">Find the Perfect Wine for Easter</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="card-container">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>Grape Spotlight: Sauvignon Blanc</h2>
+      <button class="expand-btn">Expand</button>
+      <div class="content">
+       <img src="/assets/images/sauvignon_blanc.jpg" alt="Sauvignon Blanc Grapes">
+       <p>Bright, refreshing, and full of <strong>zesty character</strong>, Sauvignon Blanc is a favorite among white
+        wine lovers. Known for its <strong>vibrant acidity and crisp flavors</strong>, this grape has carved out a
+        special place in the world of wine.</p>
+
+       <h3>Origin & History</h3>
+       <p>Sauvignon Blanc traces its roots to <strong>France’s Loire Valley and Bordeaux regions</strong>, where it has
+        been cultivated for centuries. Over time, it spread across the world, becoming a signature varietal in
+        <strong>New Zealand, California, South Africa, and Chile</strong>.</p>
+       <p>Its name comes from the French words <em>“sauvage”</em> (wild) and <em>“blanc”</em> (white), reflecting its
+        early untamed vine growth.</p>
+
+       <h3>Flavor Profile & Tasting Notes</h3>
+       <p>Sauvignon Blanc is prized for its <strong>high acidity and bold aromatics</strong>. Depending on where it's
+        grown, its flavors can range from tropical to herbaceous.</p>
+       <ul>
+        <li><strong>Crisp citrus notes</strong> – Lime, lemon, and grapefruit.</li>
+        <li><strong>Tropical fruit flavors</strong> – Passionfruit, pineapple, and guava (common in New Zealand styles).
+        </li>
+        <li><strong>Herbaceous & green elements</strong> – Grass, bell pepper, and fresh-cut herbs.</li>
+        <li><strong>Mineral-driven & flinty</strong> – Found in Old World expressions like Sancerre from France.</li>
+       </ul>
+       <p><em>Tip:</em> If you love wines with <strong>refreshing acidity and lively aromas</strong>, Sauvignon Blanc is
+        a must-try.</p>
+
+       <h3>Perfect Food Pairings</h3>
+       <p>Sauvignon Blanc’s <strong>zippy acidity</strong> and <strong>fresh flavor</strong> make it incredibly
+        food-friendly. Here’s what to pair it with:</p>
+       <ul>
+        <li><strong>Seafood:</strong> Oysters, shrimp, and grilled fish complement its bright acidity.</li>
+        <li><strong>Goat Cheese:</strong> The classic pairing—its tangy notes match Sauvignon Blanc’s citrusy zip.</li>
+        <li><strong>Light Salads & Vegetables:</strong> Pairs beautifully with asparagus, fresh greens, and avocado.
+        </li>
+        <li><strong>Spicy Dishes:</strong> Thai and Mexican cuisine benefit from its refreshing contrast.</li>
+        <li><strong>Herb-Roasted Chicken:</strong> Works well with basil, parsley, and tarragon-infused dishes.</li>
+       </ul>
+
+       <h3>Top Sauvignon Blanc Regions</h3>
+       <p>Sauvignon Blanc is grown in many regions, each offering a unique expression of the grape:</p>
+       <ul>
+        <li><strong>Loire Valley, France (Sancerre & Pouilly-Fumé):</strong> Elegant, mineral-driven, and citrusy.</li>
+        <li><strong>New Zealand (Marlborough):</strong> Bold, tropical, with punchy acidity and grassy notes.</li>
+        <li><strong>California (Napa & Sonoma):</strong> Riper, with notes of melon and peach.</li>
+        <li><strong>Chile:</strong> Zesty, with citrus and herbal freshness.</li>
+        <li><strong>South Africa:</strong> A balance between Old World minerality and New World fruitiness.</li>
+       </ul>
+
+       <h3>Why Sauvignon Blanc Stands Out</h3>
+       <p>Few grapes offer the <strong>pure refreshment and food versatility</strong> of Sauvignon Blanc. Whether you
+        prefer the <strong>grassy, citrusy styles of France</strong>, the <strong>tropical fruit explosion of New
+         Zealand</strong>, or the <strong>richer California expressions</strong>, there’s a Sauvignon Blanc for every
+        palate.</p>
+
+       <a href="#" class="cta">Explore Sauvignon Blanc Wines</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="card-container">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>Auteur Wines Opens New Tasting Room in Russian River Valley</h2>
+      <button class="expand-btn">Expand</button>
+      <div class="content">
+       <img src="/assets/images/winery.jpg">
+       <p><span class="highlight">Auteur Wines</span>, known for its handcrafted Pinot Noir and Chardonnay, has
+        officially opened its <strong>new estate tasting room</strong> in the heart of <strong>Russian River
+         Valley</strong>, offering an unparalleled wine-tasting experience.</p>
+
+       <h3>Spectacular Setting</h3>
+       <p>The new winery sits on an <strong>8.2-acre estate</strong>, featuring a stunning <strong>50-foot glass
+         wall</strong> that showcases breathtaking vineyard views. Located near the historic Raford Inn, the tasting
+        room is designed to blend modern elegance with the rustic beauty of Sonoma’s landscape.</p>
+
+       <h3>Unique Wine Tasting Experiences</h3>
+       <p>At this new location, visitors can enjoy <strong>curated, immersive wine tastings</strong> that go beyond
+        traditional flights:</p>
+       <ul>
+        <li><strong>Appellation Series:</strong> A guided tasting exploring blends from different coastal regions.</li>
+        <li><strong>Single-Vineyard Series:</strong> Experience the unique character of each vineyard.</li>
+        <li><strong>“Be Here Now” Blind Tasting:</strong> A sensory adventure where wines are served without labels,
+         encouraging guests to rely on taste alone.</li>
+        <li><strong>“Musings of the Clones”:</strong> A deep dive into Pinot Noir and Chardonnay clones.</li>
+        <li><strong>Library Tasting:</strong> A rare opportunity to taste aged Auteur vintages.</li>
+       </ul>
+
+       <h3>Small-Lot Production, Exceptional Quality</h3>
+       <p>Auteur Wines remains committed to <strong>small-batch, high-quality winemaking</strong>, currently producing
+        just <strong>5,000 cases per year</strong>. However, the new estate winery allows for an expansion of up to
+        <strong>8,500 cases annually</strong>, ensuring continued excellence while meeting demand.</p>
+
+       <h3>Financing & Investment</h3>
+       <p>The expansion was made possible through a <strong>$7.15 million construction loan</strong>, allowing Auteur to
+        develop a <strong>state-of-the-art gravity-fed winery</strong> while preserving the natural beauty of the
+        estate.</p>
+
+       <h3>Luxury Meets Sustainability</h3>
+       <p>The new estate embraces <strong>sustainable practices</strong>, using a gravity-flow design that minimizes
+        energy consumption while enhancing the winemaking process. The repurposed <strong>former hops ranch</strong>
+        also reflects a commitment to preserving local agricultural heritage.</p>
+
+       <h3>Why This Matters</h3>
+       <p>This move positions Auteur Wines as a <strong>destination winery</strong> while maintaining its
+        <strong>boutique exclusivity</strong>. The focus on <strong>experience-driven tastings</strong>,
+        <strong>sustainable winemaking</strong>, and <strong>intimate hospitality</strong> aligns with modern wine
+        industry trends.</p>
+
+       <h3>Plan Your Visit</h3>
+       <p>Tastings are <strong>by appointment only</strong>, ensuring a personalized and relaxed experience. Don't miss
+        the chance to explore <strong>one of the most exciting new tasting rooms in Sonoma County</strong>.</p>
+
+       <a href="#" class="cta">Book Your Tasting Experience</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="card-container">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>Common Mistakes in Wine Tasting & How to Avoid Them</h2>
+      <button class="expand-btn">Expand</button>
+      <div class="content">
+       <img src="/assets/images/wine_tasting.jpg" alt="Wine tasting session">
+       <p>Wine tasting is more than just sipping and swirling—it's a delicate dance of the senses. Whether you're a
+        casual drinker or a budding connoisseur, avoiding common mistakes can elevate your experience. Here are some
+        frequent missteps and expert tips to refine your palate.</p>
+
+       <h3>1. Serving Wine at the Wrong Temperature</h3>
+       <p>Temperature dramatically affects how a wine expresses itself. <strong>Too cold?</strong> The flavors become
+        muted, and the aromas are stifled. <strong>Too warm?</strong> The alcohol becomes overpowering, overshadowing
+        the delicate balance of tannins and fruit.</p>
+       <p><strong>Ideal serving temperatures:</strong></p>
+       <ul>
+        <li>Light-bodied Whites & Sparkling: 40-50°F (Refrigerated but not icy cold)</li>
+        <li>Full-bodied Whites & Rosé: 50-55°F</li>
+        <li>Light-bodied Reds: 55-60°F</li>
+        <li>Full-bodied Reds: 60-65°F</li>
+       </ul>
+       <p><em>Tip:</em> If a white wine is too cold, let it sit for 5-10 minutes before serving. For reds, slightly
+        chilling them before serving can help balance overly warm conditions.</p>
+
+       <h3>2. Holding the Glass Incorrectly</h3>
+       <p>The way you hold your glass matters more than you think. Gripping the bowl of the glass transfers body heat to
+        the wine, altering its intended profile. Instead, always hold the glass by the <strong>stem</strong> to maintain
+        the right temperature and avoid smudging the bowl, which can obscure the visual experience.</p>
+
+       <h3>3. Using the Wrong Glassware</h3>
+       <p>Believe it or not, the shape of your wine glass influences how aromas and flavors develop. Different varietals
+        are best enjoyed in specific glasses:</p>
+       <ul>
+        <li><strong>Bordeaux Glass:</strong> Ideal for bold reds like Cabernet Sauvignon and Merlot, enhancing their
+         complexity.</li>
+        <li><strong>Burgundy Glass:</strong> Perfect for lighter reds like Pinot Noir, allowing aromas to collect and
+         intensify.</li>
+        <li><strong>White Wine Glass:</strong> Narrower to preserve crispness and direct aromas to the nose.</li>
+        <li><strong>Champagne Flute:</strong> Keeps bubbles lively and concentrated for sparkling wines.</li>
+       </ul>
+       <p><em>Tip:</em> If you don’t have the right glass, a universal wine glass with a medium bowl can work well for
+        most wines.</p>
+
+       <h3>4. Skipping the Sniff Test</h3>
+       <p>Aromas play a crucial role in wine tasting. Before sipping, take a moment to swirl the wine gently and inhale
+        deeply. This helps release subtle notes of fruit, spices, and even earthiness that contribute to the wine’s
+        profile. If you skip this step, you might miss half the experience!</p>
+
+       <h3>5. Overfilling the Glass</h3>
+       <p>Pouring too much wine at once limits its ability to aerate. A proper pour should be about one-third of the
+        glass to allow room for swirling and releasing aromas.</p>
+
+       <h3>6. Not Cleansing Your Palate</h3>
+       <p>Strong flavors from food or previous tastings can linger on your palate, altering how you perceive the next
+        sip. Sip water, eat a plain cracker, or enjoy a bite of neutral cheese between tastings to reset your taste
+        buds.</p>
+
+       <h3>7. Rushing the Experience</h3>
+       <p>Wine tasting is about patience and appreciation. Instead of quickly moving from one wine to the next, take
+        your time. Observe its color, enjoy its aroma, sip slowly, and let the flavors develop on your palate.</p>
+
+       <a href="#" class="cta">Enhance Your Wine Tasting Skills Today</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="card-container">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>Why We Love Australian Wines</h2>
+      <button class="expand-btn">Expand</button>
+      <div class="content">
+       <img src="/assets/images/australian_wine.jpg" alt="Australian Vineyard">
+       <p>Australia has become a powerhouse in the world of wine, known for its <strong>bold flavors, diverse varietals,
+         and innovative winemaking techniques</strong>. Whether you love a rich Shiraz, a crisp Chardonnay, or a
+        refreshing Sauvignon Blanc, there’s something special about Australian wines that keeps us coming back for more.
+       </p>
+
+       <h3>What Makes Australian Wine Unique?</h3>
+       <p>Australia’s wine industry thrives due to its <strong>vast range of climates, innovative techniques, and
+         commitment to quality</strong>. Here’s what sets it apart:</p>
+       <ul>
+        <li><strong>Exceptional Terroir:</strong> From the cool-climate vineyards of Tasmania to the sun-soaked Barossa
+         Valley, Australia’s diverse landscapes create wines with <strong>distinct character and depth</strong>.</li>
+        <li><strong>Bold & Fruit-Forward Styles:</strong> Australian wines are known for their <strong>intensity,
+          richness, and vibrant fruit flavors</strong>, making them incredibly approachable.</li>
+        <li><strong>Sustainability & Innovation:</strong> Many Australian wineries lead the way in <strong>organic
+          farming, water conservation, and minimal-intervention winemaking</strong>, producing eco-friendly wines that
+         don’t compromise on taste.</li>
+        <li><strong>Globally Acclaimed Winemakers:</strong> With some of the world’s most talented vintners pushing the
+         boundaries of winemaking, Australia continues to shine on the international stage.</li>
+       </ul>
+
+       <h3>Must-Try Australian Wines</h3>
+       <p>If you’re exploring Australian wines, start with these outstanding varietals:</p>
+       <ul>
+        <li><strong>Shiraz:</strong> Australia’s most iconic red, known for its <strong>powerful flavors of blackberry,
+          plum, and spice</strong>. The Barossa Valley and McLaren Vale produce some of the best.</li>
+        <li><strong>Chardonnay:</strong> From <strong>buttery and oaked</strong> to <strong>crisp and
+          mineral-driven</strong>, Australian Chardonnay is incredibly diverse, with Margaret River and Yarra Valley
+         leading the charge.</li>
+        <li><strong>Cabernet Sauvignon:</strong> Structured and bold, with <strong>dark fruit, eucalyptus, and tobacco
+          notes</strong>, Coonawarra’s Cabernet is among the finest in the world.</li>
+        <li><strong>Sauvignon Blanc:</strong> Zesty, fresh, and bursting with citrus and tropical fruit flavors—perfect
+         for a warm summer day.</li>
+        <li><strong>Grenache:</strong> A rising star, offering <strong>silky texture, red berry flavors, and a touch of
+          spice</strong>.</li>
+       </ul>
+
+       <h3>Food Pairing Perfection</h3>
+       <p>Pairing wine with food enhances both the dish and the wine. Here’s what to enjoy with your Australian
+        favorites:</p>
+       <ul>
+        <li><strong>Shiraz</strong> – Ideal with barbecued meats, rich stews, and aged cheeses.</li>
+        <li><strong>Chardonnay</strong> – Perfect alongside roasted chicken, seafood, and creamy pasta dishes.</li>
+        <li><strong>Cabernet Sauvignon</strong> – A match made for grilled steaks, lamb, and hearty mushroom dishes.
+        </li>
+        <li><strong>Sauvignon Blanc</strong> – Refreshing with light salads, sushi, and goat cheese.</li>
+        <li><strong>Grenache</strong> – A fantastic companion for charcuterie boards, Mediterranean cuisine, and roasted
+         vegetables.</li>
+       </ul>
+
+       <h3>Famous Wine Regions in Australia</h3>
+       <p>Australia’s winemaking regions each bring their own flair to the table:</p>
+       <ul>
+        <li><strong>Barossa Valley:</strong> Home to world-class Shiraz, known for its rich, full-bodied character.</li>
+        <li><strong>Margaret River:</strong> A cool-climate region famous for <strong>elegant Chardonnays and complex
+          Cabernets</strong>.</li>
+        <li><strong>Hunter Valley:</strong> The birthplace of Australian wine, producing <strong>iconic Semillon and
+          bold Shiraz</strong>.</li>
+        <li><strong>Yarra Valley:</strong> A haven for <strong>Pinot Noir and cool-climate Chardonnay</strong>.</li>
+        <li><strong>Coonawarra:</strong> Renowned for its <strong>terroir-driven Cabernet Sauvignon</strong>.</li>
+       </ul>
+
+       <h3>Why Australian Wines Deserve a Place in Your Collection</h3>
+       <p>Australian wines offer <strong>exceptional quality, versatility, and value</strong>. Whether you’re looking
+        for a <strong>budget-friendly everyday bottle or a luxurious cellar-worthy vintage</strong>, Australia’s wines
+        have something to offer.</p>
+
+       <a href="#" class="cta">Explore Australian Wines Today</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+   <div class="card-container">
+    <div class="blogcard">
+     <div class="blogpost">
+      <h2>BC Winery Spotlight: Copper Moon</h2>
+      <button class="expand-btn">Expand</button>
+      <div class="content">
+       <img src="/assets/images/coppermoon.jpg" alt="Copper Moon Winery">
+       <p>Among the many wineries in British Columbia, <strong>Copper Moon</strong> stands out for its innovation and
+        accessibility. Known for crafting <strong>smooth, fruit-forward wines</strong>, Copper Moon has become a
+        household name for wine lovers seeking quality without a hefty price tag.</p>
+
+       <h3>What Sets It Apart?</h3>
+       <p>Copper Moon employs <strong>cold filtration technology</strong>, a unique process that helps preserve the
+        <strong>freshness, vibrancy, and crispness</strong> of the wine. Unlike traditional aging methods, this
+        technique results in wines that are incredibly <strong>smooth and easy-drinking</strong>, making them a favorite
+        for casual wine enthusiasts and seasoned palates alike.</p>
+
+       <h3>Best Wines to Try</h3>
+       <p>Copper Moon offers a diverse range of wines, but these selections stand out:</p>
+       <ul>
+        <li><strong>Pinot Grigio:</strong> Crisp and refreshing, with notes of citrus, green apple, and pear—perfect for
+         warm days and light meals.</li>
+        <li><strong>Shiraz:</strong> A rich and spicy red with bold blackberry, plum, and a hint of pepper, ideal for
+         hearty dishes.</li>
+        <li><strong>Cabernet Sauvignon:</strong> Smooth yet structured, featuring dark fruit flavors and subtle oak
+         notes, making it a great match for grilled meats.</li>
+       </ul>
+
+       <h3>Pairing Suggestions</h3>
+       <p>To make the most of Copper Moon wines, try these pairings:</p>
+       <ul>
+        <li><strong>Pinot Grigio</strong> – Pairs well with seafood, fresh salads, and light pasta dishes.</li>
+        <li><strong>Shiraz</strong> – A fantastic match for barbecued meats, spicy cuisine, and aged cheeses.</li>
+        <li><strong>Cabernet Sauvignon</strong> – Complements steak, roasted vegetables, and rich tomato-based dishes.
+        </li>
+       </ul>
+
+       <h3>Why Wine Lovers Appreciate Copper Moon</h3>
+       <p>Copper Moon wines are <strong>affordable, widely available, and consistently enjoyable</strong>. Whether
+        you’re hosting a dinner party, enjoying a casual evening at home, or looking for a reliable bottle to bring to a
+        gathering, Copper Moon offers something for everyone.</p>
+
+       <a href="#" class="cta">Discover Copper Moon Wines</a>
+      </div>
+     </div>
+    </div>
+   </div>
+
+
+
+
+
+
+
+
+  </div>
+  <h2 style="text-align: center;">Courses</h2>
+
+  <div class="right-column">
+   <section id="education" class="grid-container"></section>
+
+  </div>
+  <h2 style="text-align: center;">Recipes</h2>
+  <div class="recipecard">
+   <h2>Berry Citrus Sangria</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/berryredsangria.png">
+    <p>A vibrant and refreshing sangria with mixed berries and citrus. This berry-citrus sangria is perfect for summer
+     gatherings or a cozy evening!</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>1 bottle of red wine</li>
+     <li>1/4 cup brandy</li>
+     <li>1/4 cup orange liqueur</li>
+     <li>2 tablespoons sugar</li>
+     <li>1 orange, sliced</li>
+     <li>1 lemon, sliced</li>
+     <li>1 lime, sliced</li>
+     <li>1 cup mixed berries</li>
+     <li>1-2 cups sparkling water</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>In a pitcher, combine wine, brandy, orange liqueur, and sugar. Stir until sugar dissolves.</li>
+     <li>Add orange, lemon, lime slices, and mixed berries.</li>
+     <li>Refrigerate for at least 2 hours (or overnight for best flavor).</li>
+     <li>Just before serving, add sparkling water.</li>
+     <li>Serve over ice and enjoy!</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>Creamy White Wine Chicken</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/creamywhitewinechicken.png">
+    <p>🍗 Comfort food at its best!</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>2 chicken breasts</li>
+     <li>2 tbsp olive oil</li>
+     <li>1 onion, chopped</li>
+     <li>2 cloves garlic, minced</li>
+     <li>½ cup white wine</li>
+     <li>½ cup heavy cream</li>
+     <li>1 tsp thyme</li>
+     <li>Salt & pepper</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>Brown chicken in a pan, set aside.</li>
+     <li>Sauté onion and garlic. Pour in wine and let reduce.</li>
+     <li>Add cream, thyme, and simmer for 10 minutes.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>Mulled Wine (Hot Spiced Wine)</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/mulledwine.png">
+    <p>🔥 Perfect for cold nights!</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>1 bottle of red wine</li>
+     <li>¼ cup honey or sugar</li>
+     <li>1 orange, sliced</li>
+     <li>1 cinnamon stick</li>
+     <li>4 cloves</li>
+     <li>2 star anise</li>
+     <li>¼ cup brandy (optional)</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>In a pot, combine wine, honey, orange slices, and spices.</li>
+     <li>Heat on low (do not boil) for 20 minutes.</li>
+     <li>Stir in brandy and serve warm.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>Red Wine Beef Stew</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/redwinebeefstew.png">
+    <p>🍲 Rich and hearty!</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>1 lb beef, cubed</li>
+     <li>2 tbsp olive oil</li>
+     <li>1 onion, chopped</li>
+     <li>2 carrots, sliced</li>
+     <li>2 cloves garlic, minced</li>
+     <li>1 cup red wine</li>
+     <li>2 cups beef broth</li>
+     <li>1 tbsp tomato paste</li>
+     <li>1 tsp thyme</li>
+     <li>1 tsp rosemary</li>
+     <li>Salt & pepper</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>Heat olive oil in a pot and brown beef cubes. Remove from pan.</li>
+     <li>Sauté onion, carrots, and garlic until soft.</li>
+     <li>Stir in tomato paste, wine, and broth. Add beef back to the pot.</li>
+     <li>Simmer on low heat for 1.5–2 hours until tender.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>Red Wine Mushrooms</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/redwinemushrooms.png">
+    <p>🍄 Perfect for steak or pasta!</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>2 tbsp butter</li>
+     <li>2 cups mushrooms, sliced</li>
+     <li>1 garlic clove, minced</li>
+     <li>½ cup red wine</li>
+     <li>½ tsp thyme</li>
+     <li>Salt & pepper</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>Sauté mushrooms and garlic in butter.</li>
+     <li>Add wine and cook until reduced.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>Red Wine Pasta Sauce Recipe</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/redsaucedish.png">
+    <p>A rich and flavorful red wine pasta sauce that enhances any pasta dish.</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>2 tablespoons olive oil</li>
+     <li>1 small onion, chopped</li>
+     <li>2 cloves garlic, minced</li>
+     <li>1 can (28 oz) crushed tomatoes</li>
+     <li>1/2 cup red wine</li>
+     <li>1 teaspoon dried oregano</li>
+     <li>1 teaspoon basil</li>
+     <li>Salt and pepper to taste</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>Heat olive oil in a pan over medium heat.</li>
+     <li>Add onion and garlic, sauté until fragrant.</li>
+     <li>Pour in red wine and let it reduce for a minute.</li>
+     <li>Stir in crushed tomatoes, oregano, and basil.</li>
+     <li>Simmer for 20 minutes, stirring occasionally.</li>
+     <li>Season with salt and pepper, then serve over pasta.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>Red Wine Spritzer</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/redwinespritzer.png">
+    <p>🍹 Light & bubbly!</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>½ cup red wine</li>
+     <li>½ cup club soda or tonic water</li>
+     <li>Ice</li>
+     <li>Lemon or lime wedge</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>Fill a glass with ice, pour in red wine.</li>
+     <li>Top with soda, stir, and garnish with a citrus wedge.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>White Wine Garlic Shrimp</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/whitewinegarlicshrimp.png">
+    <p>🦐 Quick & delicious!</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>2 tbsp butter</li>
+     <li>1 lb shrimp, peeled</li>
+     <li>3 cloves garlic, minced</li>
+     <li>½ cup white wine</li>
+     <li>1 tbsp lemon juice</li>
+     <li>1 tbsp parsley</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>Melt butter in a pan, add garlic.</li>
+     <li>Toss in shrimp, cook for 2 minutes.</li>
+     <li>Pour in wine and lemon juice, simmer until shrimp is pink.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>White Wine Sangria</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/whitesangria.png">
+    <p>A light and fruity white wine sangria infused with citrus and fresh fruits.</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>1 bottle of white wine</li>
+     <li>1/4 cup peach schnapps</li>
+     <li>1/4 cup triple sec</li>
+     <li>1 orange, sliced</li>
+     <li>1 lemon, sliced</li>
+     <li>1/2 cup sliced peaches</li>
+     <li>1 cup club soda</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>In a pitcher, combine white wine, peach schnapps, and triple sec.</li>
+     <li>Add orange, lemon, and peach slices.</li>
+     <li>Refrigerate for at least 2 hours.</li>
+     <li>Before serving, stir in club soda.</li>
+     <li>Serve over ice and enjoy!</li>
+    </ol>
+   </div>
+  </div>
+  <div class="recipecard">
+   <h2>White Wine Spritzer</h2>
+   <button class="expand-btn">Expand</button>
+   <div class="recipe-content">
+    <img src="/assets/images/whitewinespritzer.png">
+    <p>🌟 Refreshing and simple!</p>
+    <h3>Ingredients:</h3>
+    <ul>
+     <li>½ cup white wine</li>
+     <li>½ cup club soda or lemon-lime soda</li>
+     <li>Ice</li>
+     <li>Mint leaves (optional)</li>
+    </ul>
+    <h3>Instructions:</h3>
+    <ol>
+     <li>Fill a glass with ice, pour in white wine.</li>
+     <li>Top with soda and stir. Garnish with mint.</li>
+    </ol>
+   </div>
+  </div>
+
+  <div class="footer-container">
+   <p>Thank you for visiting The Pour Choice.</p>
+   <p>&copy; 2025 The Pour Choice. All rights reserved.</p>
+ </div>
+
+ </div>
+
+
+
+
+
+
+ <script>
+  document.querySelectorAll('.expand-btn').forEach(button => {
+   button.addEventListener('click', () => {
+    const content = button.nextElementSibling;
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    button.textContent = content.style.display === 'block' ? 'Collapse' : 'Expand';
+   });
+  });
+  document.querySelectorAll('.bottlecard h2').forEach(heading => {
+   heading.addEventListener('click', () => {
+    const content = heading.nextElementSibling;
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+   });
+  });
+
+
+  function insertEducation() {
+   const educationHTML = `
+    <div class="education">
+    <div class="course">
+        <h2>Explore the World of Wine </h2>
+        <video autoplay muted loop>
+            <source src="/assets/videos/winevideo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        <h5>A Comprehensive Wine Education Course</h5>
+
+        <p class="overview">Unlock the secrets of wine with our expertly designed course, crafted for enthusiasts and professionals alike. Whether you're a beginner looking to enhance your appreciation or an aspiring sommelier, this course provides a deep dive into the essentials of wine, from grape varieties to tasting techniques and perfect food pairings.
+
+            <br><br>Course Overview<br><br>
+This course provides a structured and interactive journey through the world of wine, covering:
+
+<br>The fundamentals of wine tasting and evaluation
+<br>The impact of climate, soil, and vineyard management on wine quality
+<br>Winemaking techniques and how they shape different styles
+<br>Key grape varietals and their regional expressions
+<br><br>With engaging content, visual charts, and expert guidance, you’ll build a strong foundation in wine knowledge and confidently navigate any wine selection.
+        </p>
+        <h4><a href="https://www.youtube.com/watch?v=9EryoqbGyRg&t=38s">Unit 1: Foundations of Wine & Wine Tastings</a></h4>
+        <p>Start your journey with an introduction to the world of wine: Understanding wine structure: body, acidity, tannins, and sweetness, The fundamentals of wine tasting and sensory analysis and Common wine faults and how to detect them</p>
+        <h4><a href="https://www.youtube.com/watch?v=lSXGYFOgBjM">Unit 2: Viticulture</a></h4>
+        <p>Explore the science and art of grape growing, including: How climate, soil, and terroir affect grape characteristics, The vineyard cycle: from bud break to harvest and Sustainable and organic viticulture practices</p>
+        <h4><a href="https://www.youtube.com/watch?v=gmgG32MljmQ">Unit 3: Winemaking and Styles</a></h4>
+        <p>Dive into the winemaking process and explore different wine styles: The key stages of winemaking, from fermentation to aging, Differences between red, white, rosé, sparkling, and fortified wines, The influence of oak, fermentation techniques, and aging on wine flavor</p>
+    </div>
+    <div class="coursesidebar">
+        <div class="drynesscharts">
+            <h4><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTPpogJxplX0gW8SVJrUE2xBn2Fpwnp6k3IeTIbCzzt3xIIBxE0_hU8i_cI_tVbcwSzb2nKt7L-5ncl/pub?gid=0&single=true&output=pdf">Red Dryness Chart PDF</a></h4>
+            <h4><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTPpogJxplX0gW8SVJrUE2xBn2Fpwnp6k3IeTIbCzzt3xIIBxE0_hU8i_cI_tVbcwSzb2nKt7L-5ncl/pub?gid=514487001&single=true&output=pdf">White Dryness Chart  PDF</a></h4>
+        </div>
+        <h3>Red Wine Flash Card</h3>
+        <div id="interactiveredwine">
+            <select id="redgrape">
+                <option value="">-- Choose --</option>
+                <option value="Tannat">Tannat</option>
+                <option value="Nebbiolo">Nebbiolo</option>
+                <option value="Sagrantino">Sagrantino</option>
+                <option value="French Malbec">French Malbec</option>
+                <option value="Chianti">Chianti</option>
+                <option value="Bordeaux">Bordeaux</option>
+                <option value="Tempranillo">Tempranillo</option>
+                <option value="French Mourvèdre">French Mourvèdre</option>
+                <option value="Aglianico">Aglianico</option>
+                <option value="Italian Barbera">Italian Barbera</option>
+                <option value="Montepulciano">Montepulciano</option>
+                <option value="Sangiovese">Sangiovese</option>
+                <option value="Carmenere">Carmenere</option>
+                <option value="Cabernet Franc">Cabernet Franc</option>
+                <option value="Lagrein">Lagrein</option>
+                <option value="Cool Climate Cabernet Sauvignon">Cool Climate Cabernet Sauvignon</option>
+                <option value="Mencia">Mencia</option>
+                <option value="Valpolicella">Valpolicella</option>
+                <option value="Côtes du Rhône">Côtes du Rhône</option>
+                <option value="Beaujolais">Beaujolais</option>
+                <option value="French Syrah">French Syrah</option>
+                <option value="Trincadeira">Trincadeira</option>
+                <option value="Cool Climate Cabernet Franc">Cool Climate Cabernet Franc</option>
+                <option value="Garnacha">Garnacha</option>
+                <option value="Amarone Della Valpolicella">Amarone Della Valpolicella</option>
+                <option value="Negroamaro">Negroamaro</option>
+                <option value="Pinotage">Pinotage</option>
+                <option value="Warm Climate Cabernet Sauvignon">Warm Climate Cabernet Sauvignon</option>
+                <option value="Super Tuscans">Super Tuscans</option>
+                <option value="American Merlot">American Merlot</option>
+                <option value="Alfrocheiro">Alfrocheiro</option>
+                <option value="Alicante Bouschet">Alicante Bouschet</option>
+                <option value="Shiraz">Shiraz</option>
+                <option value="Monastrell">Monastrell</option>
+                <option value="Malbec">Malbec</option>
+                <option value="Nero D'Avola">Nero D'Avola</option>
+                <option value="American Petite Sirah">American Petite Sirah</option>
+                <option value="Primitivo">Primitivo</option>
+                <option value="Zinfandel">Zinfandel</option>
+                <option value="American Grenache">American Grenache</option>
+                <option value="GSM Blend">GSM Blend</option>
+                <option value="Touriga Nacional">Touriga Nacional</option>
+                <option value="Lambrusco">Lambrusco</option>
+                <option value="Brachetto D'Acqui">Brachetto D'Acqui</option>
+                <option value="Recioto Della Valpolicella">Recioto Della Valpolicella</option>
+                <option value="Port">Port</option>
+                <option value="Banyuls">Banyuls</option>
+                <option value="Maury">Maury</option>
+                <option value="Tawny Port">Tawny Port</option>
+                <option value="Vin Santo Rosso">Vin Santo Rosso</option>
+            </select>
+            <p><strong>Region:</strong> <span id="redregion">Select a red grape to see details.</span></p>
+            <p><strong>Flavor Profile:</strong> <span id="redflavor">Select a red grape to see details.</span></p>
+            <p><strong>Body:</strong> <span id="redbody">Select a red grape to see details.</span></p>
+            <p><strong>Tannins:</strong> <span id="redtannins">Select a red grape to see details.</span></p>
+            <p><strong>Acidity:</strong> <span id="redacidity">Select a red grape to see details.</span></p>
+            <p><strong>Colour:</strong> <span id="redcolour">Select a red grape to see details.</span></p>
+            <p><strong>Aroma:</strong> <span id="redaroma">Select a red grape to see details.</span></p>
+            <p><strong>Food Pairing:</strong> <span id="redfoodPairing">Select a red grape to see details.</span></p>
+            <p><strong>High-End Recommendation:</strong> <span id="redhighEnd">Select a red grape to see details.</span></p>
+            <p><strong>Simple Recommendation:</strong> <span id="redsimple">Select a red grape to see details.</span></p>
+        </div>
+        <h3>White Wine Flash Card</h3>
+        <div id="interactivewhitewine">
+            <select id="whitegrape">
+                <option value="">-- Choose --</option>
+                <option value="Italian Pinot Grigio">Italian Pinot Grigio</option>
+                <option value="Albariño">Albariño</option>
+                <option value="Soave">Soave</option>
+                <option value="Dry Furmint">Dry Furmint</option>
+                <option value="Gavi">Gavi</option>
+                <option value="Muscadet">Muscadet</option>
+                <option value="Chablis">Chablis</option>
+                <option value="Grenache Blanc">Grenache Blanc</option>
+                <option value="Macabeo">Macabeo</option>
+                <option value="Grillo">Grillo</option>
+                <option value="Arinto">Arinto</option>
+                <option value="French Sauvignon Blanc">French Sauvignon Blanc</option>
+                <option value="Verdejo">Verdejo</option>
+                <option value="Grüner Veltliner">Grüner Veltliner</option>
+                <option value="Verdicchio">Verdicchio</option>
+                <option value="Colombard">Colombard</option>
+                <option value="Vermentino">Vermentino</option>
+                <option value="New Zealand Sauvignon Blanc">New Zealand Sauvignon Blanc</option>
+                <option value="Dry Chenin Blanc">Dry Chenin Blanc</option>
+                <option value="Chardonnay">Chardonnay</option>
+                <option value="Marsanne">Marsanne</option>
+                <option value="Roussanne">Roussanne</option>
+                <option value="Semillon">Semillon</option>
+                <option value="Trebbiano">Trebbiano</option>
+                <option value="American Pinot Gris">American Pinot Gris</option>
+                <option value="Viognier">Viognier</option>
+                <option value="Dry Riesling">Dry Riesling</option>
+                <option value="Torrontés">Torrontés</option>
+                <option value="Kabinett Riesling">Kabinett Riesling</option>
+                <option value="Chenin Blanc">Chenin Blanc</option>
+                <option value="Müller-Thurgau">Müller-Thurgau</option>
+                <option value="Moscato">Moscato</option>
+                <option value="Gewürztraminer">Gewürztraminer</option>
+            </select>
+            
+            <p><strong>Region:</strong> <span id="whiteregion">Select a  red red  redgrape to see details.</span></p>
+            <p><strong>Flavor Profile:</strong> <span id="whiteflavor">Select a  red red  redgrape to see details.</span></p>
+            <p><strong>Body:</strong> <span id="whitebody">Select a  red red  redgrape to see details.</span></p>
+            <p><strong>Acidity:</strong> <span id="whiteacidity">Select a  red red  redgrape to see details.</span></p>
+            <p><strong>Colour:</strong> <span id="whitecolour">Select a  red red  redgrape to see details.</span></p>
+            <p><strong>Aroma:</strong> <span id="whitearoma">Select a  red  redgrape to see details.</span></p>
+            <p><strong>Food Pairing:</strong> <span id="whitefoodPairing">Select a  red  redgrape to see details.</span></p>
+            <p><strong>High-End Recommendation:</strong> <span id="whitehighEnd">Select a  red  redgrape to see details.</span></p>
+            <p><strong>Simple Recommendation:</strong> <span id="whitesimple">Select a  red  redgrape to see details.</span></p>
+        </div>
+        
+    </div>
+ </div>
+    `;
+   document.getElementById("education").innerHTML = educationHTML
+
+   document.getElementById("redgrape").addEventListener("change", updateRedWineDetails);
+   document.getElementById("whitegrape").addEventListener("change", updateWhiteWineDetails);
+
+
+   // Use event delegation for dynamically inserted elements
+   document.addEventListener("change", function (event) {
+    if (event.target.id === "redgrape") {
+     updateRedWineDetails();
+    } else if (event.target.id === "whitegrape") {
+     updateWhiteWineDetails();
+    }
+   });
+
+   function updateRedWineDetails() {
+    var grape = document.getElementById("redgrape").value;
+    var details = {
+     "Tannat": {
+      region: "South West France, Uruguay",
+      flavor: "Dark fruits (blackberry, plum), earthy, tobacco",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Deep purple",
+      aroma: "Blackberry, plum, tobacco, earthy",
+      foodPairing: "Grilled meats, strong cheeses, stews",
+      highEnd: "Bodega Garzón Tannat Reserva (Uruguay)",
+      simple: "Madiran Tannat (France)"
+     },
+     "Nebbiolo": {
+      region: "Piedmont, Italy",
+      flavor: "Cherry, rose, tar, leather",
+      body: "Medium to full-bodied",
+      tannins: "Very high tannins",
+      acidity: "High acidity",
+      colour: "Pale ruby",
+      aroma: "Rose petals, red cherry, tar, truffle",
+      foodPairing: "Truffle dishes, risotto, aged cheeses",
+      highEnd: "Gaja Barbaresco (Italy)",
+      simple: "Langhe Nebbiolo (Italy)"
+     },
+     "Sagrantino": {
+      region: "Umbria, Italy",
+      flavor: "Blackberry, spice, cocoa, high tannins",
+      body: "Full-bodied",
+      tannins: "Extremely high tannins",
+      acidity: "Medium to high acidity",
+      colour: "Dark ruby red",
+      aroma: "Blackberry, spice, chocolate, herbs",
+      foodPairing: "Roast lamb, game meats, hearty pastas",
+      highEnd: "Arnaldo Caprai 25 Anni (Italy)",
+      simple: "Montefalco Sagrantino (Italy)"
+     },
+     "French Malbec": {
+      region: "Cahors, France, Mendoza, Argentina",
+      flavor: "Blackberry, black plum, vanilla, smoky",
+      body: "Full-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "Medium acidity",
+      colour: "Inky dark purple",
+      aroma: "Blackberry, black plum, vanilla, spice",
+      foodPairing: "Steaks, barbecue, blue cheese",
+      highEnd: "Clos Triguedina Cahors Malbec (France)",
+      simple: "Trapiche Malbec (Argentina)"
+     },
+     "Chianti": {
+      region: "Tuscany, Italy",
+      flavor: "Red cherry, dried herbs, balsamic, leather",
+      body: "Medium-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "High acidity",
+      colour: "Bright ruby red",
+      aroma: "Red cherry, dried oregano, tobacco",
+      foodPairing: "Pasta, tomato-based sauces, grilled meats",
+      highEnd: "Castello di Ama Chianti Classico Gran Selezione",
+      simple: "Ruffino Chianti Superiore"
+     },
+     "Bordeaux": {
+      region: "Bordeaux, France",
+      flavor: "Blackcurrant, cedar, graphite, tobacco",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium to high acidity",
+      colour: "Deep ruby red",
+      aroma: "Blackcurrant, plum, tobacco, oak",
+      foodPairing: "Steak, lamb, roasted duck",
+      highEnd: "Château Margaux Premier Grand Cru",
+      simple: "Château La Croix du Duc Bordeaux"
+     },
+     "Tempranillo": {
+      region: "Rioja, Spain",
+      flavor: "Red cherry, leather, dill, vanilla",
+      body: "Medium to full-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium to high acidity",
+      colour: "Deep ruby red",
+      aroma: "Red berries, vanilla, tobacco",
+      foodPairing: "Chorizo, grilled meats, aged cheese",
+      highEnd: "Vega Sicilia Único",
+      simple: "Campo Viejo Reserva Rioja"
+     },
+     "French Mourvèdre": {
+      region: "Bandol, France",
+      flavor: "Blackberry, black pepper, gamey, herbal",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Dark purple",
+      aroma: "Black fruits, earthy, spice",
+      foodPairing: "Game meats, barbecue, hearty stews",
+      highEnd: "Domaine Tempier Bandol Mourvèdre",
+      simple: "Château Pradeaux Bandol"
+     },
+     "Aglianico": {
+      region: "Campania & Basilicata, Italy",
+      flavor: "Dark fruits, leather, smoke, spice",
+      body: "Full-bodied",
+      tannins: "Very high tannins",
+      acidity: "High acidity",
+      colour: "Deep garnet red",
+      aroma: "Black cherry, smoke, dried herbs",
+      foodPairing: "Roast lamb, spicy dishes, hard cheese",
+      highEnd: "Taurasi DOCG Riserva Feudi di San Gregorio",
+      simple: "D'Angelo Aglianico del Vulture"
+     },
+     "Italian Barbera": {
+      region: "Piedmont, Italy",
+      flavor: "Red cherry, plum, spice, subtle vanilla",
+      body: "Medium-bodied",
+      tannins: "Low to medium tannins",
+      acidity: "High acidity",
+      colour: "Bright ruby red",
+      aroma: "Red berries, cinnamon, floral notes",
+      foodPairing: "Pizza, tomato-based pasta, roasted chicken",
+      highEnd: "Braida Bricco dell'Uccellone Barbera d'Asti",
+      simple: "Vietti Barbera d'Alba Tre Vigne"
+     },
+     "Montepulciano": {
+      region: "Abruzzo, Italy",
+      flavor: "Dark berries, mocha, oregano, smoke",
+      body: "Full-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby red",
+      aroma: "Black cherry, chocolate, herbs",
+      foodPairing: "Roast pork, grilled sausage, hearty pastas",
+      highEnd: "Emidio Pepe Montepulciano d'Abruzzo",
+      simple: "Masciarelli Montepulciano d'Abruzzo"
+     },
+     "Sangiovese": {
+      region: "Tuscany, Italy",
+      flavor: "Red cherry, tomato, earthy, balsamic",
+      body: "Medium-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "High acidity",
+      colour: "Bright ruby red",
+      aroma: "Red fruit, dried herbs, leather",
+      foodPairing: "Pasta, grilled steak, aged cheeses",
+      highEnd: "Biondi Santi Brunello di Montalcino",
+      simple: "Antinori Peppoli Chianti Classico"
+     },
+     "Carmenere": {
+      region: "Chile",
+      flavor: "Blackberry, green pepper, coffee, chocolate",
+      body: "Medium-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Deep purple",
+      aroma: "Dark berries, bell pepper, spice",
+      foodPairing: "Barbecue, grilled vegetables, empanadas",
+      highEnd: "Carmín de Peumo (Concha y Toro)",
+      simple: "Casillero del Diablo Carmenere"
+     },
+     "Cabernet Franc": {
+      region: "Loire Valley, France",
+      flavor: "Raspberry, bell pepper, violets, tobacco",
+      body: "Medium-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium to high acidity",
+      colour: "Ruby red",
+      aroma: "Red berries, floral, green pepper",
+      foodPairing: "Grilled pork, roasted vegetables, goat cheese",
+      highEnd: "Château Cheval Blanc (Bordeaux blend)",
+      simple: "Domaine de Pallus Chinon"
+     },
+     "Lagrein": {
+      region: "Alto Adige, Italy",
+      flavor: "Blackberry, dark chocolate, spice, floral",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Deep purple",
+      aroma: "Dark fruit, chocolate, herbs",
+      foodPairing: "Braised meats, polenta, aged cheeses",
+      highEnd: "Abbazia di Novacella Lagrein Riserva",
+      simple: "Elena Walch Lagrein"
+     },
+     "Cool Climate Cabernet Sauvignon": {
+      region: "Sonoma, Washington, Bordeaux",
+      flavor: "Blackcurrant, cedar, mint, graphite",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium to high acidity",
+      colour: "Deep ruby red",
+      aroma: "Black fruit, mint, earthy",
+      foodPairing: "Roast beef, mushrooms, aged cheddar",
+      highEnd: "Ridge Monte Bello",
+      simple: "Columbia Crest Grand Estates Cabernet Sauvignon"
+     },
+     "Mencia": {
+      region: "Bierzo & Ribeira Sacra, Spain",
+      flavor: "Red cherry, pomegranate, floral, mineral",
+      body: "Medium-bodied",
+      tannins: "Medium tannins",
+      acidity: "High acidity",
+      colour: "Bright ruby",
+      aroma: "Red berries, crushed rocks, violets",
+      foodPairing: "Grilled fish, charcuterie, earthy dishes",
+      highEnd: "Raúl Pérez Ultreia Saint Jacques",
+      simple: "Descendientes de J. Palacios Petalos"
+     },
+     "Valpolicella": {
+      region: "Veneto, Italy",
+      flavor: "Red cherry, almond, herbal, spice",
+      body: "Light to medium-bodied",
+      tannins: "Low to medium tannins",
+      acidity: "High acidity",
+      colour: "Bright ruby red",
+      aroma: "Cherry, cinnamon, dried flowers",
+      foodPairing: "Pizza, pasta, roasted poultry",
+      highEnd: "Quintarelli Valpolicella Classico Superiore",
+      simple: "Allegrini Valpolicella"
+     },
+     "Côtes du Rhône": {
+      region: "Rhône Valley, France",
+      flavor: "Blackberry, plum, pepper, spice",
+      body: "Medium to full-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby red",
+      aroma: "Dark berries, white pepper, herbs",
+      foodPairing: "Grilled lamb, ratatouille, hard cheese",
+      highEnd: "Château de Beaucastel Châteauneuf-du-Pape",
+      simple: "Guigal Côtes du Rhône"
+     },
+     "Beaujolais": {
+      region: "Beaujolais, France",
+      flavor: "Red cherry, raspberry, banana, floral",
+      body: "Light-bodied",
+      tannins: "Low tannins",
+      acidity: "High acidity",
+      colour: "Bright ruby red",
+      aroma: "Red berries, bubblegum, violets",
+      foodPairing: "Turkey, salmon, soft cheeses",
+      highEnd: "Domaine Marcel Lapierre Morgon",
+      simple: "Georges Duboeuf Beaujolais Nouveau"
+     },
+     "French Syrah": {
+      region: "Northern Rhône, France",
+      flavor: "Blackberry, olive, smoked meat, pepper",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium to high acidity",
+      colour: "Inky dark purple",
+      aroma: "Black fruits, spice, earthy",
+      foodPairing: "Grilled steak, mushroom risotto, aged cheese",
+      highEnd: "E. Guigal Côte-Rôtie La Landonne",
+      simple: "Crozes-Hermitage Syrah"
+     },
+     "Trincadeira": {
+      region: "Alentejo, Portugal",
+      flavor: "Dark berries, dried herbs, chocolate, tobacco",
+      body: "Medium-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium to high acidity",
+      colour: "Deep ruby",
+      aroma: "Black fruit, dried flowers, spice",
+      foodPairing: "Portuguese stews, grilled meats, aged cheese",
+      highEnd: "Cartuxa Trincadeira",
+      simple: "Esporão Trincadeira"
+     },
+     "Cool Climate Cabernet Franc": {
+      region: "Loire Valley, France, Ontario, Canada",
+      flavor: "Raspberry, green pepper, graphite, floral",
+      body: "Medium-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium to high acidity",
+      colour: "Ruby red",
+      aroma: "Red berries, violets, earth",
+      foodPairing: "Roast duck, grilled vegetables, soft cheese",
+      highEnd: "Clos Rougeard Saumur-Champigny",
+      simple: "Tawse Winery Cabernet Franc (Canada)"
+     },
+     "Garnacha": {
+      region: "Spain, Rhône Valley (Grenache)",
+      flavor: "Strawberry, raspberry, white pepper, dried herbs",
+      body: "Medium-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Ruby red",
+      aroma: "Red fruit, spice, earthy notes",
+      foodPairing: "Paella, grilled lamb, chorizo",
+      highEnd: "Clos Erasmus Priorat",
+      simple: "Borsao Tres Picos Garnacha"
+     },
+     "Amarone Della Valpolicella": {
+      region: "Veneto, Italy",
+      flavor: "Dried cherry, fig, chocolate, spice",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Deep garnet red",
+      aroma: "Dried fruit, cocoa, spice",
+      foodPairing: "Braised meats, truffle pasta, aged cheese",
+      highEnd: "Quintarelli Amarone della Valpolicella",
+      simple: "Tommasi Amarone"
+     },
+     "Negroamaro": {
+      region: "Puglia, Italy",
+      flavor: "Black cherry, licorice, tobacco, dark chocolate",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Dark ruby red",
+      aroma: "Black fruit, spice, earthy",
+      foodPairing: "Osso buco, spicy pasta, cured meats",
+      highEnd: "Leone de Castris Five Roses",
+      simple: "Masseria Li Veli Negroamaro"
+     },
+     "Pinotage": {
+      region: "South Africa",
+      flavor: "Dark fruit, coffee, smoke, earthy",
+      body: "Medium to full-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby",
+      aroma: "Plum, tobacco, smoke",
+      foodPairing: "Barbecue, smoked meats, mushrooms",
+      highEnd: "Kanonkop Black Label Pinotage",
+      simple: "Beyerskloof Pinotage"
+     },
+     "Warm Climate Cabernet Sauvignon": {
+      region: "Napa Valley, Australia, Chile",
+      flavor: "Blackberry, vanilla, spice, tobacco",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby red",
+      aroma: "Black fruit, oak, vanilla",
+      foodPairing: "Grilled steak, ribs, aged cheddar",
+      highEnd: "Opus One Napa Valley",
+      simple: "Penfolds Bin 407 Cabernet Sauvignon"
+     },
+     "Super Tuscans": {
+      region: "Tuscany, Italy",
+      flavor: "Blackberry, chocolate, tobacco, spice",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium to high acidity",
+      colour: "Deep ruby red",
+      aroma: "Dark fruit, oak, leather",
+      foodPairing: "Grilled meats, truffle dishes, aged cheeses",
+      highEnd: "Sassicaia",
+      simple: "Tignanello"
+     },
+     "American Merlot": {
+      region: "California, Washington, Long Island",
+      flavor: "Plum, vanilla, chocolate, spice",
+      body: "Medium to full-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby",
+      aroma: "Red berries, cocoa, vanilla",
+      foodPairing: "Roast duck, grilled chicken, soft cheeses",
+      highEnd: "Pahlmeyer Merlot",
+      simple: "Duckhorn Napa Valley Merlot"
+     },
+     "Alfrocheiro": {
+      region: "Dão, Portugal",
+      flavor: "Dark berries, floral, spice, chocolate",
+      body: "Medium-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium to high acidity",
+      colour: "Deep garnet red",
+      aroma: "Black fruit, violets, herbs",
+      foodPairing: "Grilled meats, roasted vegetables, aged cheese",
+      highEnd: "Quinta dos Roques Alfrocheiro",
+      simple: "Casa de Santar Alfrocheiro"
+     },
+     "Alicante Bouschet": {
+      region: "Alentejo, Portugal & Southern France",
+      flavor: "Dark plum, black pepper, cocoa, earthy",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Inky dark purple",
+      aroma: "Black fruit, spice, smoky",
+      foodPairing: "Barbecue, slow-cooked stews, aged cheese",
+      highEnd: "Cartuxa Alicante Bouschet",
+      simple: "Herdade do Esporão Alicante Bouschet"
+     },
+     "Shiraz": {
+      region: "Australia, Rhône Valley (Syrah)",
+      flavor: "Blackberry, chocolate, pepper, spice",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium to high acidity",
+      colour: "Deep purple",
+      aroma: "Dark fruit, spice, smoky",
+      foodPairing: "Barbecue, grilled steak, spicy dishes",
+      highEnd: "Penfolds Grange Shiraz",
+      simple: "d'Arenberg The Footbolt Shiraz"
+     },
+     "Monastrell": {
+      region: "Spain (Mourvèdre in France)",
+      flavor: "Blackberry, black pepper, gamey, earthy",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Dark purple",
+      aroma: "Black fruit, smoky, spice",
+      foodPairing: "Grilled lamb, barbecue, aged cheese",
+      highEnd: "Casa Castillo Pie Franco Monastrell",
+      simple: "Juan Gil Monastrell"
+     },
+     "Malbec": {
+      region: "Mendoza, Argentina & Cahors, France",
+      flavor: "Blackberry, black cherry, cocoa, plum",
+      body: "Full-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "Medium acidity",
+      colour: "Inky dark purple",
+      aroma: "Dark fruit, vanilla, oak",
+      foodPairing: "Grilled meats, blue cheese, empanadas",
+      highEnd: "Catena Zapata Malbec Argentino",
+      simple: "Alamos Malbec"
+     },
+     "Nero D'Avola": {
+      region: "Sicily, Italy",
+      flavor: "Plum, cherry, licorice, spice",
+      body: "Medium to full-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby",
+      aroma: "Dark fruit, herbs, spice",
+      foodPairing: "Pasta with meat sauce, grilled meats, aged cheese",
+      highEnd: "Donnafugata Mille e Una Notte",
+      simple: "Planeta Nero d'Avola"
+     },
+     "American Petite Sirah": {
+      region: "California, USA",
+      flavor: "Blueberry, dark chocolate, black pepper, smoky",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Inky dark purple",
+      aroma: "Dark berries, spice, earthy",
+      foodPairing: "Barbecue ribs, grilled meats, smoked cheese",
+      highEnd: "Turley Wine Cellars Petite Sirah",
+      simple: "Bogle Vineyards Petite Sirah"
+     },
+     "Primitivo": {
+      region: "Puglia, Italy",
+      flavor: "Dark fruit, licorice, dried fig, spice",
+      body: "Full-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby",
+      aroma: "Plum, black cherry, pepper",
+      foodPairing: "Barbecue, braised meats, pasta",
+      highEnd: "Gianfranco Fino Es Primitivo",
+      simple: "Tormaresca Primitivo"
+     },
+     "Zinfandel": {
+      region: "California, USA",
+      flavor: "Blackberry, cinnamon, jam, spice",
+      body: "Full-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby red",
+      aroma: "Ripe fruit, black pepper, vanilla",
+      foodPairing: "Barbecue, spicy dishes, smoked meats",
+      highEnd: "Ridge Vineyards Geyserville Zinfandel",
+      simple: "Seghesio Sonoma Zinfandel"
+     },
+     "American Grenache": {
+      region: "California, USA",
+      flavor: "Strawberry, white pepper, dried herbs, red fruit",
+      body: "Medium-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium to high acidity",
+      colour: "Ruby red",
+      aroma: "Red berries, floral, earthy",
+      foodPairing: "Grilled lamb, tapas, mushroom dishes",
+      highEnd: "Sine Qua Non Grenache",
+      simple: "Bonny Doon Vineyard Clos de Gilroy"
+     },
+     "GSM Blend": {
+      region: "Rhône Valley, Australia, California",
+      flavor: "Blackberry, raspberry, pepper, floral",
+      body: "Medium to full-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby red",
+      aroma: "Red and black fruit, spice, earthy",
+      foodPairing: "Braised meats, grilled vegetables, soft cheeses",
+      highEnd: "Château de Beaucastel Châteauneuf-du-Pape",
+      simple: "Yalumba GSM Barossa Valley"
+     },
+     "Touriga Nacional": {
+      region: "Douro Valley, Portugal",
+      flavor: "Blueberry, violet, black tea, chocolate",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium to high acidity",
+      colour: "Deep inky purple",
+      aroma: "Dark fruit, floral, spice",
+      foodPairing: "Roast lamb, game meats, strong cheeses",
+      highEnd: "Niepoort Batuta Touriga Nacional",
+      simple: "Quinta do Crasto Touriga Nacional"
+     },
+     "Lambrusco": {
+      region: "Emilia-Romagna, Italy",
+      flavor: "Red berries, floral, light fizz, dry to sweet",
+      body: "Light to medium-bodied",
+      tannins: "Low tannins",
+      acidity: "High acidity",
+      colour: "Ruby red",
+      aroma: "Strawberry, raspberry, violet",
+      foodPairing: "Salumi, pizza, fried foods",
+      highEnd: "Cantina della Volta Lambrusco di Sorbara",
+      simple: "Medici Ermete Lambrusco"
+     },
+     "Brachetto D'Acqui": {
+      region: "Piedmont, Italy",
+      flavor: "Strawberry, rose, raspberry, light fizz",
+      body: "Light-bodied",
+      tannins: "Low tannins",
+      acidity: "High acidity",
+      colour: "Bright ruby red",
+      aroma: "Red berries, floral, sweet spice",
+      foodPairing: "Chocolate desserts, fruit tarts, soft cheese",
+      highEnd: "Braida Brachetto d’Acqui",
+      simple: "Rinaldi Brachetto d’Acqui"
+     },
+     "Recioto Della Valpolicella": {
+      region: "Veneto, Italy",
+      flavor: "Dried cherry, fig, chocolate, sweet spices",
+      body: "Full-bodied",
+      tannins: "Medium to high tannins",
+      acidity: "Medium acidity",
+      colour: "Deep garnet red",
+      aroma: "Dried fruit, cocoa, spice",
+      foodPairing: "Chocolate, nutty desserts, aged cheese",
+      highEnd: "Quintarelli Recioto della Valpolicella",
+      simple: "Tommasi Recioto"
+     },
+     "Port": {
+      region: "Douro Valley, Portugal",
+      flavor: "Dark berries, chocolate, nutty, caramel",
+      body: "Full-bodied",
+      tannins: "High tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby",
+      aroma: "Black fruit, spice, oak",
+      foodPairing: "Chocolate, blue cheese, nuts",
+      highEnd: "Taylor’s Vintage Port",
+      simple: "Dow’s Fine Ruby Port"
+     },
+     "Banyuls": {
+      region: "Roussillon, France",
+      flavor: "Dried fruit, fig, nutty, cocoa",
+      body: "Full-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Deep ruby",
+      aroma: "Dark berries, spices, caramel",
+      foodPairing: "Chocolate, foie gras, blue cheese",
+      highEnd: "Domaine du Mas Blanc Banyuls",
+      simple: "M. Chapoutier Banyuls"
+     },
+     "Maury": {
+      region: "Roussillon, France",
+      flavor: "Plum, licorice, caramel, chocolate",
+      body: "Full-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Dark garnet red",
+      aroma: "Dried fruit, nuts, cocoa",
+      foodPairing: "Chocolate desserts, nutty cheese, foie gras",
+      highEnd: "Mas Amiel Vintage Maury",
+      simple: "Domaine Pouderoux Maury"
+     },
+     "Tawny Port": {
+      region: "Douro Valley, Portugal",
+      flavor: "Caramel, dried fruit, nuts, vanilla",
+      body: "Full-bodied",
+      tannins: "Medium tannins",
+      acidity: "Medium acidity",
+      colour: "Amber-brown",
+      aroma: "Toffee, spice, dried fruit",
+      foodPairing: "Nutty desserts, aged cheese, crème brûlée",
+      highEnd: "Graham’s 40-Year-Old Tawny Port",
+      simple: "Sandeman 10-Year-Old Tawny Port"
+     },
+     "Vin Santo Rosso": {
+      region: "Tuscany, Italy",
+      flavor: "Honey, dried fig, nutty, caramel",
+      body: "Full-bodied",
+      tannins: "Medium tannins",
+      acidity: "High acidity",
+      colour: "Amber-red",
+      aroma: "Dried fruit, spice, vanilla",
+      foodPairing: "Biscotti, aged cheese, nut-based desserts",
+      highEnd: "Avignonesi Vin Santo",
+      simple: "Fattoria di Fèlsina Vin Santo"
+     }
+    };
+
+
+    // If a grape is selected, update all attributes
+    if (grape in details) {
+     document.getElementById("redregion").innerText = details[grape].region;
+     document.getElementById("redflavor").innerText = details[grape].flavor;
+     document.getElementById("redbody").innerText = details[grape].body;
+     document.getElementById("redtannins").innerText = details[grape].tannins;
+     document.getElementById("redacidity").innerText = details[grape].acidity;
+     document.getElementById("redcolour").innerText = details[grape].colour;
+     document.getElementById("redaroma").innerText = details[grape].aroma;
+     document.getElementById("redfoodPairing").innerText = details[grape].foodPairing;
+     document.getElementById("redhighEnd").innerText = details[grape].highEnd;
+     document.getElementById("redsimple").innerText = details[grape].simple;
+    } else {
+     // Default text when no grape is selected
+     document.getElementById("redregion").innerText = "Select a grape to see details.";
+     document.getElementById("redflavor").innerText = "Select a grape to see details.";
+     document.getElementById("redbody").innerText = "Select a grape to see details.";
+     document.getElementById("redtannins").innerText = "Select a grape to see details.";
+     document.getElementById("redacidity").innerText = "Select a grape to see details.";
+     document.getElementById("redcolour").innerText = "Select a grape to see details.";
+     document.getElementById("redaroma").innerText = "Select a grape to see details.";
+     document.getElementById("redfoodPairing").innerText = "Select a grape to see details.";
+     document.getElementById("redhighEnd").innerText = "Select a grape to see details.";
+     document.getElementById("redsimple").innerText = "Select a grape to see details.";
+    }
+   };
+
+   // Ensure the function runs when the dropdown changes
+   document.getElementById("redgrape").addEventListener("change", updateWineDetails);
+
+   function updateWhiteWineDetails() {
+    var grape = document.getElementById("whitegrape").value;
+    var details = {
+     "Italian Pinot Grigio": {
+      colour: "Pale yellow",
+      region: "Italy",
+      body: "Light",
+      acidity: "High",
+      flavor: "Green apple, citrus, pear, minerality, salinity",
+      aroma: "Lemon, lime, green apple, minerality, salinity",
+      foodPairing: "Grilled seafood, light pasta dishes, salads, fresh cheeses, vegetable dishes",
+      highEnd: "2019 Jermann Pinot Grigio",
+      simple: "2020 Santa Margherita Pinot Grigio"
+     },
+     "Albariño": {
+      colour: "Pale straw",
+      region: "Spain/Portugal",
+      body: "Light",
+      acidity: "High",
+      flavor: "Lemon zest, grapefruit, honeydew, nectarine, subtle saltiness",
+      aroma: "Lemon, lime, pear, grapefruit, honeysuckle, nectarine, orange zest",
+      foodPairing: "Ceviche, sushi, fish tacos, seafood pasta, shrimp, oysters, grilled fish",
+      highEnd: "2018 Pazo Cilleiro Albariño",
+      simple: "2020 Martín Códax Albariño"
+     },
+     "Soave": {
+      colour: "Pale yellow",
+      region: "Italy",
+      body: "Light",
+      acidity: "High",
+      flavor: "Almond, honey, citrus, apricot, mineral notes",
+      aroma: "Lemon, almonds, flowers, apricot, minerality",
+      foodPairing: "Grilled fish, seafood pasta, risotto, goat cheese, light salads",
+      highEnd: "2017 Pieropan Soave Classico",
+      simple: "2020 Masi Soave"
+     },
+     "Dry Furmint": {
+      colour: "Light gold",
+      region: "Hungary",
+      body: "Medium",
+      acidity: "High",
+      flavor: "Green apple, lime, honey, herbs, minerality",
+      aroma: "Citrus, herbs, floral notes, green apple",
+      foodPairing: "Grilled chicken, seafood, sushi, creamy pasta dishes",
+      highEnd: "2017 Disznókő Dry Furmint",
+      simple: "2020 Barta Furmint"
+     },
+     "Gavi": {
+      colour: "Pale gold",
+      region: "Italy",
+      body: "Light",
+      acidity: "High",
+      flavor: "Citrus, green apple, pear, floral, minerality",
+      aroma: "Lemon, lime, green apple, floral notes",
+      foodPairing: "Grilled vegetables, seafood, light pasta dishes, goat cheese",
+      highEnd: "2018 Gavi di Gavi La Giustiniana",
+      simple: "2020 Michele Chiarlo Gavi"
+     },
+     "Muscadet": {
+      colour: "Pale straw",
+      region: "France",
+      body: "Light",
+      acidity: "High",
+      flavor: "Lemon, green apple, lime, minerality, saline",
+      aroma: "Lemon zest, green apple, saline, floral notes",
+      foodPairing: "Oysters, mussels, seafood, shellfish, light salads",
+      highEnd: "2017 Domaine de la Pépière Muscadet",
+      simple: "2020 Château du Coing Muscadet"
+     },
+     "Chablis": {
+      colour: "Pale Gold",
+      region: "France",
+      body: "Light",
+      acidity: "High",
+      flavor: "Citrus, Green Apple, Flint",
+      aroma: "Citrus, Green Apple, Flint",
+      foodPairing: "Seafood, Oysters, Grilled Chicken",
+      highEnd: "Domaine William Fèvre Chablis",
+      simple: "William Hill Chablis"
+     },
+     "Grenache Blanc": {
+      colour: "Straw Yellow",
+      region: "France, Spain",
+      body: "Medium",
+      acidity: "Medium",
+      flavor: "Stone Fruit, Herbal, Honey",
+      aroma: "Stone Fruit, Floral, Honey",
+      foodPairing: "Grilled Fish, Seafood Paella, Light Salads",
+      highEnd: "Domaine du Pégaü Cuvée Réservée Blanc",
+      simple: "La Vieille Ferme Blanc"
+     },
+     "Macabeo": {
+      colour: "Pale Gold",
+      region: "Spain",
+      body: "Medium",
+      acidity: "Medium",
+      flavor: "Almond, Apple, Citrus",
+      aroma: "Almond, Apple, Citrus",
+      foodPairing: "Tapas, Manchego Cheese, White Fish",
+      highEnd: "Lopez de Heredia Viña Gravonia",
+      simple: "CVNE Macabeo"
+     },
+     "Grillo": {
+      colour: "Golden Yellow",
+      region: "Italy",
+      body: "Medium",
+      acidity: "High",
+      flavor: "Citrus, Honey, Herbal",
+      aroma: "Citrus, Honey, Herbal",
+      foodPairing: "Pasta Primavera, Grilled Fish, Salads",
+      highEnd: "Donnafugata SurSur Grillo",
+      simple: "Cusumano Grillo"
+     },
+     "Arinto": {
+      colour: "Pale Yellow",
+      region: "Portugal",
+      body: "Medium",
+      acidity: "High",
+      flavor: "Green Apple, Lemon, Floral",
+      aroma: "Green Apple, Lemon, Floral",
+      foodPairing: "Shellfish, Light Pasta, Goat Cheese",
+      highEnd: "Quinta do Ameal Arinto",
+      simple: "Adega de Pegões Arinto"
+     },
+     "French Sauvignon Blanc": {
+      colour: "Pale Green",
+      region: "France",
+      body: "Light",
+      acidity: "High",
+      flavor: "Gooseberry, Lime, Green Pepper",
+      aroma: "Gooseberry, Lime, Herbaceous",
+      foodPairing: "Goat Cheese, Grilled Veggies, Fish",
+      highEnd: "Domaine Vacheron Sancerre",
+      simple: "Kim Crawford Sauvignon Blanc"
+     },
+     "Verdejo": {
+      colour: "Straw Yellow",
+      region: "Spain",
+      body: "Medium",
+      acidity: "Medium",
+      flavor: "Green Apple, Lemon, Herbaceous",
+      aroma: "Green Apple, Lemon, Fresh Herbs",
+      foodPairing: "Paella, Roast Chicken, White Fish",
+      highEnd: "Bodegas Naia Verdejo",
+      simple: "Marqués de Riscal Verdejo"
+     },
+     "Grüner Veltliner": {
+      colour: "Pale Yellow",
+      region: "Austria",
+      body: "Medium",
+      acidity: "High",
+      flavor: "White Pepper, Green Apple, Citrus",
+      aroma: "White Pepper, Citrus, Apple",
+      foodPairing: "Schnitzel, Asian Cuisine, Seafood",
+      highEnd: "FX Pichler Grüner Veltliner",
+      simple: "Lois Grüner Veltliner"
+     },
+     "Verdicchio": {
+      colour: "Golden Yellow",
+      region: "Italy",
+      body: "Medium",
+      acidity: "High",
+      flavor: "Almond, Honey, Lemon",
+      aroma: "Almond, Honey, Lemon",
+      foodPairing: "Lobster, Creamy Pasta, Risotto",
+      highEnd: "Fazi Battaglia Verdicchio",
+      simple: "Umani Ronchi Verdicchio"
+     },
+     "Colombard": {
+      colour: "Pale Yellow",
+      region: "France",
+      body: "Light",
+      acidity: "High",
+      flavor: "Green Apple, Citrus, Floral",
+      aroma: "Floral, Apple, Citrus",
+      foodPairing: "Fresh Salads, White Fish, Cheese",
+      highEnd: "Domaine Tariquet Colombard",
+      simple: "Domaine du Tariquet Colombard"
+     },
+     "Vermentino": {
+      colour: "Pale Green",
+      region: "Italy, France",
+      body: "Light",
+      acidity: "Medium",
+      flavor: "Citrus, Green Apple, Almond",
+      aroma: "Citrus, Green Apple, Herbal",
+      foodPairing: "Seafood Pasta, Grilled Vegetables",
+      highEnd: "Poggio al Tesoro Solosole Vermentino",
+      simple: "Masseria Altemura Vermentino"
+     },
+     "New Zealand Sauvignon Blanc": {
+      colour: "Pale Green",
+      region: "New Zealand",
+      body: "Light",
+      acidity: "High",
+      flavor: "Passionfruit, Gooseberry, Lime",
+      aroma: "Passionfruit, Gooseberry, Lime",
+      foodPairing: "Grilled Salmon, Asian Cuisine, Fresh Herbs",
+      highEnd: "Cloudy Bay Sauvignon Blanc",
+      simple: "Nobilo Sauvignon Blanc"
+     },
+     "Dry Chenin Blanc": {
+      colour: "Pale Yellow",
+      region: "France, South Africa",
+      body: "Medium",
+      acidity: "High",
+      flavor: "Apple, Pear, Honey",
+      aroma: "Apple, Pear, Honey",
+      foodPairing: "Roast Chicken, Pork, Shellfish",
+      highEnd: "Domaine Huet Vouvray",
+      simple: "Bellingham Chenin Blanc"
+     },
+     "Chardonnay": {
+      colour: "Golden Yellow",
+      region: "Worldwide",
+      body: "Medium to Full",
+      acidity: "Medium",
+      flavor: "Butter, Vanilla, Apple",
+      aroma: "Butter, Vanilla, Apple",
+      foodPairing: "Grilled Lobster, Creamy Dishes",
+      highEnd: "Louis Jadot Puligny-Montrachet",
+      simple: "Kendall Jackson Chardonnay"
+     },
+     "Marsanne": {
+      colour: "Deep Gold",
+      region: "France",
+      body: "Full",
+      acidity: "Medium",
+      flavor: "Honey, Nuts, Spice",
+      aroma: "Honey, Nuts, Spice",
+      foodPairing: "Duck, Chicken, Nuts",
+      highEnd: "Chapoutier Ermitage Blanc",
+      simple: "Jean-Luc Colombo Marsanne"
+     },
+     "Roussanne": {
+      colour: "Deep Gold",
+      region: "France",
+      body: "Full",
+      acidity: "Medium",
+      flavor: "Pear, Almond, Herbal",
+      aroma: "Pear, Almond, Floral",
+      foodPairing: "Grilled White Meats, Creamy Pasta",
+      highEnd: "Château de Beaucastel Roussanne",
+      simple: "Yalumba Roussanne"
+     },
+     "Semillon": {
+      colour: "Pale Yellow",
+      region: "France, Australia",
+      body: "Medium to Full",
+      acidity: "Medium",
+      flavor: "Lemon, Honey, Beeswax",
+      aroma: "Lemon, Honey, Beeswax",
+      foodPairing: "Shellfish, Goat Cheese, Roast Veggies",
+      highEnd: "Château d’Yquem Semillon",
+      simple: "Tyrell’s Semillon"
+     },
+     "Verdejo": {
+      colour: "Straw Yellow",
+      region: "Spain",
+      body: "Medium",
+      acidity: "Medium",
+      flavor: "Green Apple, Lemon, Herbaceous",
+      aroma: "Green Apple, Lemon, Fresh Herbs",
+      foodPairing: "Paella, Roast Chicken, White Fish",
+      highEnd: "Bodegas Naia Verdejo",
+      simple: "Marqués de Riscal Verdejo"
+     },
+     "Grüner Veltliner": {
+      colour: "Pale Yellow",
+      region: "Austria",
+      body: "Medium",
+      acidity: "High",
+      flavor: "White Pepper, Green Apple, Citrus",
+      aroma: "White Pepper, Citrus, Apple",
+      foodPairing: "Schnitzel, Asian Cuisine, Seafood",
+      highEnd: "FX Pichler Grüner Veltliner",
+      simple: "Lois Grüner Veltliner"
+     },
+     "Verdicchio": {
+      colour: "Golden Yellow",
+      region: "Italy",
+      body: "Medium",
+      acidity: "High",
+      flavor: "Almond, Honey, Lemon",
+      aroma: "Almond, Honey, Lemon",
+      foodPairing: "Lobster, Creamy Pasta, Risotto",
+      highEnd: "Fazi Battaglia Verdicchio",
+      simple: "Umani Ronchi Verdicchio"
+     },
+     "Colombard": {
+      colour: "Pale Yellow",
+      region: "France",
+      body: "Light",
+      acidity: "High",
+      flavor: "Green Apple, Citrus, Floral",
+      aroma: "Floral, Apple, Citrus",
+      foodPairing: "Fresh Salads, White Fish, Cheese",
+      highEnd: "Domaine Tariquet Colombard",
+      simple: "Domaine du Tariquet Colombard"
+     },
+     "Trebbiano": {
+      colour: "Pale Yellow",
+      region: "Italy",
+      body: "Light",
+      acidity: "Medium",
+      flavor: "Citrus, Apple, Mineral",
+      aroma: "Citrus, Apple, Mineral",
+      foodPairing: "Salads, Seafood, Light Cheese",
+      highEnd: "Torrevento Trebbiano",
+      simple: "Citra Trebbiano"
+     },
+     "American Pinot Gris": {
+      colour: "Straw Yellow",
+      region: "USA",
+      body: "Medium",
+      acidity: "Medium",
+      flavor: "Pear, Apple, Spice",
+      aroma: "Pear, Apple, Spice",
+      foodPairing: "Sushi, Creamy Dishes, Pork",
+      highEnd: "Cristom Pinot Gris",
+      simple: "King Estate Pinot Gris"
+     },
+     "Viognier": {
+      colour: "Deep Gold",
+      region: "France",
+      body: "Full",
+      acidity: "Medium",
+      flavor: "Peach, Apricot, Floral",
+      aroma: "Peach, Apricot, Floral",
+      foodPairing: "Grilled Shrimp, Roasted Chicken",
+      highEnd: "Chateau Grillet Viognier",
+      simple: "Yalumba Viognier"
+     },
+     "Dry Riesling": {
+      colour: "Pale Gold",
+      region: "Germany, France",
+      body: "Light",
+      acidity: "High",
+      flavor: "Green Apple, Petrol, Lime",
+      aroma: "Green Apple, Petrol, Lime",
+      foodPairing: "Spicy Asian Cuisine, Smoked Meats",
+      highEnd: "Trimbach Riesling Cuvée Frédéric Emile",
+      simple: "Dr. Loosen Dry Riesling"
+     },
+     "Gewürztraminer": {
+      colour: "Golden Yellow",
+      region: "France, Germany",
+      body: "Medium",
+      acidity: "Medium",
+      flavor: "Lychee, Rose, Spice",
+      aroma: "Lychee, Rose, Spice",
+      foodPairing: "Spicy Dishes, Asian Cuisine, Creamy Sauces",
+      highEnd: "Zind-Humbrecht Gewürztraminer",
+      simple: "Hogue Gewürztraminer"
+     },
+     "Spätlese Riesling": {
+      colour: "Golden Yellow",
+      region: "Germany",
+      body: "Medium",
+      acidity: "Medium",
+      flavor: "Honey, Apricot, Lemon",
+      aroma: "Honey, Apricot, Lemon",
+      foodPairing: "Pineapple Chicken, Thai Curry",
+      highEnd: "Selbach-Oster Spätlese Riesling",
+      simple: "Blüfeld Spätlese Riesling"
+     }
+    };
+
+    if (grape in details) {
+     document.getElementById("whiteregion").innerText = details[grape].region;
+     document.getElementById("whiteflavor").innerText = details[grape].flavor;
+     document.getElementById("whitebody").innerText = details[grape].body;
+     document.getElementById("whiteacidity").innerText = details[grape].acidity;
+     document.getElementById("whitecolour").innerText = details[grape].colour;
+     document.getElementById("whitearoma").innerText = details[grape].aroma;
+     document.getElementById("whitefoodPairing").innerText = details[grape].foodPairing;
+     document.getElementById("whitehighEnd").innerText = details[grape].highEnd;
+     document.getElementById("whitesimple").innerText = details[grape].simple;
+    } else {
+     document.getElementById("whiteregion").innerText = "Select a grape to see details.";
+     document.getElementById("whiteflavor").innerText = "Select a grape to see details.";
+     document.getElementById("whitebody").innerText = "Select a grape to see details.";
+     document.getElementById("whiteacidity").innerText = "Select a grape to see details.";
+     document.getElementById("whitecolour").innerText = "Select a grape to see details.";
+     document.getElementById("whitearoma").innerText = "Select a grape to see details.";
+     document.getElementById("whitefoodPairing").innerText = "Select a grape to see details.";
+     document.getElementById("whitehighEnd").innerText = "Select a grape to see details.";
+     document.getElementById("whitesimple").innerText = "Select a grape to see details.";
+    }
+   }
+
+   document.getElementById("whitegrape").addEventListener("change", updateWineDetails);
+
+  }
+
+  document.addEventListener("DOMContentLoaded", insertEducation);
+
+  function insertRecommendations() {
+   const recommendationsHTML = `
+     <div class="recommendations">
+      <video autoplay muted loop>
+          <source src="/assets/videos/March Recommendations.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video> 
+  </div>
+  `;
+   document.getElementById("recommendations").innerHTML = recommendationsHTML
+  }
+  document.addEventListener("DOMContentLoaded", insertRecommendations)
+ </script>
 </body>
+
 </html>

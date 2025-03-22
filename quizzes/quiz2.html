@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html class="unit" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viticulture Quiz - Unit 2</title>
+
+    <style>
+        html {
+            background: rgba(0, 0, 0, 0.6) url(/assets/images/winetile.jpg) repeat;
+            background-blend-mode: overlay;
+            font-size: 16px;
+            box-sizing: border-box;
+            color: #e1dac7;
+        }
+
+        a {
+            color: rgb(255, 249, 212);
+        }
+
+        a:hover {
+            color: #a76c6c;
+        }
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 2rem;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+        }
+
+        h5 {
+            font-size: 1.25rem;
+        }
+
+        h3 a {
+            text-align: left;
+            padding: 20px;
+        }
+
+        .unit body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+        }
+
+        .unit main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .unit .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgb(29, 24, 24);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .unit h1,
+        .unit h2 {
+            color: #ffffff;
+        }
+
+        .unit img {
+            max-width: 100%;
+            border-radius: 10px;
+            border: 2px solid #a76c6c;
+        }
+
+        .unit .headernav {
+            width: 100%;
+            max-height: 100px;
+            margin-bottom: 50px;
+        }
+
+        .unit .btn {
+            padding: 10px 20px;
+            margin: 30px;
+            cursor: pointer;
+            background-color: #71140a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .unit .btn:hover {
+            background-color: #23272b;
+        }
+
+        .unit .notes-container {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .unit textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            background-color: #322f2f;
+            border: 1px solid #ac5a5a;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .unit #savedNotes {
+            margin-top: 10px;
+            padding: 10px;
+            color: white;
+            background: #322f2f;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .unit ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .unit ul li {
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        .unit ul li a {
+            text-decoration: none;
+            color: hotpink;
+            font-weight: bold;
+        }
+
+        .unit ul li a:hover {
+            text-decoration: underline;
+            color: #b36800;
+        }
+
+        .unit .quiz-container {
+            max-width: 1300px;
+            background: rgba(128, 0, 0, 0.69);
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: left;
+            color: #ffffff;
+        }
+
+        .unit .question {
+            font-weight: bold;
+            margin: 10px 0;
+            color: #ffffff;
+        }
+
+        .unit .answers label {
+            display: block;
+            padding: 5px;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .unit .answers input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .unit #results {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .unit hr {
+            border: 0;
+            height: 1px;
+            background: #a76c6c;
+            margin: 15px 0;
+        }
+
+        .unit #results p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .unit #bestScore {
+            font-size: 18px;
+            font-weight: bold;
+            color: #a76c6c;
+        }
+
+        .unit #attemptHistory {
+            list-style-type: none;
+            padding: 0;
+            color: white;
+        }
+
+        .unit #attemptHistory li {
+            background: #322f2f;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+
+        <div class="quiz-container">
+          
+            <h1>Viticulture Quiz - Unit 2</h1>
+            <form id="quiz2Form">
+                <div id="quiz2"></div>
+                <button type="button" class="btn" onclick="submitquiz2()">Submit Answers</button>
+            </form>
+            <div id="results"></div>
+        </div>
+
+    </main>
+
+    <script>
+        const quiz1Data = [
+            {
+                question: "1. What is the primary role of yeast in the fermentation process?",
+                options: ["A) To convert tannins into alcohol", "B) To consume sugar and produce alcohol and carbon dioxide", "C) To increase acidity levels in wine", "D) To remove oxygen from the wine"], correct: "B"
+            },
+
+            {
+                question: "2. Which of the following components contributes most to a wine’s perception of freshness?",
+                options: ["A) Alcohol", "B) Tannins", "C) Acidity", "D) Residual sugar"], correct: "C"
+            },
+
+            {
+                question: "3. If a red wine has extremely high tannins, how would it most likely feel on the palate?",
+                options: ["A) Bitter and drying", "B) Soft and silky", "C) Sweet and smooth", "D) Oily and full-bodied"], correct: "A"
+            },
+
+            {
+                question: "4. What does it mean if a wine is 'off-dry'?",
+                options: ["A) It has no residual sugar and is fully dry", "B) It has a slight sweetness but is not considered a sweet wine", "C) It has been exposed to oxidation and lost its freshness", "D) It has undergone malolactic fermentation"], correct: "B"
+            },
+
+            {
+                question: "5. Which wine fault is most likely to produce aromas of wet cardboard or damp basement?",
+                options: ["A) Volatile acidity", "B) Oxidation", "C) Cork taint (TCA)", "D) Brettanomyces"], correct: "C"
+            },
+
+            {
+                question: "6. A wine with high acidity and low alcohol is most likely to feel:",
+                options: ["A) Heavy and rich", "B) Crisp and refreshing", "C) Bitter and astringent", "D) Sweet and full-bodied"], correct: "B"
+            },
+
+            {
+                question: "7. Which statement about wine oxidation is correct?",
+                options: ["A) It only occurs in red wines", "B) It enhances all wines and makes them more complex", "C) It can be desirable in certain wines, such as Sherry, but is a fault in most others", "D) It is caused by excessive exposure to sulfur dioxide"], correct: "C"
+            },
+
+            {
+                question: "8. A white wine that appears deep gold in color is likely:",
+                options: ["A) A youthful wine with high acidity", "B) A wine that has been aged or exposed to oxidation", "C) A wine with high residual sugar", "D) A wine that has undergone carbonic maceration"], correct: "B"
+            },
+
+            {
+                question: "9. Which wine component contributes to a wine’s perception of body?",
+                options: ["A) Acidity", "B) Alcohol", "C) Sugar", "D) Both B and C"], correct: "D"
+            },
+
+            {
+                question: "10. A red wine with a short finish and one-dimensional fruit flavors would likely be considered:",
+                options: ["A) High-quality", "B) Balanced and complex", "C) Low-quality or simple", "D) Age-worthy"], correct: "C"
+            },
+
+            {
+                question: "11. What is the best way to detect volatile acidity in wine?",
+                options: ["A) Observe its color and clarity", "B) Look for tiny bubbles in the glass", "C) Smell for aromas of vinegar or nail polish remover", "D) Check for an astringent drying sensation on the gums"], correct: "C"
+            },
+
+            {
+                question: "12. Which of the following would most likely be considered a tertiary aroma in wine?",
+                options: ["A) Fresh green apple", "B) Vanilla and toast", "C) Tobacco and dried fruit", "D) Lemon and floral notes"], correct: "C"
+            },
+
+            {
+                question: "13. Which structural element of wine is responsible for the sensation of 'heat' on the palate?",
+                options: ["A) Acidity", "B) Alcohol", "C) Tannins", "D) Residual sugar"], correct: "B"
+            },
+
+            {
+                question: "14. A wine with low acidity is likely to taste:",
+                options: ["A) Refreshing and crisp", "B) Flat and flabby", "C) Bitter and tannic", "D) Highly aromatic"], correct: "B"
+            },
+
+            {
+                question: "15. Which of the following is NOT a factor in determining a wine’s age potential?",
+                options: ["A) Acidity", "B) Tannins", "C) Sugar content", "D) Serving temperature"], correct: "D"
+            },
+
+            {
+                question: "16. What does a long finish indicate in terms of wine quality?",
+                options: ["A) A lower-quality wine that lacks complexity", "B) A well-balanced wine with depth and structure", "C) A wine that should be consumed immediately", "D) A wine that has undergone excessive oxidation"], correct: "B"
+            },
+
+            {
+                question: "17. Which condition is most likely to cause wine to develop a cooked, stewed fruit character?",
+                options: ["A) Extended maceration", "B) Aging in new oak barrels",
+                    "C) Exposure to excessive heat during storage or transport", "D) Fermenting at a low temperature"], correct: "C"
+            },
+
+            {
+                question: "18. If a still wine has unexpected bubbles, which wine fault may be present?",
+                options: ["A) Cork taint", "B) Refermentation", "C) Oxidation", "D) Lightstrike"], correct: "B"
+            },
+
+            {
+                question: "19. What is the main reason why high-acid wines tend to age well?",
+                options: ["A) Acidity acts as a natural preservative, maintaining freshness over time",
+                    "B) High-acid wines always contain more tannins, helping them age longer",
+                    "C) Acidity balances the sweetness in all wines, preventing spoilage",
+                    "D) High acidity reduces oxidation by removing all oxygen from the wine"], correct: "A"
+            },
+
+            {
+                question: "20. A wine that smells like barnyard, leather, or Band-Aids likely has:",
+                options: ["A) Excess tannins", "B) Too much acidity",
+                    "C) Brettanomyces (Brett) infection", "D) A high alcohol content"], correct: "C"
+            }
+
+        ];
+
+        function loadquiz1() {
+            const quiz1Container = document.getElementById("quiz1");
+            quiz1Container.innerHTML = "";
+
+            quiz1Data.forEach((q, index) => {
+                let questionHTML = `<div class="question">${q.question}</div><div class="answers">`;
+                q.options.forEach((option, i) => {
+                    let letter = String.fromCharCode(65 + i);
+                    questionHTML += `
+                <label>
+                    <input type="radio" name="q${index}" value="${letter}"> ${option}
+                </label>`;
+                });
+                questionHTML += `</div><hr>`;
+                quiz1Container.innerHTML += questionHTML;
+            });
+
+            loadProgress();
+        }
+
+        function submitquiz1() {
+            let score = 0;
+
+            quiz1Data.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === q.correct) {
+                    score++;
+                }
+            });
+
+            let percentage = (score / quiz1Data.length) * 100;
+            saveProgress(score, percentage);
+
+            const resultContainer = document.getElementById("results");
+
+            if (percentage >= 80) {
+                resultContainer.innerHTML = `
+            <p style="color: green; font-size: 18px;">
+                Congratulations! You passed with a score of <strong>${score}/${quiz1Data.length} (${percentage.toFixed(1)}%)</strong>!
+            </p>
+            <p style="font-size: 18px;">Your password to unlock Unit 2 is: 
+                <strong style="color: #8b0000;">wineunitunlock</strong>
+            </p>`;
+            } else {
+                resultContainer.innerHTML = `
+            <p style="color: red; font-size: 18px;">
+                You failed with a score of <strong>${score}/${quiz1Data.length} (${percentage.toFixed(1)}%)</strong>. 
+            </p>
+            <p style="font-size: 18px;">You must score at least <strong>80%</strong> to pass. Please retake the quiz1.</p>`;
+            }
+
+            loadProgress();
+        }
+
+        // Save quiz1 progress in localStorage
+        function saveProgress(score, percentage) {
+            let attempts = JSON.parse(localStorage.getItem("unit_1_quiz1_attempts")) || [];
+
+            attempts.push({ score: score, percentage: percentage, date: new Date().toLocaleString() });
+
+            // Keep only the last 5 attempts
+            if (attempts.length > 5) {
+                attempts.shift();
+            }
+
+            localStorage.setItem("unit_1_quiz1_attempts", JSON.stringify(attempts));
+
+            // Check and update the best score
+            let bestScore = localStorage.getItem("unit_1_best_score");
+            if (!bestScore || percentage > parseFloat(bestScore)) {
+                localStorage.setItem("unit_1_best_score", percentage);
+            }
+        }
+
+        // Load previous attempts and best score
+        function loadProgress() {
+            let attempts = JSON.parse(localStorage.getItem("unit_1_quiz1_attempts")) || [];
+            let bestScore = localStorage.getItem("unit_1_best_score") || "N/A";
+
+            document.getElementById("bestScore").innerText = bestScore !== "N/A" ? `${bestScore}%` : bestScore;
+
+            let attemptHistory = document.getElementById("attemptHistory");
+            attemptHistory.innerHTML = "";
+
+            attempts.forEach((attempt, index) => {
+                let attemptEntry = document.createElement("li");
+                attemptEntry.innerHTML = `Attempt ${index + 1}: <strong>${attempt.score}/${quiz1Data.length} (${attempt.percentage.toFixed(1)}%)</strong> - ${attempt.date}`;
+                attemptHistory.appendChild(attemptEntry);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", loadquiz1);
+
+        const quiz2Data = [
+            {
+                question: "1. What is the most important climate factor affecting grape ripening?",
+                options: ["A) Rainfall", "B) Wind patterns", "C) Temperature", "D) Soil type"], correct: "C"
+            },
+
+            {
+                question: "2. Which of the following soil types retains heat and promotes grape ripening in cooler climates?",
+                options: ["A) Clay", "B) Limestone", "C) Gravel", "D) Sand"], correct: "C"
+            },
+
+            {
+                question: "3. Which climate category produces wines with high acidity and low sugar levels?",
+                options: ["A) Warm climate", "B) Moderate climate", "C) Cool climate", "D) Dry climate"], correct: "C"
+            },
+
+            {
+                question: "4. How does altitude affect grape growing?",
+                options: ["A) It increases ripening speed", "B) It cools the vineyard, slowing ripening", "C) It increases sugar levels dramatically", "D) It has no effect"], correct: "B"
+            },
+
+            {
+                question: "5. Which of the following is a major benefit of limestone soil?",
+                options: ["A) It retains water and stays cool", "B) It promotes high acidity in grapes", "C) It produces rich, full-bodied wines", "D) It prevents disease outbreaks"], correct: "B"
+            },
+
+            {
+                question: "6. What is the main purpose of canopy management in vineyards?",
+                options: ["A) Increase leaf growth", "B) Control sunlight exposure and airflow", "C) Prevent birds from eating grapes", "D) Increase grape size"], correct: "B"
+            },
+
+            {
+                question: "7. Which grape variety is commonly grown in cool climates due to its high acidity retention?",
+                options: ["A) Syrah", "B) Zinfandel", "C) Riesling", "D) Malbec"], correct: "C"
+            },
+
+            {
+                question: "8. Which pest nearly destroyed European vineyards in the 19th century?",
+                options: ["A) Grape moths", "B) Phylloxera", "C) Leafhoppers", "D) Nematodes"], correct: "B"
+            },
+
+            {
+                question: "9. What happens if grapes are harvested too early?",
+                options: ["A) The wine will be too high in alcohol", "B) The wine will be unbalanced with high acidity and low sugar", "C) The grapes will be too sweet", "D) The tannins will be too soft"], correct: "B"
+            },
+
+            {
+                question: "10. What is one of the biggest risks of excessive rainfall before harvest?",
+                options: ["A) It increases grape sweetness", "B) It dilutes flavors and increases disease risk", "C) It prevents fermentation", "D) It increases tannins"], correct: "B"
+            },
+
+            {
+                question: "11. What is the primary goal of organic viticulture?",
+                options: ["A) Maximize grape yield", "B) Eliminate synthetic chemicals", "C) Use only irrigation", "D) Increase wine acidity"], correct: "B"
+            },
+
+            {
+                question: "12. How does gravel soil benefit vine growth?",
+                options: ["A) Retains moisture for longer ripening periods", "B) Warms the roots, helping grapes ripen faster", "C) Prevents mildew and disease", "D) Reduces soil fertility"], correct: "B"
+            },
+
+            {
+                question: "13. Which type of harvest produces sweet, rich wines?",
+                options: ["A) Early harvest", "B) Mid-harvest", "C) Late harvest", "D) None of the above"], correct: "C"
+            },
+
+            {
+                question: "14. Which vineyard disease is caused by fungi and affects grape photosynthesis?",
+                options: ["A) Botrytis", "B) Downy Mildew", "C) Pierce’s Disease", "D) Phylloxera"], correct: "B"
+            },
+
+            {
+                question: "15. What is a major benefit of biodynamic viticulture?",
+                options: ["A) It eliminates the need for pruning", "B) It follows natural and lunar cycles for healthier vines", "C) It reduces vineyard costs", "D) It produces only red wines"], correct: "B"
+            },
+
+            {
+                question: "16. Which sustainable practice helps prevent soil erosion in vineyards?",
+                options: ["A) Drip irrigation", "B) Cover crops", "C) Bird netting", "D) Increasing grape yield"], correct: "B"
+            },
+
+            {
+                question: "17. Why do warm-climate wines have lower acidity than cool-climate wines?",
+                options: ["A) Warm temperatures increase sugar and reduce acidity", "B) Acid levels are controlled by the winemaker", "C) Warm climates have more wind exposure", "D) Cool climates ripen grapes faster"], correct: "A"
+            },
+
+            {
+                question: "18. Which viticultural technique reduces the use of chemical pesticides?",
+                options: ["A) Using hybrid grapes", "B) Integrated Pest Management (IPM)", "C) Removing old vines", "D) Increasing rainfall"], correct: "B"
+            },
+
+            {
+                question: "19. How does late harvest impact a wine’s flavor?",
+                options: ["A) Higher sugar levels, lower acidity", "B) Lower tannins, higher alcohol", "C) Increases acidity, lowers sugar", "D) Decreases body and structure"], correct: "A"
+            },
+
+            {
+                question: "20. What is the key reason Phylloxera-resistant rootstocks are used?",
+                options: ["A) They increase acidity", "B) They prevent vines from being destroyed by Phylloxera", "C) They increase yield", "D) They make wines taste better"], correct: "B"
+            }
+        ];
+
+        function loadquiz2() {
+            const quiz2Container = document.getElementById("quiz2");
+            quiz2Container.innerHTML = "";
+
+            quiz2Data.forEach((q, index) => {
+                let questionHTML = `<div class="question">${q.question}</div><div class="answers">`;
+                q.options.forEach((option, i) => {
+                    let letter = String.fromCharCode(65 + i);
+                    questionHTML += `
+                <label>
+                    <input type="radio" name="q${index}" value="${letter}"> ${option}
+                </label>`;
+                });
+                questionHTML += `</div><hr>`;
+                quiz2Container.innerHTML += questionHTML;
+            });
+
+            loadProgress();
+        }
+
+        function submitquiz2() {
+            let score = 0;
+
+            quiz2Data.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === q.correct) {
+                    score++;
+                }
+            });
+
+            let percentage = (score / quiz2Data.length) * 100;
+            saveProgress(score, percentage);
+
+            const resultContainer = document.getElementById("results");
+
+            if (percentage >= 80) {
+                resultContainer.innerHTML = `
+            <p style="color: green; font-size: 18px;">
+                Congratulations! You passed with a score of <strong>${score}/${quiz2Data.length} (${percentage.toFixed(1)}%)</strong>!
+            </p>
+            <p style="font-size: 18px;">Your password to unlock Unit 2 is: 
+                <strong style="color: #8b0000;">wineunitunlock</strong>
+            </p>`;
+            } else {
+                resultContainer.innerHTML = `
+            <p style="color: red; font-size: 18px;">
+                You failed with a score of <strong>${score}/${quiz2Data.length} (${percentage.toFixed(1)}%)</strong>. 
+            </p>
+            <p style="font-size: 18px;">You must score at least <strong>80%</strong> to pass. Please retake the quiz2.</p>`;
+            }
+
+            loadProgress();
+        }
+
+        // Save quiz2 progress in localStorage
+        function saveProgress(score, percentage) {
+            let attempts = JSON.parse(localStorage.getItem("unit_1_quiz2_attempts")) || [];
+
+            attempts.push({ score: score, percentage: percentage, date: new Date().toLocaleString() });
+
+            // Keep only the last 5 attempts
+            if (attempts.length > 5) {
+                attempts.shift();
+            }
+
+            localStorage.setItem("unit_1_quiz2_attempts", JSON.stringify(attempts));
+
+            // Check and update the best score
+            let bestScore = localStorage.getItem("unit_1_best_score");
+            if (!bestScore || percentage > parseFloat(bestScore)) {
+                localStorage.setItem("unit_1_best_score", percentage);
+            }
+        }
+
+        // Load previous attempts and best score
+        function loadProgress() {
+            let attempts = JSON.parse(localStorage.getItem("unit_1_quiz2_attempts")) || [];
+            let bestScore = localStorage.getItem("unit_1_best_score") || "N/A";
+
+            document.getElementById("bestScore").innerText = bestScore !== "N/A" ? `${bestScore}%` : bestScore;
+
+            let attemptHistory = document.getElementById("attemptHistory");
+            attemptHistory.innerHTML = "";
+
+            attempts.forEach((attempt, index) => {
+                let attemptEntry = document.createElement("li");
+                attemptEntry.innerHTML = `Attempt ${index + 1}: <strong>${attempt.score}/${quiz2Data.length} (${attempt.percentage.toFixed(1)}%)</strong> - ${attempt.date}`;
+                attemptHistory.appendChild(attemptEntry);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", loadquiz2);
+
+        const quiz3Data = [
+            {
+                question: "1. What is the primary purpose of fermentation in winemaking?",
+                options: ["A) To extract tannins", "B) To convert sugar into alcohol and CO₂", "C) To stabilize acidity", "D) To reduce bitterness"], correct: "B"
+            },
+
+            {
+                question: "2. Which type of yeast is most commonly used in winemaking?",
+                options: ["A) Brettanomyces", "B) Saccharomyces cerevisiae", "C) Wild yeasts", "D) Non-Saccharomyces yeasts"], correct: "B"
+            },
+
+            {
+                question: "3. What is the main effect of malolactic fermentation (MLF) on wine?",
+                options: ["A) Increases acidity", "B) Softens acidity and adds a creamy texture", "C) Increases tannins", "D) Boosts fermentation speed"], correct: "B"
+            },
+
+            {
+                question: "4. Why are oak barrels commonly used for aging wine?",
+                options: ["A) They add flavors like vanilla and spice", "B) They increase acidity", "C) They prevent oxidation", "D) They sterilize the wine"], correct: "A"
+            },
+
+            {
+                question: "5. Which process is used to remove unwanted particles from wine before bottling?",
+                options: ["A) Crushing", "B) Maceration", "C) Fining and filtering", "D) Carbonic maceration"], correct: "C"
+            },
+
+            {
+                question: "6. Which wine style undergoes a secondary fermentation to create carbonation?",
+                options: ["A) White wine", "B) Rosé wine", "C) Sparkling wine", "D) Fortified wine"], correct: "C"
+            },
+
+            {
+                question: "7. What is the term for adding grape spirits to a wine to increase its alcohol content?",
+                options: ["A) Fermentation", "B) Fortification", "C) Aging", "D) Stabilization"], correct: "B"
+            },
+
+            {
+                question: "8. What is a major cause of 'cork taint' (TCA) in wine?",
+                options: ["A) Over-fermentation", "B) Poor barrel aging", "C) Mold-contaminated cork", "D) Excessive sulfites"], correct: "C"
+            },
+
+            {
+                question: "9. What is one common method to prevent oxidation in wine?",
+                options: ["A) Using oak barrels", "B) Adding sulfur dioxide (SO₂)", "C) Increasing maceration", "D) Removing tannins"], correct: "B"
+            },
+
+            {
+                question: "10. What is the primary factor that influences wine style and body?",
+                options: ["A) Yeast selection", "B) Fermentation temperature", "C) Aging vessel", "D) All of the above"], correct: "D"
+            },
+            {
+                question: "11. How does terroir impact winemaking?",
+                options: ["A) It determines grape acidity and flavor", "B) It prevents oxidation", "C) It influences wine label design", "D) It has no effect"], correct: "A"
+            },
+
+            {
+                question: "12. What is the purpose of cold soaking in winemaking?",
+                options: ["A) To extract color and aroma", "B) To increase alcohol", "C) To reduce acidity", "D) To accelerate fermentation"], correct: "A"
+            },
+
+            {
+                question: "13. What does a long aging period typically do to wine?",
+                options: ["A) Reduces its alcohol content", "B) Enhances complexity and softens tannins", "C) Makes it taste fresher", "D) Removes acidity"], correct: "B"
+            },
+
+            {
+                question: "14. What type of fermentation is used in Champagne production?",
+                options: ["A) Carbonic maceration", "B) Traditional method secondary fermentation", "C) Open fermentation", "D) Fortified fermentation"], correct: "B"
+            },
+
+            {
+                question: "15. What is the main reason winemakers use screw caps instead of corks?",
+                options: ["A) To speed up aging", "B) To reduce oxygen exposure", "C) To make bottling easier", "D) To enhance aroma"], correct: "B"
+            },
+            {
+                question: "16. What is the purpose of batonnage in winemaking?",
+                options: ["A) Stirring lees to enhance texture", "B) Removing acidity", "C) Speeding up fermentation", "D) Extracting tannins"], correct: "A"
+            },
+
+            {
+                question: "17. Which winemaking technique is used to increase tannin extraction?",
+                options: ["A) Cold fermentation", "B) Extended maceration", "C) Carbonic maceration", "D) Bottle aging"], correct: "B"
+            },
+
+            {
+                question: "18. What effect does bottle aging typically have on red wines?",
+                options: ["A) Reduces tannins and enhances complexity", "B) Increases acidity", "C) Boosts primary fruit aromas", "D) Removes alcohol content"], correct: "A"
+            },
+
+            {
+                question: "19. Which type of oak imparts stronger vanilla and coconut flavors?",
+                options: ["A) French Oak", "B) American Oak", "C) Hungarian Oak", "D) Neutral Oak"], correct: "B"
+            },
+
+            {
+                question: "20. What is the primary reason for chilling white wine before serving?",
+                options: ["A) To mute strong tannins", "B) To enhance acidity and freshness", "C) To soften alcohol perception", "D) To make the wine age faster"], correct: "B"
+            }
+
+        ];
+
+        function loadquiz3() {
+            const quiz3Container = document.getElementById("quiz3");
+            quiz3Container.innerHTML = "";
+            quiz3Data.forEach((q, index) => {
+                let questionHTML = `<div class="question">${q.question}</div><div class="answers">`;
+                q.options.forEach((option, i) => {
+                    let letter = String.fromCharCode(65 + i);
+                    questionHTML += `
+                <label>
+                    <input type="radio" name="q${index}" value="${letter}"> ${option}
+                </label>`;
+                });
+                questionHTML += `</div><hr>`;
+                quiz3Container.innerHTML += questionHTML;
+            });
+        }
+
+        function submitquiz3() {
+            let score = 0;
+            quiz3Data.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === q.correct) {
+                    score++;
+                }
+            });
+            let percentage = (score / quiz3Data.length) * 100;
+            const resultContainer = document.getElementById("results");
+            if (percentage >= 80) {
+                resultContainer.innerHTML = `<p style="color: green;">You passed with ${percentage.toFixed(1)}%! Your password: <strong>unit3unlock</strong></p>`;
+            } else {
+                resultContainer.innerHTML = `<p style="color: red;">You failed with ${percentage.toFixed(1)}%. Try again.</p>`;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadquiz3);
+
+
+    </script>
+
+</body>
+
+</html>
