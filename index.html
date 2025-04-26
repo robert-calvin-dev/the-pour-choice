@@ -4,7 +4,47 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>The Pour Choice</title>
+ <!-- HEAD for The Pour Choice -->
+<title>The Pour Choice | Premium Wine Reviews and Food Pairings</title>
+<meta name="description" content="Explore The Pour Choice’s curated wine reviews, expert food pairings, and in-depth tasting notes. Discover your next favorite bottle today.">
+<link rel="canonical" href="https://robert-calvin-dev.github.io/the-pour-choice/">
+<link rel="icon" href="https://robert-calvin-dev.github.io/the-pour-choice/assets/images/FatBastardSyrah.png" type="image/x-icon">
+
+<!-- Open Graph / Twitter Meta Tags -->
+<meta property="og:title" content="The Pour Choice | Premium Wine Reviews and Food Pairings">
+<meta property="og:description" content="Discover premium wine reviews, tasting notes, and expert food pairing tips with The Pour Choice. Perfect your wine journey.">
+<meta property="og:image" content="https://robert-calvin-dev.github.io/the-pour-choice/assets/images/header_banner.jpg">
+<meta property="og:url" content="https://robert-calvin-dev.github.io/the-pour-choice/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Pour Choice | Premium Wine Reviews and Food Pairings">
+<meta name="twitter:description" content="Taste better, pair smarter. Explore world-class wine reviews and food matches.">
+<meta name="twitter:image" content="https://robert-calvin-dev.github.io/the-pour-choice/assets/images/header_banner.jpg">
+
+<!-- JSON-LD Structured Data (Website + Organization Schema) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "https://robert-calvin-dev.github.io/the-pour-choice/",
+  "name": "The Pour Choice",
+  "description": "The Pour Choice offers curated wine reviews, tasting notes, and food pairing recommendations to elevate your wine experiences.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Pour Choice",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://robert-calvin-dev.github.io/the-pour-choice/your-logo-image.jpg"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://robert-calvin-dev.github.io/the-pour-choice/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 
  <style>
   html {
@@ -381,7 +421,7 @@
 }
 
 .footer-container {
-    border-top: 2px solid #a76c6c;
+    border: 2px solid #a76c6c;
     margin-top: 60px;
     padding: 20px;
     text-align: center;
@@ -394,6 +434,36 @@
     margin: 5px 0;
     font-size: 1rem;
 }
+.gif-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+}
+
+.gif-link {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.gif-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile adjustment */
+@media (max-width: 768px) {
+  .gif-links-container {
+    flex-direction: column;
+  }
+}
+
 
  </style>
 
@@ -1349,6 +1419,24 @@
 
   <div class="footer-container">
    <p>Thank you for visiting The Pour Choice.</p>
+   <section class="gif-links-container">
+    <a href="https://robert-calvin-dev.github.io/mysticclock/personlization.html" target="_blank">
+      <img src="assets/images/mysticclock.gif" alt="Mystic Clock" class="gif-link">
+    </a>
+    <a href="https://robert-calvin-dev.github.io/portfolio/" target="_blank">
+      <img src="assets/images/robertcmarketing.gif" alt="The Pour Choice" class="gif-link">
+    </a>
+    <a href="https://robert-calvin-dev.github.io/quickaddpro/" target="_blank">
+      <img src="assets/images/quickaddpro.gif" alt="Quick Add Pro" class="gif-link">
+    </a>
+    <a href="https://glitterqueencreative.ca" target="_blank">
+      <img src="assets/images/gq.gif" alt="Glitter Queen" class="gif-link">
+    </a>
+    <a href="https://robert-calvin-dev.github.io/UncleJimboPad/djmixer.html" target="_blank">
+      <img src="assets/images/ujdjpad.gif" alt="Uncle Jimbo DJ Pad" class="gif-link">
+    </a>
+  </section>
+  
    <p>&copy; 2025 The Pour Choice. All rights reserved.</p>
  </div>
 
