@@ -47,421 +47,651 @@
 
 
  <style>
-  html {
-   background: rgba(0, 0, 0, 0.731) url(assets/images/winetile.jpg) repeat;
-   background-blend-mode: overlay;
-   font-size: 16px;
-   box-sizing: border-box;
-   color: #e1dac7;
-  }
+ /* -----------------------------
+   THE POUR CHOICE — ART DECO GRID THEME
+   Palette: Bordeaux (burgundy/merlot/cream/charcoal + gold accent)
+   Type: Sleek Sans-Serif
+   Animations: Subtle fade-ins; motion-safe
+   Responsive: Desktop-first with tablet & mobile queries
+-------------------------------- */
 
-  a {
-   color: rgb(255, 249, 212);
-  }
+/* ========== Root & Reset ========== */
+:root{
+  /* Palette */
+  --bg: #0e0b10;               /* near-black wine bar wall */
+  --surface: #17131b;          /* deep charcoal surface */
+  --burgundy: #5a0b1e;         /* rich bordeaux base */
+  --merlot: #7a1c2a;           /* brighter bordeaux */
+  --cream: #efe6d9;            /* text cream */
+  --muted-cream: #d9cfbf;      /* secondary text */
+  --gold: #c7a15a;             /* deco accent */
+  --gold-deep: #a07f3f;        /* hover accent */
+  --line: #2b2432;             /* grid/border lines */
+  --glass: rgba(255,255,255,0.06);
 
-  a:hover {
-   color: #a76c6c;
-  }
+  /* Typography scale */
+  --font-sans: Inter, "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Liberation Sans", sans-serif;
+  --fs-xxl: clamp(2.5rem, 2vw + 2rem, 3.25rem);
+  --fs-xl:  clamp(1.9rem, 1vw + 1.6rem, 2.4rem);
+  --fs-lg:  clamp(1.4rem, 0.6vw + 1.2rem, 1.6rem);
+  --fs-md:  1.05rem;
+  --fs-sm:  .95rem;
+  --fs-xs:  .85rem;
 
-  h1 {
-   font-size: 3rem;
-  }
+  /* Spacing */
+  --gutter: 24px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
 
-  h2 {
-   font-size: 2.5rem;
-  }
+  /* Effects */
+  --shadow-1: 0 8px 24px rgba(0,0,0,.35);
+  --shadow-2: 0 16px 40px rgba(0,0,0,.45);
+  --ring: 0 0 0 3px rgba(199,161,90,.25);
 
-  h3 {
-   font-size: 2rem;
-  }
-
-  h4 {
-   font-size: 1.5rem;
-  }
-
-  h5 {
-   font-size: 1.25rem;
-  }
-
-  h3 a {
-   text-align: left;
-   padding: 20px;
-  }
-
-  .main-content-wrapper {
-   display: block;
-   max-width: 800px;
-   margin: 0 auto;
-   padding: 20px;
-  }
-
-  .left-column,
-  .right-column {
-   width: 100%;
-   margin-bottom: 60px;
-  }
-
-  /* Recommendations section */
-  .recommendations {
-   margin-bottom: 40px;
-  }
-
-  .recommendations video {
-   width: 100%;
-   border-radius: 12px;
-   margin-bottom: 15px;
-  }
-
-  .recimages {
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-   gap: 12px;
-   width: 100%;
-  }
-
-  .recimages img {
-   width: 100%;
-   border-radius: 8px;
-   object-fit: cover;
-  }
-
-  /* Education Section Styling */
-  .education {
-   background: rgba(68, 15, 114, 0.551);
-   padding: 20px;
-   border-radius: 12px;
-   border: 2px solid #a76c6c;
-   margin-bottom: 40px;
-  }
-
-  .education video {
-   width: 100%;
-   border-radius: 12px;
-   margin-bottom: 15px;
-  }
-
-  .education h2,
-  .education h3,
-  .education h4,
-  .education h5 {
-   text-align: center;
-   margin-bottom: 15px;
-  }
-
-  .education p,
-  .coursesidebar p {
-   text-align: left;
-   margin-bottom: 15px;
-  }
-
-  .course,
-  .coursesidebar {
-   margin-bottom: 30px;
-  }
-
-  .drynesscharts h4 a {
-   display: block;
-   margin-bottom: 10px;
-   color: #fff;
-   background-color: #a76c6c;
-   padding: 10px;
-   border-radius: 8px;
-   text-decoration: none;
-   font-weight: bold;
-   transition: background-color 0.3s ease;
-   text-align: center;
-  }
-
-  .drynesscharts h4 a:hover {
-   background-color: #63097e;
-  }
-
-  #interactiveredwine,
-  #interactivewhitewine {
-   margin-top: 20px;
-  }
-
-  select {
-   width: 100%;
-   padding: 8px;
-   border-radius: 6px;
-   border: 1px solid #ccc;
-   margin-bottom: 15px;
-  }
-
-  /* Blog Cards / Archive Styling */
-  .archiveblogs {
-   display: flex;
-   flex-direction: column;
-   gap: 40px;
-   /* This adds margin between blog posts */
-   margin: 40px auto;
-   max-width: 100%;
-   padding: 0 20px;
-  }
-
-  .card-container {
-   width: 100%;
-   box-sizing: border-box;
-  }
-
-  .blogcard {
-   border: 2px solid #a76c6c;
-   padding: 20px;
-   border-radius: 12px;
-   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-   background-color: rgba(139, 0, 0, 0.389);
-   transition: box-shadow 0.3s ease;
-   margin-top: 10px;
-  }
-
-  .blogcard:hover {
-   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  }
-
-  .blogcard img {
-   width: 100%;
-   height: auto;
-   border-radius: 8px;
-   margin-bottom: 15px;
-   border: 2px solid #a76c6c;
-  }
-
-  .blogpost h2,
-  .blogcard h4 {
-   font-size: 1.6rem;
-   margin-bottom: 10px;
-   text-align: center;
-  }
-
-  .expand-btn {
-   background-color: #a76c6c;
-   color: #fff;
-   border: none;
-   padding: 10px 16px;
-   cursor: pointer;
-   border-radius: 8px;
-   margin: 15px auto;
-   font-weight: bold;
-   display: block;
-   transition: background-color 0.2s ease;
-   text-align: center;
-  }
-
-  .expand-btn:hover {
-   background-color: #63097e;
-  }
-
-  .content {
-   display: none;
-   margin-top: 15px;
-  }
-
-  .content.always-expanded {
-   display: block !important;
-  }
-
-  .recipecards {
-   display: flex;
-   flex-direction: column;
-   gap: 40px;
-   margin: 40px auto;
-   max-width: 100%;
-   padding: 0 20px;
-  }
-
-  .recipecard {
-   border: 2px solid #a76c6c;
-   padding: 20px;
-   border-radius: 12px;
-   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-   background-color: transparent;
-   transition: box-shadow 0.3s ease;
-   margin-top: 10px;
-   background-color: rgba(139, 0, 0, 0.389);
-  }
-
-  .recipecard:hover {
-   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  }
-
-  .recipecard h2 {
-   font-size: 1.6rem;
-   margin-bottom: 10px;
-   text-align: center;
-  }
-
-  .expand-btn {
-   background-color: #a76c6c;
-   color: #fff;
-   border: none;
-   padding: 10px 16px;
-   cursor: pointer;
-   border-radius: 8px;
-   margin: 15px auto;
-   font-weight: bold;
-   display: block;
-   transition: background-color 0.2s ease;
-   text-align: center;
-  }
-
-  .expand-btn:hover {
-   background-color: #63097e;
-  }
-
-  .recipe-content {
-   display: none;
-   margin-top: 15px;
-  }
-
-  .recipe-content img {
-   width: 100%;
-   height: auto;
-   border-radius: 8px;
-   margin-bottom: 15px;
-  }
-
-  .recipe-content p,
-  .recipe-content ul,
-  .recipe-content li,
-  .recipe-content ol {
-   text-align: left;
-   margin-bottom: 10px;
-  }
-
-  .recipe-content ul,
-  .recipe-content ol {
-   padding-left: 20px;
-  }
-
-  .cta {
-   display: block;
-   margin: 20px auto 0;
-   padding: 10px 16px;
-   background-color: #a76c6c;
-   color: #fff;
-   text-decoration: none;
-   border-radius: 8px;
-   font-weight: bold;
-   text-align: center;
-   transition: background-color 0.2s ease;
-  }
-
-  .cta:hover {
-   background-color: #63097e;
-  }
-
-  .blogcard p,
-  .blogcard ul,
-  .blogcard li,
-  .blogcard a:not(.cta),
-  .content {
-   text-align: left;
-  }
-
-  .bottlecard {
-   border: 2px solid #a76c6c;
-   border-radius: 12px;
-   padding: 20px;
-   margin-bottom: 40px;
-   background: rgba(68, 15, 114, 0.551);
-  }
-
-  .bottlecard img {
-   width: 100%;
-   border-radius: 12px;
-   margin-bottom: 15px;
-  }
-
-  .toggle-header {
-   font-size: 1.8rem;
-   text-align: center;
-   cursor: pointer;
-   margin-bottom: 15px;
-   color: rgb(255, 249, 212);
-   ;
-   transition: color 0.3s ease;
-  }
-
-  .toggle-header:hover {
-   color: #a76c6c;
-  }
-
-  .bottle-content {
-   display: none;
-   margin-top: 20px;
-   text-align: left;
-  }
-
-  .bottlecard img.wine-image {
-   width: 180px;
-   /* adjust smaller or larger if needed */
-   height: auto;
-   display: block;
-   margin: 0 auto 20px auto;
-   border-radius: 8px;
-   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  video {
-   border: 2px solid #a76c6c;
-  }
-  .header-container {
-    width: 100%;
-    border: 2px solid #a76c6c;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 40px;
+  /* Layout widths */
+  --max-wrap: 1180px;
+  --grid-gap: 28px;
 }
 
-.header-container img {
-    width: 100%;
-    height: auto;
-    display: block;
+/* Modern reset */
+*,
+*::before,
+*::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+html, body{ height: 100%; }
+
+body{
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--cream);
+  background:
+    radial-gradient(1200px 800px at 10% -10%, rgba(122,28,42,.15), transparent 60%),
+    radial-gradient(1200px 800px at 110% 10%, rgba(90,11,30,.18), transparent 55%),
+    var(--bg);
+  line-height: 1.6;
+  font-size: var(--fs-md);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.footer-container {
-    border: 2px solid #a76c6c;
-    margin-top: 60px;
-    padding: 20px;
-    text-align: center;
-    color: #fff;
-    background-color: rgba(167, 108, 108, 0.1);
-    border-radius: 12px;
+/* Links */
+a{
+  color: var(--gold);
+  text-decoration: none;
+  transition: color .2s ease, opacity .2s ease;
+}
+a:hover{ color: var(--gold-deep); }
+
+/* Headings */
+h1, h2, h3, h4, h5{
+  margin: 0 0 .5em 0;
+  line-height: 1.15;
+  letter-spacing: .02em;
+  font-weight: 700;
+}
+h1{ font-size: var(--fs-xxl); }
+h2{ font-size: var(--fs-xl); }
+h3{ font-size: var(--fs-lg); }
+h4{ font-size: 1.2rem; }
+h5{ font-size: 1.05rem; }
+
+/* Utility: Deco separators (corner accents) */
+.deco{
+  position: relative;
+  isolation: isolate;
+}
+.deco::before,
+.deco::after{
+  content: "";
+  position: absolute;
+  width: 42px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  top: 14px; left: 16px;
+  opacity: .7;
+}
+.deco::after{
+  right: 16px; left: auto;
+  background: linear-gradient(90deg, var(--gold), transparent);
 }
 
-.footer-container p {
-    margin: 5px 0;
-    font-size: 1rem;
+/* Focus styles */
+:where(a, button, select){
+  outline: none;
 }
-.gif-links-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 2rem 1rem;
+:where(a, button, select):focus-visible{
+  box-shadow: var(--ring);
+  border-radius: 6px;
 }
 
-.gif-link {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.3s, box-shadow 0.3s;
+/* Media elements */
+img, video{
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* Buttons (shared) */
+.button, .expand-btn, .cta{
+  appearance: none;
+  border: 0;
   cursor: pointer;
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+  color: #231a10;
+  font-weight: 700;
+  letter-spacing: .02em;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(199,161,90,.22);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  text-align: center;
+  font-size: var(--fs-sm);
+}
+.button:hover,
+.expand-btn:hover,
+.cta:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(199,161,90,.3);
+  filter: saturate(1.05);
+}
+.button:active,
+.expand-btn:active,
+.cta:active{ transform: translateY(0); }
+
+.cta{
+  display: inline-block;
+  margin-top: .6rem;
 }
 
-.gif-link:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+/* ========== Page Structure ========== */
+.main-content-wrapper{
+  width: 100%;
+  max-width: var(--max-wrap);
+  margin: 48px auto 80px;
+  padding: 0 var(--gutter);
 }
 
-/* Mobile adjustment */
-@media (max-width: 768px) {
-  .gif-links-container {
-    flex-direction: column;
+/* Header banner with Art Deco frame */
+.header-container{
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: clip;
+  background: linear-gradient(180deg, var(--surface), var(--bg));
+  box-shadow: var(--shadow-2);
+  border: 1px solid var(--line);
+}
+.header-container::before,
+.header-container::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.header-container::before{
+  /* inner glass line */
+  border: 1px solid rgba(199,161,90,.15);
+  transform: scale(.992);
+}
+.header-container::after{
+  /* gold corner ticks */
+  background:
+    linear-gradient(90deg, var(--gold) 25px, transparent 25px) top left / 26px 2px no-repeat,
+    linear-gradient(90deg, var(--gold) 25px, transparent 25px) bottom right / 26px 2px no-repeat,
+    linear-gradient(180deg, var(--gold) 25px, transparent 25px) top left / 2px 26px no-repeat,
+    linear-gradient(180deg, var(--gold) 25px, transparent 25px) bottom right / 2px 26px no-repeat;
+  opacity: .7;
+}
+
+/* Section headings */
+h2[style*="text-align: center"]{
+  /* override inline style feel with deco underline */
+  position: relative;
+  margin: 42px auto 18px;
+  padding-bottom: 10px;
+  text-align: center !important;
+}
+h2[style*="text-align: center"]::after{
+  content: "";
+  display: block;
+  margin: 10px auto 0;
+  width: 110px; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  border-radius: 2px;
+  opacity: .75;
+}
+
+/* ========== Grid System ========== */
+/* Bottle recommendations, Blog, Recipes share same grid rhythm */
+.left-column, .right-column{
+  width: 100%;
+}
+
+/* Cards grid wrapper (blog + recipes) */
+.archiveblogs,
+.recipecards{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap);
+  margin: 36px 0;
+}
+
+/* Blog rows & cards */
+.blogrow{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap);
+  margin: 28px 0;
+}
+
+/* Grid spans */
+.card-container,
+.blogcard,
+.recipecard,
+.bottlecard{
+  grid-column: span 12;
+}
+
+/* On desktop, arrange in 2–3 columns where appropriate */
+.archiveblogs > .card-container,
+.archiveblogs > .blogcard{
+  grid-column: span 6;
+}
+.recipecards > .recipecard{
+  grid-column: span 6;
+}
+
+/* Center single features */
+.blogrow > .blogcard:first-child{
+  grid-column: 2 / span 10;
+}
+
+/* ========== Card Aesthetic (Deco glass) ========== */
+.card,
+.blogcard,
+.recipecard,
+.bottlecard{
+  position: relative;
+  background: linear-gradient(180deg, rgba(122,28,42,.09), rgba(23,19,27,.6));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+}
+.card::before,
+.blogcard::before,
+.recipecard::before,
+.bottlecard::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(800px 280px at -10% -20%, rgba(199,161,90,.08), transparent 60%),
+    radial-gradient(700px 260px at 110% 10%, rgba(122,28,42,.12), transparent 55%);
+  pointer-events: none;
+}
+.card::after,
+.blogcard::after,
+.recipecard::after,
+.bottlecard::after{
+  /* fine inner line */
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(199,161,90,.12);
+  border-radius: calc(var(--radius-lg) - 8px);
+  pointer-events: none;
+}
+
+/* Titles within cards */
+.blogpost h2,
+.recipecard h2,
+.toggle-header{
+  font-size: var(--fs-lg);
+  text-align: center;
+  letter-spacing: .03em;
+}
+
+/* Subtle stripes accent for headers */
+.toggle-header,
+.blogpost h2{
+  position: relative;
+  padding-top: 6px;
+}
+.toggle-header::before,
+.blogpost h2::before{
+  content: "";
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  width: 64px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: .85;
+  border-radius: 2px;
+}
+
+/* Text blocks */
+.blogcard p,
+.blogcard ul,
+.blogcard li,
+.content,
+.recipe-content,
+.bottle-content{
+  color: var(--muted-cream);
+  font-size: var(--fs-sm);
+}
+
+/* Media inside cards */
+.blogcard img,
+.recipecard img,
+.bottlecard img{
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(199,161,90,.16);
+}
+
+/* Expand buttons refine */
+.expand-btn{
+  background: linear-gradient(180deg, var(--burgundy), var(--merlot));
+  color: var(--cream);
+  box-shadow: 0 6px 18px rgba(122,28,42,.28);
+  border-radius: 999px;
+  padding: 10px 18px;
+}
+
+/* Bottlecards specific */
+.bottlecard{
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+.bottlecard img.wine-image{
+  width: 180px;
+  margin: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+.toggle-header{
+  cursor: pointer;
+  transition: color .2s ease, transform .2s ease;
+}
+.toggle-header:hover{ color: var(--gold); transform: translateY(-1px); }
+
+.bottle-content{
+  grid-column: 1 / -1;
+  margin-top: 6px;
+}
+
+/* Video wrappers */
+video{
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(199,161,90,.16);
+  background: #000;
+  box-shadow: var(--shadow-1);
+}
+
+/* Education block */
+.education{
+  background:
+    linear-gradient(180deg, rgba(122,28,42,.12), rgba(23,19,27,.7)),
+    var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-1);
+}
+.education h2, .education h3, .education h4, .education h5{
+  text-align: center;
+}
+.education .course, .education .coursesidebar{
+  margin-bottom: 22px;
+}
+.coursesidebar .drynesscharts h4 a{
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--burgundy), var(--merlot));
+  color: var(--cream);
+  text-align: center;
+  border: 1px solid rgba(199,161,90,.16);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.coursesidebar .drynesscharts h4 a:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(122,28,42,.28);
+}
+
+/* Selects */
+select{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(199,161,90,.2);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  color: var(--cream);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+/* Footer */
+.footer-container{
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-top: 60px;
+  text-align: center;
+  color: var(--muted-cream);
+  background: linear-gradient(180deg, rgba(23,19,27,.85), rgba(14,11,16,.9));
+  box-shadow: var(--shadow-1);
+}
+.footer-container p{ margin: 6px 0; }
+
+.gif-links-container{
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 14px;
+  align-items: center;
+  justify-items: center;
+  padding: 20px 10px 6px;
+}
+.gif-link{
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(199,161,90,.14);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  filter: saturate(.96);
+}
+.gif-link:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  filter: saturate(1.05);
+}
+
+/* ========== Subtle Animations (motion-safe) ========== */
+@keyframes fadeUp{
+  from{ opacity: 0; transform: translateY(16px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn{
+  from{ opacity: 0; }
+  to{ opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
+
+/* Apply entry animations */
+.header-container{ animation: fadeIn .6s ease .05s both; }
+.bottlecard{ animation: fadeUp .6s ease .05s both; }
+.blogcard{ animation: fadeUp .6s ease .08s both; }
+.recipecard{ animation: fadeUp .6s ease .11s both; }
+.education{ animation: fadeUp .6s ease .1s both; }
+.footer-container{ animation: fadeIn .6s ease .1s both; }
+
+/* Allow progressive stagger using nth-child within grids */
+.archiveblogs > *:nth-child(1){ animation-delay: .05s; }
+.archiveblogs > *:nth-child(2){ animation-delay: .12s; }
+.archiveblogs > *:nth-child(3){ animation-delay: .19s; }
+.archiveblogs > *:nth-child(4){ animation-delay: .26s; }
+.recipecards > *:nth-child(1){ animation-delay: .05s; }
+.recipecards > *:nth-child(2){ animation-delay: .12s; }
+.recipecards > *:nth-child(3){ animation-delay: .19s; }
+.recipecards > *:nth-child(4){ animation-delay: .26s; }
+
+/* ========== Microcomponents ========== */
+.blogpost h3,
+.bottle-content h3,
+.recipe-content h3{
+  margin-top: 16px;
+  font-size: 1.1rem;
+  color: #fff;
+}
+.blogpost ul, .recipe-content ul, .recipe-content ol,
+.bottle-content ul{
+  padding-left: 20px;
+}
+.blogpost li, .recipe-content li, .bottle-content li{
+  margin: 6px 0;
+}
+
+/* “Recommendations” video (if used) */
+.recommendations{
+  margin: 24px 0 36px;
+}
+.recommendations video{
+  width: 100%;
+  border: 1px solid rgba(199,161,90,.16);
+  box-shadow: var(--shadow-1);
+  background: #000;
+}
+
+/* ========== Tables / Forms if any appear later ========== */
+table{
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+}
+th, td{
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted-cream);
+}
+th{
+  text-align: left;
+  color: var(--cream);
+  background: linear-gradient(180deg, rgba(122,28,42,.12), rgba(23,19,27,.4));
+}
+
+/* ========== Responsive ========== */
+
+/* --- Large Tablet (≤ 1200px) --- */
+@media (max-width: 1200px){
+  :root{
+    --grid-gap: 24px;
   }
+  .archiveblogs > .card-container,
+  .archiveblogs > .blogcard,
+  .recipecards > .recipecard{
+    grid-column: span 6; /* still 2 cols */
+  }
+  .blogrow > .blogcard:first-child{
+    grid-column: 1 / -1; /* full width for feature */
+  }
+}
+
+/* --- Tablet (≤ 992px) --- */
+@media (max-width: 992px){
+  :root{
+    --grid-gap: 20px;
+    --gutter: 20px;
+  }
+
+  .bottlecard{
+    grid-template-columns: 140px 1fr;
+    gap: 18px;
+  }
+  .bottlecard img.wine-image{ width: 140px; }
+
+  .archiveblogs,
+  .recipecards,
+  .blogrow{
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .archiveblogs > .card-container,
+  .archiveblogs > .blogcard,
+  .recipecards > .recipecard{
+    grid-column: span 12; /* single column on tablet for readability */
+  }
+
+  .gif-links-container{
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .gif-link{ width: 160px; height: 160px; }
+}
+
+/* --- Mobile (≤ 768px) --- */
+@media (max-width: 768px){
+  :root{
+    --grid-gap: 16px;
+    --gutter: 16px;
+  }
+
+  h1{ font-size: 2rem; }
+  h2{ font-size: 1.6rem; }
+  h3{ font-size: 1.25rem; }
+
+  .main-content-wrapper{ margin: 32px auto 56px; }
+
+  .bottlecard{
+    grid-template-columns: 1fr;
+  }
+  .bottlecard img.wine-image{
+    width: 70%;
+    margin: 0 auto 10px;
+  }
+  .bottle-content{
+    grid-column: 1;
+  }
+
+  .gif-links-container{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .gif-link{ width: 140px; height: 140px; }
+}
+
+/* --- Small Mobile (≤ 480px) --- */
+@media (max-width: 480px){
+  :root{
+    --grid-gap: 14px;
+    --gutter: 14px;
+  }
+
+  body{ font-size: .98rem; }
+
+  .expand-btn, .cta{
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .gif-links-container{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gif-link{ width: 130px; height: 130px; }
+}
+
+/* --- Very Narrow (≤ 360px) --- */
+@media (max-width: 360px){
+  .gif-links-container{
+    grid-template-columns: 1fr;
+  }
+  .gif-link{ width: 220px; height: 220px; }
 }
 
 
