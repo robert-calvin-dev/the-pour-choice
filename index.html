@@ -106,8 +106,7 @@ body{
   font-family: var(--font-sans);
   color: var(--cream);
   background:
-    radial-gradient(1200px 800px at 10% -10%, rgba(122,28,42,.15), transparent 60%),
-    radial-gradient(1200px 800px at 110% 10%, rgba(90,11,30,.18), transparent 55%),
+
     var(--bg);
   line-height: 1.6;
   font-size: var(--fs-md);
@@ -444,22 +443,70 @@ video{
 .education h2, .education h3, .education h4, .education h5{
   text-align: center;
 }
-.education .course, .education .coursesidebar{
-  margin-bottom: 22px;
+.education .course{
+  margin-bottom: 26px;
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(90,11,30,.15), rgba(17,13,19,.85));
+  border: 1px solid rgba(199,161,90,.12);
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 18px rgba(0,0,0,.3);
 }
+
+.education .coursesidebar{
+  margin-top: 30px;
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(199,161,90,.1), rgba(17,13,19,.9));
+  border: 1px solid rgba(199,161,90,.18);
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 20px rgba(0,0,0,.4);
+}
+
+/* Flex layout for dryness charts */
+.coursesidebar .drynesscharts{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* Chart Buttons — base style */
+.coursesidebar .drynesscharts h4{
+  margin: 0;
+}
+
 .coursesidebar .drynesscharts h4 a{
-  display: block;
-  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+  padding: 12px 16px;
   border-radius: 10px;
-  background: linear-gradient(180deg, var(--burgundy), var(--merlot));
   color: var(--cream);
   text-align: center;
+  font-weight: 600;
   border: 1px solid rgba(199,161,90,.16);
-  transition: transform .15s ease, box-shadow .15s ease;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
+
+/* Red wine gradient */
+.coursesidebar .drynesscharts h4 a.redwine{
+  background: linear-gradient(180deg, var(--burgundy), var(--merlot));
+}
+
+/* White wine gradient */
+.coursesidebar .drynesscharts h4 a.whitewine{
+  background: linear-gradient(180deg, #d7c88d, #bca76a);
+  color: #1b1411;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+/* Hover effects */
 .coursesidebar .drynesscharts h4 a:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px rgba(122,28,42,.28);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(199,161,90,.25);
+  filter: saturate(1.1);
 }
 
 /* Selects */
@@ -697,6 +744,325 @@ th{
 
  </style>
 
+ <style>
+/* ===============================
+   Wine Showcase (isolated version)
+   =============================== */
+.wine-showcase{
+  margin: 80px auto;
+  max-width: 1100px;
+  padding: 0 var(--gutter);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.wine-showcase h2{
+  margin-bottom: 40px;
+  color: var(--cream);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.wine-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  justify-content: center;
+}
+
+.wine-option{
+  background: linear-gradient(180deg, rgba(90,11,30,.25), rgba(23,19,27,.8));
+  border: 1px solid rgba(199,161,90,.15);
+  border-radius: var(--radius-md);
+  padding: 18px 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.3);
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.wine-option img{
+  height: 190px;
+  display: block;
+  margin: 0 auto 12px;
+  transition: transform .25s ease;
+}
+.wine-option p{
+  color: var(--cream);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  margin: 0;
+}
+.wine-option:hover img{ transform: translateY(-4px); }
+.wine-option.active{
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 15px rgba(199,161,90,.3), inset 0 0 10px rgba(199,161,90,.25);
+  transform: translateY(-2px);
+}
+
+/* Info box */
+.wine-details{
+  background: radial-gradient(circle at top, rgba(122,28,42,.3), rgba(14,11,16,.95) 60%);
+  border: 1px solid rgba(199,161,90,.25);
+  border-radius: var(--radius-lg);
+  padding: 36px 40px;
+  margin-top: 40px;
+  color: var(--cream);
+  text-align: left;
+  box-shadow: 0 8px 28px rgba(0,0,0,.4);
+  animation: fadeIn .6s ease;
+}
+.wine-details h3{
+  color: var(--gold);
+  font-size: var(--fs-lg);
+  margin: 0 0 8px 0;
+}
+.wine-details p{
+  color: var(--muted-cream);
+  line-height: 1.6;
+  font-size: var(--fs-sm);
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .wine-grid{ grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .wine-option img{ height: 170px; }
+}
+@media (max-width: 600px){
+  .wine-grid{
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+  }
+
+  .wine-option{
+    min-width: 130px;
+    scroll-snap-align: center;
+  }
+
+  .wine-option img{
+    height: 130px;
+  }
+}
+
+/* ===============================
+   BOXES — shared text container style
+   Matches the wine-details aesthetic
+   =============================== */
+/* ===========================================
+   BOXES — Bordeaux Text Containers
+   (Now Flex-Ready: Equal Height Columns)
+   =========================================== */
+.boxes {
+  background: radial-gradient(circle at top, rgba(122,28,42,.3), rgba(14,11,16,.95) 60%);
+  border: 1px solid rgba(199,161,90,.25);
+  border-radius: var(--radius-lg);
+  padding: 36px 40px;
+  margin: 40px auto;
+  color: var(--cream);
+  text-align: left;
+  box-shadow: 0 8px 28px rgba(0,0,0,.4);
+  line-height: 1.7;
+  flex: 1 1 0;                   /* equal width + flex growth */
+  display: flex;                 /* enable vertical equalization */
+  flex-direction: column;        /* stack internal content */
+  justify-content: flex-start;
+  height: 100%;                  /* ensures full stretch in flex row */
+  box-sizing: border-box;
+  animation: fadeIn .6s ease;
+  min-height: 100%;              /* safeguard against collapse */
+}
+
+/* Headings inside boxes */
+.boxes h3,
+.boxes h4 {
+  color: var(--gold);
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(199,161,90,.15);
+  letter-spacing: 0.02em;
+}
+
+/* Paragraph text */
+.boxes p {
+  color: var(--muted-cream);
+  font-size: var(--fs-sm);
+  margin-bottom: 16px;
+}
+
+/* Lists */
+.boxes ul,
+.boxes ol {
+  margin: 10px 0 10px 22px;
+  color: var(--muted-cream);
+}
+
+.boxes li {
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
+/* Hover lift */
+.boxes:hover {
+  box-shadow: 0 10px 32px rgba(199,161,90,.25);
+  transform: translateY(-2px);
+  transition: all .25s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .boxes {
+    padding: 26px 28px;
+  }
+
+}
+
+/* ==========================
+   Flex Container Wrapper
+   ========================== */
+.box-row {
+  display: flex;
+  gap: 26px;
+  align-items: stretch;   /* ensures equal height */
+  justify-content: center;
+
+  flex-wrap: wrap;        /* keeps layout responsive */
+}
+
+/* ===========================================
+   COURSESIDEBAR FLEX RESPONSIVENESS
+   =========================================== */
+
+/* Base layout (desktop / tablet) */
+.coursesidebar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 28px;
+  flex-wrap: nowrap;
+}
+
+/* Ensure both .boxes share equal height */
+.coursesidebar .boxes {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+/* Mobile stacking */
+@media (max-width: 768px) {
+  .coursesidebar {
+    flex-direction: column;      /* stack vertically */
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .coursesidebar .boxes {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* ===========================================
+   WINE FLASHCARD PANELS — Equal Height + Vertical Labels
+   =========================================== */
+.coursesidebar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 28px;
+  flex-wrap: nowrap;
+}
+
+.coursesidebar .boxes {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: radial-gradient(circle at top, rgba(122,28,42,.3), rgba(14,11,16,.95) 60%);
+  border: 1px solid rgba(199,161,90,.25);
+  border-radius: var(--radius-lg);
+  padding: 36px 40px;
+  color: var(--cream);
+  box-shadow: 0 8px 28px rgba(0,0,0,.4);
+  box-sizing: border-box;
+  transition: all .25s ease;
+}
+
+/* Ensure same height visually */
+.coursesidebar .boxes:nth-child(1),
+.coursesidebar .boxes:nth-child(2) {
+  height: 100%;
+}
+
+/* Red vs White gradient distinction */
+.coursesidebar .boxes:nth-child(1) {
+  background: radial-gradient(circle at top, rgba(122,28,42,.35), rgba(14,11,16,.95) 65%);
+}
+.coursesidebar .boxes:nth-child(2) {
+  background: radial-gradient(circle at top, rgba(210,174,94,.25), rgba(14,11,16,.95) 65%);
+}
+
+/* Section headings */
+.boxes h3 {
+  color: var(--gold);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+/* Field container */
+.field {
+  margin-bottom: 18px;
+}
+.field:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Label (formerly strong) */
+.field h5 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Detail text */
+.field p {
+  color: var(--muted-cream);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive stacking */
+@media (max-width: 768px) {
+  .coursesidebar {
+    flex-direction: column;
+    gap: 22px;
+  }
+  .coursesidebar .boxes {
+    width: 100%;
+    padding: 26px 28px;
+  }
+}
+
+
+
+
+
+
+</style>
+
 </head>
 
 <body>
@@ -711,29 +1077,26 @@ th{
      Four bottles → dynamic info panel
      ============================ -->
 
-<section id="recommendations" class="wine-selector deco">
+<section id="wine-showcase" class="wine-showcase">
   <h2>Top Recommendations</h2>
 
-  <div class="bottle-grid">
-    <div class="bottle active" data-id="fatbastard">
-      <img src="assets/images/fatbastard.png" alt="Fat Bastard Syrah">
+  <div class="wine-grid">
+    <div class="wine-option active" data-id="fatbastard">
+      <img src="assets/images/FatBastardSyrah.png" alt="Fat Bastard Syrah">
       <p>Fat Bastard Syrah</p>
     </div>
-    <div class="bottle" data-id="cloudybay">
-      <img src="assets/images/cloudybay.png" alt="Cloudy Bay Sauvignon Blanc">
+    <div class="wine-option" data-id="cloudybay">
+      <img src="assets/images/CloudyBaySB.png" alt="Cloudy Bay Sauvignon Blanc">
       <p>Cloudy Bay Sauvignon Blanc</p>
     </div>
-    <div class="bottle" data-id="missionhill">
-      <img src="assets/images/missionhill.png" alt="Mission Hill Reserve Rosé">
-      <p>Mission Hill Reserve Rosé</p>
-    </div>
-    <div class="bottle" data-id="lamarca">
-      <img src="assets/images/lamarca.png" alt="La Marca Prosecco">
+
+    <div class="wine-option" data-id="lamarca">
+      <img src="assets/images/LaMarcaProsecco.png" alt="La Marca Prosecco">
       <p>La Marca Prosecco</p>
     </div>
   </div>
 
-  <div id="wine-info" class="wine-info fade-in">
+  <div id="wine-details" class="wine-details">
     <h3>Fat Bastard Syrah</h3>
     <p>
       A rich and bold Syrah bursting with black cherry, pepper, and smoky oak. 
@@ -742,162 +1105,11 @@ th{
   </div>
 </section>
 
-<style>
-/* ===========================================
-   RECOMMENDATIONS — 4 bottle selector
-   =========================================== */
-.wine-selector{
-  margin: 80px auto;
-  max-width: 1100px;
-  padding: 0 var(--gutter);
-  text-align: center;
-}
-.wine-selector h2{
-  margin-bottom: 36px;
-}
 
-.bottle-grid{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 26px;
-  justify-content: center;
-  align-items: end;
-}
 
-.bottle{
-  background: linear-gradient(180deg, rgba(122,28,42,.1), rgba(23,19,27,.5));
-  border: 1px solid rgba(199,161,90,.15);
-  border-radius: var(--radius-md);
-  padding: 18px 12px;
-  transition: all .25s ease;
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0,0,0,.25);
-  position: relative;
-}
-.bottle img{
-  height: 190px;
-  margin: 0 auto 12px;
-  transition: transform .25s ease;
-}
-.bottle p{
-  color: var(--cream);
-  font-size: var(--fs-sm);
-  margin: 0;
-  letter-spacing: .01em;
-  font-weight: 600;
-}
-.bottle:hover img{ transform: translateY(-4px); }
-.bottle:hover{ border-color: rgba(199,161,90,.25); }
 
-/* Active selection (gold frame) */
-.bottle.active{
-  border: 2px solid var(--gold);
-  box-shadow: 0 0 15px rgba(199,161,90,.3), inset 0 0 12px rgba(199,161,90,.25);
-  transform: translateY(-2px);
-}
 
-/* Info panel */
-.wine-info{
-  background: linear-gradient(180deg, rgba(122,28,42,.12), rgba(23,19,27,.7));
-  border: 1px solid rgba(199,161,90,.15);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-1);
-  padding: 32px 40px;
-  margin-top: 42px;
-  text-align: left;
-  color: var(--muted-cream);
-  transition: opacity .4s ease, transform .4s ease;
-}
-.wine-info h3{
-  color: var(--gold);
-  font-size: var(--fs-lg);
-  margin-top: 0;
-}
-.wine-info p{
-  font-size: var(--fs-sm);
-  line-height: 1.7;
-  margin-top: 10px;
-}
-
-/* Animations */
-.fade-in{
-  opacity: 1;
-  transform: translateY(0);
-}
-.fade-out{
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-/* Responsive */
-@media(max-width: 992px){
-  .bottle-grid{
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-  }
-  .bottle img{ height: 170px; }
-}
-@media(max-width: 600px){
-  .bottle-grid{
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .bottle img{ height: 160px; }
-  .wine-info{ padding: 24px; }
-}
-</style>
-
-<script>
-/* ===========================================
-   Dynamic Bottle Selector
-   =========================================== */
-document.addEventListener("DOMContentLoaded", function(){
-  const bottles = document.querySelectorAll(".bottle");
-  const infoBox = document.getElementById("wine-info");
-
-  const wineDetails = {
-    fatbastard: {
-      title: "Fat Bastard Syrah",
-      desc: "A rich and bold Syrah bursting with black cherry, pepper, and smoky oak. Velvety finish and unapologetically full-bodied — perfect alongside grilled meats or dark chocolate."
-    },
-    cloudybay: {
-      title: "Cloudy Bay Sauvignon Blanc",
-      desc: "Crisp and zesty with bright citrus, tropical fruit, and a whisper of minerality. A vibrant expression of Marlborough — exquisite with seafood or fresh salads."
-    },
-    missionhill: {
-      title: "Mission Hill Reserve Rosé",
-      desc: "Delicate yet structured, this Rosé offers hints of strawberry, white peach, and rose petals. Chill well and pair with summer evenings or light charcuterie."
-    },
-    lamarca: {
-      title: "La Marca Prosecco",
-      desc: "Effervescent and lively with notes of green apple, honeysuckle, and pear. A sparkling Italian delight — perfect for celebrations or brunches."
-    }
-  };
-
-  bottles.forEach(bottle => {
-    bottle.addEventListener("click", () => {
-      // deactivate others
-      bottles.forEach(b => b.classList.remove("active"));
-      bottle.classList.add("active");
-
-      const id = bottle.dataset.id;
-      const data = wineDetails[id];
-
-      // fade out current info, then update + fade in
-      infoBox.classList.remove("fade-in");
-      infoBox.classList.add("fade-out");
-
-      setTimeout(() => {
-        infoBox.innerHTML = `<h3>${data.title}</h3><p>${data.desc}</p>`;
-        infoBox.classList.remove("fade-out");
-        infoBox.classList.add("fade-in");
-      }, 300);
-    });
-  });
-});
-</script>
-
-  <h2 style="text-align: center;">Blog</h2>
+<!--  <h2 style="text-align: center;">Blog</h2>
 
   <div class="left-column">
 
@@ -1407,7 +1619,7 @@ document.addEventListener("DOMContentLoaded", function(){
     </div>
    </div>
 
-
+  
 
 
 
@@ -1415,13 +1627,250 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   </div>
-  <h2 style="text-align: center;">Courses</h2>
+
+-->
+
+<h2 style="text-align: center;">Quick Reference</h2>
+
+ <div class="coursesidebar" >
+        <div class="drynesscharts">
+       
+          <div class="boxes">
+
+             <h3>Red Wine</h3>
+                                                  <h4><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTPpogJxplX0gW8SVJrUE2xBn2Fpwnp6k3IeTIbCzzt3xIIBxE0_hU8i_cI_tVbcwSzb2nKt7L-5ncl/pub?gid=0&single=true&output=pdf" class="redwine"> Dryness Chart PDF</a></h4>
+
+<br>
+ <h3>Flash Card</h3>
+   <div id="interactiveredwine">
+            <select id="redgrape">
+                <option value="">-- Choose --</option>
+                <option value="Tannat">Tannat</option>
+                <option value="Nebbiolo">Nebbiolo</option>
+                <option value="Sagrantino">Sagrantino</option>
+                <option value="French Malbec">French Malbec</option>
+                <option value="Chianti">Chianti</option>
+                <option value="Bordeaux">Bordeaux</option>
+                <option value="Tempranillo">Tempranillo</option>
+                <option value="French Mourvèdre">French Mourvèdre</option>
+                <option value="Aglianico">Aglianico</option>
+                <option value="Italian Barbera">Italian Barbera</option>
+                <option value="Montepulciano">Montepulciano</option>
+                <option value="Sangiovese">Sangiovese</option>
+                <option value="Carmenere">Carmenere</option>
+                <option value="Cabernet Franc">Cabernet Franc</option>
+                <option value="Lagrein">Lagrein</option>
+                <option value="Cool Climate Cabernet Sauvignon">Cool Climate Cabernet Sauvignon</option>
+                <option value="Mencia">Mencia</option>
+                <option value="Valpolicella">Valpolicella</option>
+                <option value="Côtes du Rhône">Côtes du Rhône</option>
+                <option value="Beaujolais">Beaujolais</option>
+                <option value="French Syrah">French Syrah</option>
+                <option value="Trincadeira">Trincadeira</option>
+                <option value="Cool Climate Cabernet Franc">Cool Climate Cabernet Franc</option>
+                <option value="Garnacha">Garnacha</option>
+                <option value="Amarone Della Valpolicella">Amarone Della Valpolicella</option>
+                <option value="Negroamaro">Negroamaro</option>
+                <option value="Pinotage">Pinotage</option>
+                <option value="Warm Climate Cabernet Sauvignon">Warm Climate Cabernet Sauvignon</option>
+                <option value="Super Tuscans">Super Tuscans</option>
+                <option value="American Merlot">American Merlot</option>
+                <option value="Alfrocheiro">Alfrocheiro</option>
+                <option value="Alicante Bouschet">Alicante Bouschet</option>
+                <option value="Shiraz">Shiraz</option>
+                <option value="Monastrell">Monastrell</option>
+                <option value="Malbec">Malbec</option>
+                <option value="Nero D'Avola">Nero D'Avola</option>
+                <option value="American Petite Sirah">American Petite Sirah</option>
+                <option value="Primitivo">Primitivo</option>
+                <option value="Zinfandel">Zinfandel</option>
+                <option value="American Grenache">American Grenache</option>
+                <option value="GSM Blend">GSM Blend</option>
+                <option value="Touriga Nacional">Touriga Nacional</option>
+                <option value="Lambrusco">Lambrusco</option>
+                <option value="Brachetto D'Acqui">Brachetto D'Acqui</option>
+                <option value="Recioto Della Valpolicella">Recioto Della Valpolicella</option>
+                <option value="Port">Port</option>
+                <option value="Banyuls">Banyuls</option>
+                <option value="Maury">Maury</option>
+                <option value="Tawny Port">Tawny Port</option>
+                <option value="Vin Santo Rosso">Vin Santo Rosso</option>
+            </select>
+            
+<div class="field">
+  <br>
+  <h5>Region</h5>
+  <p id="redregion">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Flavor Profile</h5>
+  <p id="redflavor">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Body</h5>
+  <p id="redbody">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Tannins</h5>
+  <p id="redtannins">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Acidity</h5>
+  <p id="redacidity">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Colour</h5>
+  <p id="redcolour">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Aroma</h5>
+  <p id="redaroma">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Food Pairing</h5>
+  <p id="redfoodPairing">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>High-End Recommendation</h5>
+  <p id="redhighEnd">Select a red grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Simple Recommendation</h5>
+  <p id="redsimple">Select a red grape to see details.</p>
+</div>
+
+        </div>
+
+          
+            </div>
+            <div class="boxes">
+
+
+            
+       
+       
+
+        <h3>White Wine</h3>
+
+                    <h4><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTPpogJxplX0gW8SVJrUE2xBn2Fpwnp6k3IeTIbCzzt3xIIBxE0_hU8i_cI_tVbcwSzb2nKt7L-5ncl/pub?gid=514487001&single=true&output=pdf" class="whitewine">Dryness Chart  PDF</a></h4>
+<br>
+
+
+        <h3>Flash Card</h3>
+        <div id="interactivewhitewine">
+            <select id="whitegrape">
+                <option value="">-- Choose --</option>
+                <option value="Italian Pinot Grigio">Italian Pinot Grigio</option>
+                <option value="Albariño">Albariño</option>
+                <option value="Soave">Soave</option>
+                <option value="Dry Furmint">Dry Furmint</option>
+                <option value="Gavi">Gavi</option>
+                <option value="Muscadet">Muscadet</option>
+                <option value="Chablis">Chablis</option>
+                <option value="Grenache Blanc">Grenache Blanc</option>
+                <option value="Macabeo">Macabeo</option>
+                <option value="Grillo">Grillo</option>
+                <option value="Arinto">Arinto</option>
+                <option value="French Sauvignon Blanc">French Sauvignon Blanc</option>
+                <option value="Verdejo">Verdejo</option>
+                <option value="Grüner Veltliner">Grüner Veltliner</option>
+                <option value="Verdicchio">Verdicchio</option>
+                <option value="Colombard">Colombard</option>
+                <option value="Vermentino">Vermentino</option>
+                <option value="New Zealand Sauvignon Blanc">New Zealand Sauvignon Blanc</option>
+                <option value="Dry Chenin Blanc">Dry Chenin Blanc</option>
+                <option value="Chardonnay">Chardonnay</option>
+                <option value="Marsanne">Marsanne</option>
+                <option value="Roussanne">Roussanne</option>
+                <option value="Semillon">Semillon</option>
+                <option value="Trebbiano">Trebbiano</option>
+                <option value="American Pinot Gris">American Pinot Gris</option>
+                <option value="Viognier">Viognier</option>
+                <option value="Dry Riesling">Dry Riesling</option>
+                <option value="Torrontés">Torrontés</option>
+                <option value="Kabinett Riesling">Kabinett Riesling</option>
+                <option value="Chenin Blanc">Chenin Blanc</option>
+                <option value="Müller-Thurgau">Müller-Thurgau</option>
+                <option value="Moscato">Moscato</option>
+                <option value="Gewürztraminer">Gewürztraminer</option>
+            </select>
+<div class="field">
+  <br>
+  <h5>Region</h5>
+  <p id="whiteregion">Select a white grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Flavor Profile</h5>
+  <p id="whiteflavor">Select a white grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Body</h5>
+  <p id="whitebody">Select a white grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Acidity</h5>
+  <p id="whiteacidity">Select a white grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Colour</h5>
+  <p id="whitecolour">Select a white grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Aroma</h5>
+  <p id="whitearoma">Select a white grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Food Pairing</h5>
+  <p id="whitefoodPairing">Select a white grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>High-End Recommendation</h5>
+  <p id="whitehighEnd">Select a white grape to see details.</p>
+</div>
+
+<div class="field">
+  <h5>Simple Recommendation</h5>
+  <p id="whitesimple">Select a white grape to see details.</p>
+</div>
+
+        </div>
+
+       </div>
+       </div>
+        
+        </div>
+
+        <br>
+        <br>
+
+              
+     
+       
+
+
+  <h2 style="text-align: center;">Learn More</h2>
 
   <div class="right-column">
    <section id="education" class="grid-container"></section>
 
   </div>
-  <h2 style="text-align: center;">Recipes</h2>
+  <!--<h2 style="text-align: center;">Recipes</h2>
   <div class="recipecard">
    <h2>Berry Citrus Sangria</h2>
    <button class="expand-btn">Expand</button>
@@ -1666,28 +2115,12 @@ document.addEventListener("DOMContentLoaded", function(){
      <li>Fill a glass with ice, pour in white wine.</li>
      <li>Top with soda and stir. Garnish with mint.</li>
     </ol>
-   </div>
+   </div>-->
   </div>
 
   <div class="footer-container">
    <p>Thank you for visiting The Pour Choice.</p>
-   <section class="gif-links-container">
-    <a href="https://robert-calvin-dev.github.io/mysticclock/personlization.html" target="_blank">
-      <img src="assets/images/mysticclock.gif" alt="Mystic Clock" class="gif-link">
-    </a>
-    <a href="https://robert-calvin-dev.github.io/portfolio/" target="_blank">
-      <img src="assets/images/robertcmarketing.gif" alt="The Pour Choice" class="gif-link">
-    </a>
-    <a href="https://robert-calvin-dev.github.io/quickaddpro/" target="_blank">
-      <img src="assets/images/quickaddpro.gif" alt="Quick Add Pro" class="gif-link">
-    </a>
-    <a href="https://glitterqueencreative.ca" target="_blank">
-      <img src="assets/images/gq.gif" alt="Glitter Queen" class="gif-link">
-    </a>
-    <a href="https://robert-calvin-dev.github.io/UncleJimboPad/djmixer.html" target="_blank">
-      <img src="assets/images/ujdjpad.gif" alt="Uncle Jimbo DJ Pad" class="gif-link">
-    </a>
-  </section>
+
   
    <p>&copy; 2025 The Pour Choice. All rights reserved.</p>
  </div>
@@ -1695,6 +2128,52 @@ document.addEventListener("DOMContentLoaded", function(){
  </div>
 
 
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const options = document.querySelectorAll(".wine-option");
+  const details = document.getElementById("wine-details");
+
+  const wines = {
+    fatbastard: {
+      title: "Fat Bastard Syrah",
+      desc: "A rich and bold Syrah bursting with black cherry, pepper, and smoky oak. Velvety finish and unapologetically full-bodied — perfect alongside grilled meats or dark chocolate."
+    },
+    cloudybay: {
+      title: "Cloudy Bay Sauvignon Blanc",
+      desc: "Crisp and zesty with bright citrus, tropical fruit, and minerality. A vibrant Marlborough classic — exquisite with seafood or salads."
+    },
+    missionhill: {
+      title: "Mission Hill Reserve Rosé",
+      desc: "Delicate yet structured, this Rosé offers hints of strawberry, white peach, and rose petals. Chill well and pair with summer evenings or light charcuterie."
+    },
+    lamarca: {
+      title: "La Marca Prosecco",
+      desc: "Effervescent and lively with notes of green apple, honeysuckle, and pear. A sparkling Italian delight — perfect for celebrations or brunches."
+    }
+  };
+
+  options.forEach(opt => {
+    opt.addEventListener("click", () => {
+      options.forEach(o => o.classList.remove("active"));
+      opt.classList.add("active");
+
+      const id = opt.dataset.id;
+      const data = wines[id];
+
+      details.classList.remove("fade-in");
+      details.classList.add("fade-out");
+      setTimeout(() => {
+        details.innerHTML = `<h3>${data.title}</h3><p>${data.desc}</p>`;
+        details.classList.remove("fade-out");
+        details.classList.add("fade-in");
+      }, 250);
+    });
+  });
+});
+</script>
 
 
 
@@ -1719,14 +2198,13 @@ document.addEventListener("DOMContentLoaded", function(){
    const educationHTML = `
     <div class="education">
     <div class="course">
-        <h2>Explore the World of Wine </h2>
         <video autoplay muted loop>
             <source src="assets/videos/winevideo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-        <h5>A Comprehensive Wine Education Course</h5>
+       
 
-        <p class="overview">Unlock the secrets of wine with our expertly designed course, crafted for enthusiasts and professionals alike. Whether you're a beginner looking to enhance your appreciation or an aspiring sommelier, this course provides a deep dive into the essentials of wine, from grape varieties to tasting techniques and perfect food pairings.
+       <!-- <p class="overview">Unlock the secrets of wine with our expertly designed course, crafted for enthusiasts and professionals alike. Whether you're a beginner looking to enhance your appreciation or an aspiring sommelier, this course provides a deep dive into the essentials of wine, from grape varieties to tasting techniques and perfect food pairings.
 
             <br><br>Course Overview<br><br>
 This course provides a structured and interactive journey through the world of wine, covering:
@@ -1736,7 +2214,8 @@ This course provides a structured and interactive journey through the world of w
 <br>Winemaking techniques and how they shape different styles
 <br>Key grape varietals and their regional expressions
 <br><br>With engaging content, visual charts, and expert guidance, you’ll build a strong foundation in wine knowledge and confidently navigate any wine selection.
-        </p>
+        </p>-->
+        <br>
         <h4><a href="https://www.youtube.com/watch?v=9EryoqbGyRg&t=38s">Unit 1: Foundations of Wine & Wine Tastings</a></h4>
         <p>Start your journey with an introduction to the world of wine: Understanding wine structure: body, acidity, tannins, and sweetness, The fundamentals of wine tasting and sensory analysis and Common wine faults and how to detect them</p>
         <h4><a href="https://www.youtube.com/watch?v=lSXGYFOgBjM">Unit 2: Viticulture</a></h4>
@@ -1744,126 +2223,8 @@ This course provides a structured and interactive journey through the world of w
         <h4><a href="https://www.youtube.com/watch?v=gmgG32MljmQ">Unit 3: Winemaking and Styles</a></h4>
         <p>Dive into the winemaking process and explore different wine styles: The key stages of winemaking, from fermentation to aging, Differences between red, white, rosé, sparkling, and fortified wines, The influence of oak, fermentation techniques, and aging on wine flavor</p>
     </div>
-    <div class="coursesidebar">
-        <div class="drynesscharts">
-            <h4><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTPpogJxplX0gW8SVJrUE2xBn2Fpwnp6k3IeTIbCzzt3xIIBxE0_hU8i_cI_tVbcwSzb2nKt7L-5ncl/pub?gid=0&single=true&output=pdf">Red Dryness Chart PDF</a></h4>
-            <h4><a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTPpogJxplX0gW8SVJrUE2xBn2Fpwnp6k3IeTIbCzzt3xIIBxE0_hU8i_cI_tVbcwSzb2nKt7L-5ncl/pub?gid=514487001&single=true&output=pdf">White Dryness Chart  PDF</a></h4>
-        </div>
-        <h3>Red Wine Flash Card</h3>
-        <div id="interactiveredwine">
-            <select id="redgrape">
-                <option value="">-- Choose --</option>
-                <option value="Tannat">Tannat</option>
-                <option value="Nebbiolo">Nebbiolo</option>
-                <option value="Sagrantino">Sagrantino</option>
-                <option value="French Malbec">French Malbec</option>
-                <option value="Chianti">Chianti</option>
-                <option value="Bordeaux">Bordeaux</option>
-                <option value="Tempranillo">Tempranillo</option>
-                <option value="French Mourvèdre">French Mourvèdre</option>
-                <option value="Aglianico">Aglianico</option>
-                <option value="Italian Barbera">Italian Barbera</option>
-                <option value="Montepulciano">Montepulciano</option>
-                <option value="Sangiovese">Sangiovese</option>
-                <option value="Carmenere">Carmenere</option>
-                <option value="Cabernet Franc">Cabernet Franc</option>
-                <option value="Lagrein">Lagrein</option>
-                <option value="Cool Climate Cabernet Sauvignon">Cool Climate Cabernet Sauvignon</option>
-                <option value="Mencia">Mencia</option>
-                <option value="Valpolicella">Valpolicella</option>
-                <option value="Côtes du Rhône">Côtes du Rhône</option>
-                <option value="Beaujolais">Beaujolais</option>
-                <option value="French Syrah">French Syrah</option>
-                <option value="Trincadeira">Trincadeira</option>
-                <option value="Cool Climate Cabernet Franc">Cool Climate Cabernet Franc</option>
-                <option value="Garnacha">Garnacha</option>
-                <option value="Amarone Della Valpolicella">Amarone Della Valpolicella</option>
-                <option value="Negroamaro">Negroamaro</option>
-                <option value="Pinotage">Pinotage</option>
-                <option value="Warm Climate Cabernet Sauvignon">Warm Climate Cabernet Sauvignon</option>
-                <option value="Super Tuscans">Super Tuscans</option>
-                <option value="American Merlot">American Merlot</option>
-                <option value="Alfrocheiro">Alfrocheiro</option>
-                <option value="Alicante Bouschet">Alicante Bouschet</option>
-                <option value="Shiraz">Shiraz</option>
-                <option value="Monastrell">Monastrell</option>
-                <option value="Malbec">Malbec</option>
-                <option value="Nero D'Avola">Nero D'Avola</option>
-                <option value="American Petite Sirah">American Petite Sirah</option>
-                <option value="Primitivo">Primitivo</option>
-                <option value="Zinfandel">Zinfandel</option>
-                <option value="American Grenache">American Grenache</option>
-                <option value="GSM Blend">GSM Blend</option>
-                <option value="Touriga Nacional">Touriga Nacional</option>
-                <option value="Lambrusco">Lambrusco</option>
-                <option value="Brachetto D'Acqui">Brachetto D'Acqui</option>
-                <option value="Recioto Della Valpolicella">Recioto Della Valpolicella</option>
-                <option value="Port">Port</option>
-                <option value="Banyuls">Banyuls</option>
-                <option value="Maury">Maury</option>
-                <option value="Tawny Port">Tawny Port</option>
-                <option value="Vin Santo Rosso">Vin Santo Rosso</option>
-            </select>
-            <p><strong>Region:</strong> <span id="redregion">Select a red grape to see details.</span></p>
-            <p><strong>Flavor Profile:</strong> <span id="redflavor">Select a red grape to see details.</span></p>
-            <p><strong>Body:</strong> <span id="redbody">Select a red grape to see details.</span></p>
-            <p><strong>Tannins:</strong> <span id="redtannins">Select a red grape to see details.</span></p>
-            <p><strong>Acidity:</strong> <span id="redacidity">Select a red grape to see details.</span></p>
-            <p><strong>Colour:</strong> <span id="redcolour">Select a red grape to see details.</span></p>
-            <p><strong>Aroma:</strong> <span id="redaroma">Select a red grape to see details.</span></p>
-            <p><strong>Food Pairing:</strong> <span id="redfoodPairing">Select a red grape to see details.</span></p>
-            <p><strong>High-End Recommendation:</strong> <span id="redhighEnd">Select a red grape to see details.</span></p>
-            <p><strong>Simple Recommendation:</strong> <span id="redsimple">Select a red grape to see details.</span></p>
-        </div>
-        <h3>White Wine Flash Card</h3>
-        <div id="interactivewhitewine">
-            <select id="whitegrape">
-                <option value="">-- Choose --</option>
-                <option value="Italian Pinot Grigio">Italian Pinot Grigio</option>
-                <option value="Albariño">Albariño</option>
-                <option value="Soave">Soave</option>
-                <option value="Dry Furmint">Dry Furmint</option>
-                <option value="Gavi">Gavi</option>
-                <option value="Muscadet">Muscadet</option>
-                <option value="Chablis">Chablis</option>
-                <option value="Grenache Blanc">Grenache Blanc</option>
-                <option value="Macabeo">Macabeo</option>
-                <option value="Grillo">Grillo</option>
-                <option value="Arinto">Arinto</option>
-                <option value="French Sauvignon Blanc">French Sauvignon Blanc</option>
-                <option value="Verdejo">Verdejo</option>
-                <option value="Grüner Veltliner">Grüner Veltliner</option>
-                <option value="Verdicchio">Verdicchio</option>
-                <option value="Colombard">Colombard</option>
-                <option value="Vermentino">Vermentino</option>
-                <option value="New Zealand Sauvignon Blanc">New Zealand Sauvignon Blanc</option>
-                <option value="Dry Chenin Blanc">Dry Chenin Blanc</option>
-                <option value="Chardonnay">Chardonnay</option>
-                <option value="Marsanne">Marsanne</option>
-                <option value="Roussanne">Roussanne</option>
-                <option value="Semillon">Semillon</option>
-                <option value="Trebbiano">Trebbiano</option>
-                <option value="American Pinot Gris">American Pinot Gris</option>
-                <option value="Viognier">Viognier</option>
-                <option value="Dry Riesling">Dry Riesling</option>
-                <option value="Torrontés">Torrontés</option>
-                <option value="Kabinett Riesling">Kabinett Riesling</option>
-                <option value="Chenin Blanc">Chenin Blanc</option>
-                <option value="Müller-Thurgau">Müller-Thurgau</option>
-                <option value="Moscato">Moscato</option>
-                <option value="Gewürztraminer">Gewürztraminer</option>
-            </select>
-            
-            <p><strong>Region:</strong> <span id="whiteregion">Select a  red red  redgrape to see details.</span></p>
-            <p><strong>Flavor Profile:</strong> <span id="whiteflavor">Select a  red red  redgrape to see details.</span></p>
-            <p><strong>Body:</strong> <span id="whitebody">Select a  red red  redgrape to see details.</span></p>
-            <p><strong>Acidity:</strong> <span id="whiteacidity">Select a  red red  redgrape to see details.</span></p>
-            <p><strong>Colour:</strong> <span id="whitecolour">Select a  red red  redgrape to see details.</span></p>
-            <p><strong>Aroma:</strong> <span id="whitearoma">Select a  red  redgrape to see details.</span></p>
-            <p><strong>Food Pairing:</strong> <span id="whitefoodPairing">Select a  red  redgrape to see details.</span></p>
-            <p><strong>High-End Recommendation:</strong> <span id="whitehighEnd">Select a  red  redgrape to see details.</span></p>
-            <p><strong>Simple Recommendation:</strong> <span id="whitesimple">Select a  red  redgrape to see details.</span></p>
-        </div>
+   
+ 
         
     </div>
  </div>
